@@ -1,5 +1,6 @@
 from fastapi import Body, HTTPException
 from parse_email import extract_email_data
+from analyze import EmailSecurityAnalyzer
 import os
 from openai import OpenAI
 import json
@@ -125,20 +126,22 @@ def analyze_email_with_llm(email_data):
             "recommendations": "Error occurred during analysis. Please try again or analyze manually."
         }
 
-async def email_handler(raw_email: str = Body(..., media_type="text/html")):
+async def email_handler(raw_email: str = Body(..., media_type="text/plain")):
     # Parse the raw email
     email_data = extract_email_data(raw_email)
 
     if not email_data:
-        raise HTTPException(status_code=400, detail="Failed to parse email content")
+        raise Exception(status_code=400, detail="Failed to parse email content")
 
-    # Analyze with LLM
-    analysis = analyze_email_with_llm(email_data)
+    analyzer = EmailSecurityAnalyzer()
+    analysis =  analyzer.analyze_email(email_data)
 
-    # Use the simplified structure directly
-    return {
+    # Extract the requested information
+    response = {
         "score": analysis["score"],
         "warnings": analysis["warnings"],
         "recommendations": analysis["recommendations"]
     }
+
+    return response
 

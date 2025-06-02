@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
 from typing import Dict, List, Any, Optional, Tuple
-from analyze.links import LinkSecurityAnalyzer
-from analyze.sender import SenderTrustAnalyzer
+from analyze_tools.links import LinkSecurityAnalyzer
+from analyze_tools.sender import SenderTrustAnalyzer
 
 # Load environment variables
 load_dotenv()

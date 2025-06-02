@@ -6,7 +6,7 @@ from fastapi import Body
 from email.message import EmailMessage
 from email.utils import format_datetime, formataddr
 from datetime import datetime, timezone
-from analyze import email_handler
+from llm_analyze import email_handler
 
 # Répertoire où seront stockés les .eml
 MAILS_DIR = Path("./mails")
