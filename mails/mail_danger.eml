@@ -1,0 +1,55 @@
+From: "Amazon Security Team" <security@am4zon-verify.com>
+To: "Valued Customer" <customer@example.com>
+Subject: URGENT: Your Amazon Account Has Been Suspended
+Date: Mon, 2 Jun 2025 09:23:15 -0700
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Amazon Security Alert</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="https://am4zon-verify.com/logo.png" alt="Amazon Logo" width="150">
+        </div>
+        
+        <h2 style="color: #d00; text-align: center;">⚠️ URGENT: Account Security Notice ⚠️</h2>
+        
+        <p>Dear Valued Customer,</p>
+        
+        <p>We have detected suspicious activity on your Amazon account. Your account has been <strong>temporarily suspended</strong> for security reasons.</p>
+        
+        <p>To restore access to your account, you must verify your identity within the next 24 hours or your account will be permanently deactivated.</p>
+        
+        <p>Please click the link below to verify your account details:</p>
+        
+        <div style="text-align: center; margin: 25px 0;">
+            <a href="https://am4zon-verify.com/secure/verify.php?id=7283912" style="background-color: #ff9900; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: bold;">VERIFY MY ACCOUNT</a>
+        </div>
+        
+        <p>During the verification process, please be prepared to provide:</p>
+        <ul>
+            <li>Full name as it appears on your credit card</li>
+            <li>Current credit card information</li>
+            <li>Billing address</li>
+            <li>Date of birth</li>
+        </ul>
+        
+        <p>If you did not initiate this request, please contact us immediately by replying to this email.</p>
+        
+        <p>Thank you for your cooperation,<br>
+        Amazon Security Team</p>
+        
+        <hr style="border: 1px solid #eee; margin: 20px 0;">
+        
+        <p style="font-size: 12px; color: #777; text-align: center;">
+            © 2025 Amazon.com, Inc. or its affiliates. All rights reserved.<br>
+            Amazon and the Amazon logo are registered trademarks of Amazon.com, Inc.
+        </p>
+    </div>
+</body>
+</html>
