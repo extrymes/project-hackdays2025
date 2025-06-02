@@ -1,10 +1,20 @@
-language_grammar_prompt = f"""
-    Analyze this email message to detect fraud indicators by checking language and grammar.
+def message_check_prompt(message: str) -> str:
+    return f"""
+    ## Context
 
-    Message:
+    Analyze this email message to detect potential phishing or fraud indicators.
+
+    **Points to check:**
+        - Language & Grammar
+        - Tone / Manipulation
+        - Sensitive information request
+
+    ## Message
     {message}
 
-    Please analyze this email for indications of fraud by checking language and grammar, including:
+    ## Check points
+
+    **For Language & Grammar, checking for:**
     1. Unusual or inconsistent writing style
     2. Grammar and spelling errors
     3. Awkward phrasing or unnatural language
@@ -13,22 +23,7 @@ language_grammar_prompt = f"""
     6. Inconsistent formality levels
     7. Poor sentence structure and flow
 
-    Your response MUST be valid JSON with EXACTLY this structure:
-    {{
-        "score": <integer between 0-100, where 0 is most dangerous and 100 is completely safe>,
-        "warnings": ["warning1", "warning2", ...] (list any suspicious elements or concerns found, or empty if none are found),
-    }}
-
-    DO NOT include any explanations outside the JSON structure.
-    """
-
-tone_manipulatiom_prompt = f"""
-    Analyze this email message to detect fraud indicators by checking tone and signs of manipulation.
-
-    Message:
-    {message}
-
-    Please analyze this email for indications of fraud by checking tone and signs of manipulation, including:
+    **For Tone / Manipulation, checking for:**
     1. Urgency or pressure tactics
     2. Threatening language or intimidation
     3. Emotional manipulation (fear, greed, curiosity)
@@ -37,22 +32,7 @@ tone_manipulatiom_prompt = f"""
     6. Unrealistic promises or offers
     7. Guilt-tripping or obligation creation
 
-    Your response MUST be valid JSON with EXACTLY this structure:
-    {{
-        "score": <integer between 0-100, where 0 is most dangerous and 100 is completely safe>,
-        "warnings": ["warning1", "warning2", ...] (list any suspicious elements or concerns found, or empty if none are found),
-    }}
-
-    DO NOT include any explanations outside the JSON structure.
-    """
-
-request_sensitive_info_prompt = f"""
-    Analyze this email message to detect fraud indicators by checking request of sensitive information.
-
-    Message:
-    {message}
-
-    Please analyze this email for indications of fraud by checking request of sensitive information, including:
+   **For Sensitive information request, checking for:**
     1. Requests for login credentials or passwords
     2. Requests for financial information (credit card, bank details)
     3. Requests for personal identifying information (SSN, ID numbers)
@@ -61,11 +41,27 @@ request_sensitive_info_prompt = f"""
     6. Requests for security questions/answers
     7. Requests for access codes or PIN numbers
 
-    Your response MUST be valid JSON with EXACTLY this structure:
+    ## Expected response
+
+    **Each check point must have:**
+    - Score: integer between 0-100, where 0 is most dangerous and 100 is completely safe.
+    - Warnings: array of any suspicious elements or concerns found, or empty if none are found
+
+    **Your response MUST be valid JSON with EXACTLY this structure:**
     {{
-        "score": <integer between 0-100, where 0 is most dangerous and 100 is completely safe>,
-        "warnings": ["warning1", "warning2", ...] (list any suspicious elements or concerns found, or empty if none are found),
+        "language_grammar": {{
+            "score": <integer between 0-100>,
+            "warnings": ["warning1", "warning2", ...],
+        }},
+        "tone_manipulation": {{
+            "score": <integer between 0-100>,
+            "warnings": ["warning1", "warning2", ...],
+        }},
+        "sensitive_information_request": {{
+            "score": <integer between 0-100>,
+            "warnings": ["warning1", "warning2", ...],
+        }}
     }}
 
-    DO NOT include any explanations outside the JSON structure.
+    **DO NOT include any explanations outside the JSON structure.**
     """
