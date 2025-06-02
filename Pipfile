@@ -9,6 +9,7 @@ uvicorn = "*"
 tldextract = "*"
 dnspython = "*"
 openai = "*"
+bs4 = "*"
 
 [dev-packages]
 
