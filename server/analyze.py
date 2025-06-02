@@ -4,6 +4,37 @@ import os
 from openai import OpenAI
 import json
 
+
+def extract_email_content(raw_email):
+    """Extract email content from raw email text."""
+    try:
+        msg = Parser(policy=policy.default).parsestr(raw_email)
+        
+        # Extract basic email information
+        email_data = {
+            "from": msg.get("From", ""),
+            "to": msg.get("To", ""),
+            "subject": msg.get("Subject", ""),
+            "date": msg.get("Date", ""),
+            "body": "",
+            "links": []
+        }
+        
+        # Extract body content - simplified from analyze.py
+        if msg.is_multipart():
+            for part in msg.iter_parts():
+                content_type = part.get_content_type()
+                if content_type == "text/plain":
+                    email_data["body"] += part.get_content()
+        else:
+            if msg.get_content_type() in ("text/plain" ,"text/html"):
+                email_data["body"] = msg.get_content()
+        return email_data
+    
+    except Exception as e:
+        print(f"Error extracting email content: {e}")
+        return None
+
 def analyze_email_with_llm(email_data):
     """Analyze email content with an LLM to detect phishing attempts."""
 
@@ -94,7 +125,7 @@ def analyze_email_with_llm(email_data):
             "recommendations": "Error occurred during analysis. Please try again or analyze manually."
         }
 
-async def email_handler(raw_email: str = Body(..., media_type="text/plain")):
+async def email_handler(raw_email: str = Body(..., media_type="text/html")):
     # Parse the raw email
     email_data = extract_email_data(raw_email)
 
