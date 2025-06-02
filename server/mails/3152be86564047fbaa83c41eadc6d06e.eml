@@ -1,0 +1,82 @@
+Content-Type: multipart/mixed; boundary="===============2477009411453167041=="
+From: miguel hackathon <miguel.hackathon@ohlala-croissant.fr>
+To: jb hackathon <jb.hackathon@ohlala-croissant.fr>
+Subject: photo vacance
+Date: Mon, 02 Jun 2025 18:12:57 +0200
+Return-Path: <miguel.hackathon@ohlala-croissant.fr>
+X-Spam-Checker-Version:
+ SpamAssassin 4.0.1 (2024-03-25) on filter01.osprod.dimail1.numerique.gouv.fr
+X-Mailer: Open-Xchange Mailer v8.36.54
+X-Originating-Client: open-xchange-appsuite
+Message-ID:
+ <1464984142.219.1748880777792@ohlala.ox8.osprod.dimail1.numerique.gouv.fr>
+Authentication-Results: smtp.ox.numerique.gouv.fr; dkim=pass (4096-bit key;
+ unprotected) header.d=ohlala-croissant.fr header.i=@ohlala-croissant.fr
+ header.a=rsa-sha256 header.s=dimail header.b=P4cdkNZF; dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ohlala-croissant.fr;
+ s=dimail; t=1748880778; bh=oNxqEpy1OneTfhr5t5BpzdfLYZMMkVBiPhpvjvir7m8=;
+ h=Date:From:To:Subject:From;
+ b=P4cdkNZFcgFR0CzIM9BdwPPeID3hFDUjU1H/UZgjm4lJgnhNwH/9OKkBSlJ6iJeEv
+ SwIhqQv0Yf5SwbhWObaH77Qv/TJMK7r06Wo17bfrTQ5WmWgjGSrtYDN47D6nGiEDK/
+ Guig5T2bVquizC3vSfetxRQj9py4x8U5iCsS6NL3M4VgOyTTuYjbPLc3h4D5V2owpS
+ 52yhKa7+iafW84kf0Q+aKM7RcjMaEpKEe/gpwI+on9gf+d2j5aaVo7oRz9Vxda+VsX
+ pKjx8g+ItTzD+a6gh8O1XIHlYS9kXDsBL5n6kkj1SKqqsqoaMnqP6udX4caV9wERnN
+ BZnU5kXcDRIzEk0NnQfdEFeIs2nZpZ/QOCDJN4C0w4HQdDkunLvS4cXX4AZTK+chFg
+ APnqcLp/MOjZ+jTd3WfCTsQzWOPobGzZlVaJtLSxbVVkOcQlYONWbyhWK08B/xxTrQ
+ 8QtfOikl1nZCdrHJHPXUXkSyojlgA3q2VPHBSRlMY+G7Qji+ggaq2nDmgRq0vqfipc
+ u4DPqI8Yp/G9+BfXjEblMGlCHyEZARhChFQoitzW2ELVOwqD311nhCnP9IQasCsPKP
+ x9QsQwYWXtLhl/M2250r/QtLVGRiIDScqB2LVLfN8vgpMtUK4eNA3sf/765ACLGRHi
+ aEoxotGuKAFmMAofJ48l+W6Y=
+Received: from smtp.ox.numerique.gouv.fr ([127.0.0.1]) by
+ mail01.osprod.dimail1.numerique.gouv.fr with LMTP id +M7SEIrNPWgTKy4AsdAw0A
+ (envelope-from <miguel.hackathon@ohlala-croissant.fr>) for
+ <jb.hackathon@ohlala-croissant.fr>; Mon, 02 Jun 2025 16:12:58 +0000
+Received: from localhost (unknown [10.100.39.87]) by smtp.ox.numerique.gouv.fr
+ (Postfix) with ESMTP id 37DFF4190B for <jb.hackathon@ohlala-croissant.fr>;
+ Mon,  2 Jun 2025 16:12:58 +0000 (UTC)
+Received: from smtp.ox.numerique.gouv.fr ([10.100.4.60]) by localhost
+ (filter01.osprod.dimail1.numerique.gouv.fr [10.100.39.87]) (amavis, port
+ 10024) with ESMTP id PfRVIP3UxRWc for <jb.hackathon@ohlala-croissant.fr>;
+ Mon,  2 Jun 2025 16:12:58 +0000 (UTC)
+Received: by smtp.ox.numerique.gouv.fr (Postfix, from userid 65534) id
+ 1B3B541951; Mon,  2 Jun 2025 16:12:58 +0000 (UTC)
+Received: from ox8-core-mw-default-699f4b8c48-tshzh
+ (ows-142-44-48-22.cloudgouv-eu-west-1.compute.outscale.com [142.44.48.22]) by
+ smtp.ox.numerique.gouv.fr (Postfix) with ESMTPSA id EEA7241937 for
+ <jb.hackathon@ohlala-croissant.fr>; Mon,  2 Jun 2025 16:12:57 +0000 (UTC)
+X-Spam-Status: No, score=-1.1 required=5.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,HTML_MESSAGE autolearn=unavailable
+ autolearn_force=no version=4.0.1
+Delivered-To: jb.hackathon@ohlala-croissant.fr
+
+--===============2477009411453167041==
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============7071760179165368630=="
+
+--===============7071760179165368630==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+tien voila une photo de mes vacances
+
+--===============7071760179165368630==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+<html><body>
+
+ 
+  
+ 
+ 
+  <div class="default-style">
+   tien voila une photo de mes vacances
+  </div>
+ 
+</body></html>
+
+--===============7071760179165368630==--
+
+--===============2477009411453167041==--

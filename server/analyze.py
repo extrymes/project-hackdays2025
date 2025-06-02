@@ -22,7 +22,6 @@ def extract_email_content(raw_email):
         }
         
         # Extract body content - simplified from analyze.py
-        print (msg.is_multipart())
         if msg.is_multipart():
             for part in msg.iter_parts():
                 content_type = part.get_content_type()
@@ -127,7 +126,7 @@ def analyze_email_with_llm(email_data):
             "recommendations": "Error occurred during analysis. Please try again or analyze manually."
         }
 
-async def email_handler(raw_email: str = Body(..., media_type="text/plain")):
+async def email_handler(raw_email: str = Body(..., media_type="text/html")):
     # Parse the raw email
     email_data = extract_email_content(raw_email)
     
