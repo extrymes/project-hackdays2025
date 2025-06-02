@@ -280,10 +280,19 @@ class LinkSecurityAnalyzer:
         links = self.extract_links(html_content)
         checked_links = self.check_links_safety(links)
         suspicion_score = self.calculate_email_suspicion_score(checked_links)
+        
+        # Generate warnings for suspicious links
+        warnings = []
+        suspicious_links = [link['url'] for link in checked_links if link.get('is_safe') is False]
+        if suspicious_links:
+            warning_text = "suspicious link(s) :\n" + "\n".join([f"- {link}" for link in suspicious_links])
+            warnings.append(warning_text)
+        
         return {
             "links_found": len(checked_links),
-            "trust_score": suspicion_score,
-            "links": checked_links
+            "suspicion_score": suspicion_score,
+            "links": checked_links,
+            "warnings": warnings
         }
 
 
@@ -307,3 +316,5 @@ if __name__ == "__main__":
         status = "SAFE ✅" if link['is_safe'] else "SUSPICIOUS ❌" if link['is_safe'] is False else "UNKNOWN ❓"
         threats = f" | {', '.join(link['threats'])}" if link['threats'] else ""
         print(f"- {link['url']} ({status} | Risk: {link['risk_score']}/100){threats}")
+
+    print(result['warnings'] if result['warnings'] else "No warnings.")
