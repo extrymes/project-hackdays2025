@@ -28,3 +28,4 @@ output
 pids
 package-lock.json
 pnpm-lock.yaml
+Pipfile.lock

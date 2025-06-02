@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 fastapi = "*"
 uvicorn = "*"
+tldextract = "*"
+dnspython = "*"
 openai = "*"
 
 [dev-packages]
