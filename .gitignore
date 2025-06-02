@@ -29,3 +29,4 @@ pids
 package-lock.json
 pnpm-lock.yaml
 Pipfile.lock
+server/mails/
