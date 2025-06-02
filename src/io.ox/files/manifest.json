@@ -1,0 +1,6 @@
+[{
+  "namespace": "core"
+}, {
+  "namespace": "io.ox/files",
+  "path": "io.ox/filter/files"
+}]

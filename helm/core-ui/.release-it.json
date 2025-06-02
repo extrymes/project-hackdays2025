@@ -1,0 +1,24 @@
+{
+  "git": {
+    "push": false,
+    "tag": false,
+    "changelog": false,
+    "commitMessage": "Bump helm chart version ${version}"
+  },
+  "npm": false,
+  "plugins": {
+    "@j-ulrich/release-it-regex-bumper": {
+      "in": {
+        "file": "Chart.yaml",
+        "search": "version: (\\d+\\.\\d+\\.\\d+)"
+      },
+      "out": [
+        {
+          "file": "Chart.yaml",
+          "search": "version: \\d+\\.\\d+\\.\\d+",
+          "replace": "version: {{version}}"
+        }
+      ]
+    }
+  }
+}

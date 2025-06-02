@@ -1,0 +1,99 @@
+@import '@/themes/imports.scss';
+
+.year-view {
+
+  $toolbar-height: 45px;
+
+  .header {
+    .control {
+      padding: 0.5625rem 0.5625rem 0 0.5625rem;
+    }
+  }
+
+  .year-view-container {
+    flex: 1;
+    overflow-y: scroll;
+    // not really needed in standard zoom but keeps the view from exploding when using text zoom
+    display: flex;
+    flex-wrap: wrap;
+    align-content: start;
+    padding: 8px;
+  }
+
+  .month-container {
+    float: left;
+    min-height: 300px;
+    // also helps with text zoom
+    min-width: 16rem;
+    color: var(--text);
+    background-color: var(--background);
+    border-radius: calc(var(--default-radius) * 2);
+    margin: 8px;
+    @include user-select(none);
+    cursor: pointer;
+  }
+
+  .month {
+    margin-left: auto;
+    margin-right: auto;
+
+    td, th {
+      text-align: center;
+      width: calc(1.5rem + 8px);
+      height: calc(1.5rem + 8px);
+    }
+
+    th {
+      font-weight: normal;
+    }
+
+    td {
+      font-weight: 500;
+    }
+
+    caption {
+      text-align: center;
+      color: var(--text);
+      font-weight: bold;
+
+      h2 {
+        margin: 0
+      }
+
+      button {
+        color: var(--text);
+        font-weight: bold;
+        font-size: 16px;
+        &:hover {
+          text-decoration: none;
+        }
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .cw, .out, .weekend {
+      color: var(--text-gray);
+      font-weight: 300;
+    }
+
+    .cw {
+      font-weight: 200;
+    }
+
+    .today {
+      background-color: var(--today);
+      color: white;
+      border-radius: 3px;
+    }
+  }
+
+  &.io-ox-busy {
+    .month {
+      th, td, caption, .weekend, button {
+        color: #ccc;
+      }
+    }
+  }
+}

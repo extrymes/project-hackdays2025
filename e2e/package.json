@@ -1,0 +1,31 @@
+{
+  "name": "@open-xchange/appsuite-ui-e2e-tests",
+  "version": "1.0.0",
+  "description": "e2e tests for App Suite ui",
+  "license": "MIT",
+  "scripts": {
+    "e2e": "codeceptjs run",
+    "e2e-rerun": "codeceptjs-rerun"
+  },
+  "dependencies": {
+    "@codeceptjs/allure-legacy": "^1.0.2",
+    "@codeceptjs/mock-request": "^0.3.1",
+    "@influxdata/influxdb-client": "^1.33.2",
+    "@open-xchange/allure-browser-log-report": "^0.1.1",
+    "@open-xchange/codecept-helper": "^0.13.2",
+    "@open-xchange/codecept-horizontal-scaler": "^0.1.4",
+    "@types/node": "^20.6.5",
+    "chai": "^4.3.8",
+    "chai-subset": "^1.6.0",
+    "chalk-table": "^1.0.2",
+    "dotenv-defaults": "^5.0.2",
+    "mocha": "^10.2.0",
+    "mocha-junit-reporter": "^2.2.1",
+    "mocha-multi": "^1.1.7",
+    "moment-timezone": "^0.5.43",
+    "otpauth": "^9.1.4",
+    "puppeteer-core": "21.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}

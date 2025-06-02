@@ -1,0 +1,99 @@
+@import '@/themes/imports.scss';
+
+.delegate-wrapper {
+  min-height: 1.5rem;
+  a[data-detail-popup] {
+    text-decoration: none;
+  }
+
+  &.removable {
+    min-height: 2.5rem;
+    line-height: 16px;
+  }
+
+  .contact-photo {
+    @include picture(36px, 36px);
+    flex-shrink: 0;
+  }
+
+  &.group .contact-photo { background-position: 0 -4px; }
+}
+
+@media all and (max-width: $smartphone-breakpoint), all and (max-device-width: $smartphone-breakpoint) {
+  .detail-popup-resource,
+  .detail-popup-group {
+    padding-inline: 16px;
+    // align text based actions with icon based close icon
+    &.inline-toolbar {
+      margin-top: 0
+    }
+  }
+}
+
+.resource-administration {
+    .classic-toolbar-container {
+      min-height: 56px;
+    }
+
+    .classic-toolbar {
+      border: 0;
+      padding: 0;
+      li:first-child {
+          flex: 1;
+          align-items: flex-start;
+      }
+    }
+
+    .io-ox-settings-main.modal.flex .settings-detail-pane & h2 {
+        font-size: 18px;
+        font-family: $normal-font-family;
+        font-weight: bold;
+        line-height: 24px;
+        margin: 0 0 1em 0;
+    }
+
+    .below-toolbar {
+        top: calc(1.875rem + 84px);
+        .list-item { padding-left: 16px; }
+    }
+
+    .list-view {
+      background: var(--background-a30);
+      .smartphone & { margin: 0; }
+      .list-item {
+        border-bottom: none;
+        line-height: 24px;
+        padding: 8px 16px;
+        .smartphone & { padding-inline: 0; }
+      }
+    }
+
+    .detail-pane {
+        padding: 8px 16px;
+        overflow-y: auto;
+    }
+}
+
+.resource-editor-dialog.modal.flex {
+  .modal-content {
+      max-height: min(700px, calc(100vh - 80px));
+  }
+
+  .resource-editor-view {
+
+      input.form-control::placeholder {
+        color: var(--text-gray);
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      label, h2.heading-unstyled {
+          font-size: 13px;
+      }
+
+      &.book_directly {
+        .delegates, .add-delegates { display: none; }
+      }
+  }
+}
+

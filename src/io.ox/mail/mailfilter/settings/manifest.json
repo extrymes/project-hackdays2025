@@ -1,0 +1,4 @@
+{
+  "namespace": ["io.ox/settings"],
+  "requires": "mailfilter_v2"
+}

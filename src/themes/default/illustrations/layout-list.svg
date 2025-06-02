@@ -1,0 +1,37 @@
+<svg width="80px" height="60px" viewBox="0 0 80 60" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="none" stroke-width="1.25" fill="none" fill-rule="evenodd">
+    <rect stroke="#aaaaaa" x="4" y="2" width="72" height="56" rx="4"></rect>
+    <circle fill="currentColor" cx="9.5" cy="8.5" r="2.5"></circle>
+    <rect fill="#bbbbbb" x="14" y="7" width="14" height="3"></rect>
+    <rect fill="#bbbbbb" x="31" y="7" width="25" height="3"></rect>
+    <rect fill="#bbbbbb" x="59" y="7" width="12" height="3"></rect>
+    <circle fill="currentColor" cx="9.5" cy="14.5" r="2.5"></circle>
+    <rect fill="#bbbbbb" x="14" y="13" width="14" height="3"></rect>
+    <rect fill="#bbbbbb" x="31" y="13" width="25" height="3"></rect>
+    <rect fill="#bbbbbb" x="59" y="13" width="12" height="3"></rect>
+    <circle fill="currentColor" cx="9.5" cy="20.5" r="2.5"></circle>
+    <rect fill="#bbbbbb" x="14" y="19" width="14" height="3"></rect>
+    <rect fill="#bbbbbb" x="31" y="19" width="25" height="3"></rect>
+    <rect fill="#bbbbbb" x="59" y="19" width="12" height="3"></rect>
+    <circle fill="currentColor" cx="9.5" cy="26.5" r="2.5"></circle>
+    <rect fill="#bbbbbb" x="14" y="25" width="14" height="3"></rect>
+    <rect fill="#bbbbbb" x="31" y="25" width="25" height="3"></rect>
+    <rect fill="#bbbbbb" x="59" y="25" width="12" height="3"></rect>
+    <circle fill="currentColor" cx="9.5" cy="32.5" r="2.5"></circle>
+    <rect fill="#bbbbbb" x="14" y="31" width="14" height="3"></rect>
+    <rect fill="#bbbbbb" x="31" y="31" width="25" height="3"></rect>
+    <rect fill="#bbbbbb" x="59" y="31" width="12" height="3"></rect>
+    <circle fill="currentColor" cx="9.5" cy="38.5" r="2.5"></circle>
+    <rect fill="#bbbbbb" x="14" y="37" width="14" height="3"></rect>
+    <rect fill="#bbbbbb" x="31" y="37" width="25" height="3"></rect>
+    <rect fill="#bbbbbb" x="59" y="37" width="12" height="3"></rect>
+    <circle fill="currentColor" cx="9.5" cy="44.5" r="2.5"></circle>
+    <rect fill="#bbbbbb" x="14" y="43" width="14" height="3"></rect>
+    <rect fill="#bbbbbb" x="31" y="43" width="25" height="3"></rect>
+    <rect fill="#bbbbbb" x="59" y="43" width="12" height="3"></rect>
+    <circle fill="currentColor" cx="9.5" cy="50.5" r="2.5"></circle>
+    <rect fill="#bbbbbb" x="14" y="49" width="14" height="3"></rect>
+    <rect fill="#bbbbbb" x="31" y="49" width="25" height="3"></rect>
+    <rect fill="#bbbbbb" x="59" y="49" width="12" height="3"></rect>
+  </g>
+</svg>

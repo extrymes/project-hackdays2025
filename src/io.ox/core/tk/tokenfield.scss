@@ -1,0 +1,109 @@
+@import '@/themes/imports.scss';
+// Bootstrap Tokenfield overrides
+$tokenfield-menu-width: 320px;
+
+.tokenfield {
+
+  .drag-counter {
+    top: -10px;
+    bottom: auto;
+    right: -16px;
+    left: auto;
+    min-width: 30px;
+    width: auto;
+  }
+
+  &.form-control {
+    padding: 0.1875rem 3px 0 3px;
+    height: auto;
+  }
+
+  .token {
+    color: var(--text);
+    background-color: var(--background-100);
+    border-color: var(--border);
+    margin: 0 5px 3px 0;
+    border-radius: $border-radius-small;
+    position: relative;
+    // 22px at default 14px font-height
+    height: 1.571em;
+
+    &.ui-sortable-helper { background-color: $white; }
+
+    .contact-image {
+      display: inline-block;
+      margin: 2px;
+      @include picture(16px, 16px);
+    }
+
+    .close {
+      opacity: initial;
+      color: var(--text);
+    }
+
+    &.placeholder {
+      background-color: transparent;
+      border: none;
+    }
+
+    &.grabbed {
+      transform: rotate(2deg);
+    }
+  }
+
+  // background color if dropable widget is active
+  &.drophover {
+    background-color: #eee;
+
+    .token-input {
+      display: none;
+    }
+
+  }
+
+  .twitter-typeahead {
+    // there is a special case where this is needed: chinese UI + firefox + mailto link registration bar open
+    max-width: 100%;
+
+    & > .token-input.tt-input,
+    & > .token-input.tt-hint {
+      // 22px at default 14px font-height
+      height: 1.571em;
+      border: 0;
+      padding: 0 5px;
+      // there is a special case where this is needed: chinese UI + firefox + mailto link registration bar open
+      max-width: 100%;
+      margin: 0;
+      color: var(--text);
+      background-color: var(--background);
+    }
+
+    .tt-hint {
+      // don't cut of hints in firefox
+      width: 100% !important;
+      color: var(--text-gray);
+    }
+
+    .tt-dropdown-menu {
+      width: $tokenfield-menu-width;
+      min-width: $tokenfield-menu-width;
+    }
+    //add some more space if departments shown
+    html.showDepartment & .tt-dropdown-menu {
+      width: $tokenfield-menu-width + 100px;
+      min-width: $tokenfield-menu-width + 100px;
+    }
+  }
+}
+
+.smartphone {
+  .tokenfield .twitter-typeahead {
+    & > .token-input.tt-hint,
+    & > .token-input.tt-input { min-width: inherit !important; }
+    .tt-dropdown-menu {
+      border-radius: 0;
+      border: 1px solid #fff;
+      border-top-color: #ccc;
+    }
+  }
+}

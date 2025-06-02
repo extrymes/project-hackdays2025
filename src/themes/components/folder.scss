@@ -1,0 +1,474 @@
+@import '@/themes/imports.scss';
+
+.folder-tree {
+  padding: 8px;
+  overflow: auto;
+  @include user-select(none);
+
+  // font weights
+  $fontSize: 14px;
+  $normal: 400;
+  $bold: 700;
+  $indentation: 32px;
+
+  // width fix
+  .tree-container {
+    min-width: 100%;
+    display: block;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+  }
+
+  a[role="treeitem"] {
+    text-decoration: underline;
+  }
+
+  .folder {
+    line-height: 2rem;
+    overflow: visible;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    outline: 0;
+
+    &.selected > .folder-node .folder-options {
+      display: inline-block;
+      margin-left: auto;
+      border-radius: 0 var(--default-radius) var(--default-radius) 0;
+    }
+
+    &.empty {
+      display: none;
+      &.show-anyway {
+        display: block;
+        .folder-arrow {
+          svg {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &.disabled > .folder-node > .folder-label,
+    &.no-select > .folder-node > .folder-label {
+      color: var(--text-gray);
+      font-style: italic;
+    }
+    &.selected.no-select:not(:focus) > .folder-node > .folder-label,
+    &.selected.disabled:not(:focus) > .folder-node > .folder-label {
+      color: var(--text);
+    }
+  }
+
+  html[dir="rtl"] & .folder.selected > .folder-node .folder-options {
+    border-radius: var(--default-radius) 0 0 var(--default-radius);
+  }
+
+  &.visible-selection {
+
+    .selected > .folder-node {
+      background-color: var(--selected-background);
+      * { color: var(--selected); }
+      .folder-counter {
+        background: transparent;
+      }
+    }
+
+    .selectable > .folder-node:hover, .selectable.dnd-over > .folder-node {
+      background-color: var(--selected-background-hover);
+    }
+
+    .selectable:focus > .folder-node {
+      background-color: var(--selected-background-focus);
+      * { color: var(--selected-focus); }
+      .folder-counter, .folder-label {
+        color: var(--selected-focus);
+      }
+      .folder-options {
+        background-color: var(--shade-a10);
+      }
+    }
+  }
+
+  &.visible-selection-smartphone {
+    // visually ignore hover/focus/blur
+    .selected > .folder-node {
+      // using &.visible-selection .selectable:focus > .folder-node
+      background-color: var(--selected-background-focus);
+      * {
+        color: var(--selected-focus);
+      }
+      .folder-counter {
+        color: white;
+      }
+      .folder-options {
+        background-color: var(--shade-a10);
+      }
+      .folder-label {
+        color: var(--selected-focus);
+      }
+    }
+  }
+
+  button.contextmenu-control:not(.actions) {
+    .smartphone & {
+      display: none;
+    }
+
+    border: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    color: var(--text-gray);
+    background-color: transparent;
+    border-radius: var(--default-radius);
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.visible-selection {
+    .selected:focus-within > .folder-node .contextmenu-control {
+      background-color: var(--selected-background-focus-shade);
+    }
+
+    .contextmenu-control.actions svg.bi {
+      height: 14px; // icons set to a fixed (pixel) width to not zoom on text-only-zoom
+      width: 14px;
+    }
+
+    button.contextmenu-control svg.bi {
+      height: 24px; // icons set to a fixed (pixel) width to not zoom on text-only-zoom
+      width: 24px;
+    }
+  }
+
+  .folder-node {
+    height: 2rem;
+    border-radius: var(--default-radius);
+    display: flex;
+
+    a.account-link {
+      padding: 0 8px;
+      vertical-align: top;
+    }
+
+    .folder-arrow {
+      color: var(--text);
+      display: inline-block;
+      padding-inline-start: 8px;
+      width: 28px;
+      display: flex;
+      align-items: center;
+    }
+
+    .folder-label, .folder-counter, .folder-options, .folder-buttons, .account-link {
+      font-weight: $normal;
+      display: inline-block;
+      -webkit-font-smoothing: antialiased;
+      margin: 0 4px;
+      vertical-align: top;
+      &:empty, &:last-child { margin: 0; }
+    }
+    .folder-options { margin-right: 0; }
+
+    .folder-label {
+      font-size: $fontSize;
+      flex: 1;
+      &:first-child { // needed when arrows are hidden
+        margin-inline-start: $default-padding;
+      }
+    }
+
+    .folder-counter {
+      color: var(--text-accent);
+      font-weight: $bold;
+      display: none;
+      vertical-align: top;
+      border-radius: var(--default-radius);
+      min-width: 24px;
+      padding-inline-end: 4px;
+      text-align: right;
+    }
+
+    &.show-counter .folder-counter {
+      display: inline-block;
+    }
+
+    .folder-options {
+      padding: 0 12px;
+      outline: 0;
+      display: none;
+      &:focus {
+        i { color: white; }
+        background-color: var(--selected-background-focus);
+      }
+    }
+
+    .folder-icon {
+      display: flex;
+      align-items: center;
+      color: var(--folder-icon);
+      margin-inline-end: 4px;
+      font-size: 18px;
+      .bi {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .folder-checkbox {
+      display: flex;
+      margin-bottom: 3px;
+      margin-inline-end: $default-padding;
+    }
+
+    .folder-shared,
+    .folder-subscribed {
+      padding: 0;
+      margin: 0 8px;
+      color: var(--text-gray);
+      background: transparent;
+      outline: none;
+      border: 0;
+    }
+
+    .folder-sub {
+      padding: 2px;
+      color: rgba(0, 0, 0, 0.30);
+    }
+  }
+
+  .subfolders {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: none;
+  }
+
+  .folder.open > .subfolders {
+    display: block;
+  }
+
+  .favorites, .unified-folders, .standard-folders, .myshares, .root-folders, .private-drive-folders, .public-drive-folders, .filestorage-folders, .remote-folders {
+    margin-bottom: $default-padding;
+  }
+
+  // sections in flat folder views
+  .folder.section {
+
+    &.open {
+      margin-bottom: 16px;
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    & > .folder-node > .folder-label {
+      color: var(--text-gray);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    &.selected > .folder-node > .folder-label {
+      color: var(--text);
+      .smartphone & {
+        color: var(--text-gray);
+      }
+    }
+
+    &.selected:focus > .folder-node > .folder-label {
+      color: var(--selected-focus);
+      .smartphone & {
+        color: var(--text-gray);
+      }
+    }
+  }
+
+  // shorten folder title when selected so that folder options are visible
+  .selected > .folder-node > .folder-label {
+    .smartphone & { font-weight: normal; }
+    font-weight: $bold;
+    vertical-align: top;
+  }
+
+  &.calendar {
+    .selected > .folder-node > .folder-label { font-weight: $bold; }
+  }
+
+  // links
+  .links {
+
+    list-style-type: none;
+    margin: 16px 0 0 0;
+    padding: 0 16px 16px 52px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: normal;
+    position: relative;
+
+    a {
+      text-decoration: none;
+    }
+
+    svg.bi {
+      position: absolute;
+      left: 28px;
+      top: 0;
+      width: 16px;
+      height: 16px;
+    }
+
+    &:empty {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul {
+      margin-top: -1px;
+      padding-bottom: 1px;
+    }
+  }
+
+  .folder.section + .links {
+    margin: 16px 0 16px $indentation;
+    padding: 0;
+    line-height: 1.5rem;
+    &:empty {
+      margin: 0;
+    }
+  }
+
+  .mobile-edit-mode & {
+    .selectable[data-contextmenu] {
+      .folder-label {
+        color: var(--text);
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// subscribe dialog
+.io-ox-dialog-popup {
+  .has-error .btn-new-account {
+    color: $error-text-color;
+    border-color: $error-text-color;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+}
+
+/* some themes need different selection colors in the left sidepanel */
+
+.window-sidepanel .folder-tree.visible-selection .folder {
+
+  &.selected > .folder-node {
+    * { color: var(--sidepanel-selected); }
+    background-color: var(--sidepanel-selected-background);
+  }
+
+  &.selectable > .folder-node:hover, .selectable.dnd-over > .folder-node {
+    background-color: var(--sidepanel-selectable-background-hover);
+  }
+
+  &.selected > .folder-node:hover {
+    background-color: var(--sidepanel-selected-background-hover);
+  }
+
+  &.selectable:focus > .folder-node {
+    * { color: var(--sidepanel-selected-focus); }
+    .folder-counter { color: var(--sidepanel-selected-focus); }
+    background-color: var(--sidepanel-selected-background-focus);
+  }
+
+  &.selected:focus-within > .folder-node .contextmenu-control {
+    background-color: var(--sidepanel-selected-background-focus-shade);
+  }
+}
+
+html .window-sidebar button {
+  &.btn.current {
+    color: var(--sidepanel-selected);
+    background-color: var(--sidepanel-selected-background);
+  }
+}
+
+.smartphone {
+  .folder-tree {
+    // custom mobile values
+    $mobile-height: 48px;
+    $mobile-line-height: $mobile-height;
+    $mobile-arrow-size: 20px;
+    $mobile-label-size: 15px;
+
+    padding: 0;
+
+    .folder { line-height: $mobile-line-height; }
+
+    &.calendar .folder {
+      &.section { line-height: $mobile-line-height; }
+      line-height: 2rem;
+    }
+
+    .folder-icon {
+      float: left;
+    }
+    .folder-node {
+      height: $mobile-height;
+
+      .folder-label, .folder-counter, .folder-options {
+        font-size: $mobile-label-size;
+      }
+      .folder-label {
+        max-width: 320px;
+        @include ellipsis();
+      }
+      .folder-buttons {
+        // see bug 58993
+        vertical-align: top;
+      }
+    }
+    li[data-id="virtual/settings"] {
+      .folder-node {
+        height: initial;
+        line-height: 2rem;
+        padding: 4px 0;
+        .folder-label {
+          max-width: 280px;
+        }
+      }
+    }
+
+    .folder.section + .links {
+      margin-left: 0px;
+    }
+
+    .folder.section.selected > .folder-node > .folder-label {
+      font-weight: bold;
+    }
+
+    .links {
+      font-size: $font-size-touch;
+      padding-left: 0;
+      a {
+        margin-bottom: 8px;
+      }
+    }
+    .flat-tree {
+      // set min-width on flat folder to get consistent layout
+      // must match side-panel's default width of 250px
+      .folder-label {
+        min-width: 160px;
+      }
+      // set proper limit when selected (see above)
+      .selected > .folder-node > .folder-label {
+        width: 160px;
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.rule-dialog {
+
+  &.modal.flex {
+    .modal-header {
+      display: flex;
+      .modal-title {
+        line-height: 32px;
+        margin: 0 16px 0 0;
+      }
+    }
+  }
+
+  .checkbox.switch {
+    margin: 0;
+    display: inline-block;
+  }
+
+  .date-range {
+    margin-bottom: 24px;
+    .checkbox {
+      margin: 0;
+    }
+  }
+
+  .duration {
+    padding-top: 38px;
+  }
+
+  .modal-body.disabled {
+    background-color: var(--background-100);
+  }
+
+  .modal-body .form-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .btn-link {
+    padding: 0;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input[name="subject"] {
+    font-weight: bold;
+  }
+}

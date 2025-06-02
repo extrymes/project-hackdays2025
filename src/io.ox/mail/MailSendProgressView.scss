@@ -1,0 +1,19 @@
+@import '@/themes/imports.scss';
+
+.mail-send-progress {
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(95%, 400px);
+  background: var(--background);
+  border: 1px solid var(--border);
+  color: var(--color);
+  box-shadow: 0 12px 32px 0px rgb(0 0 0 / 20%);
+  .mail-send-progress-icon {
+    min-width: 40px;
+  }
+  .mail-send-progress-content {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

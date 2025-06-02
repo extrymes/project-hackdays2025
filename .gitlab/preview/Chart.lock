@@ -1,0 +1,9 @@
+dependencies:
+- name: appsuite
+  repository: oci://registry.open-xchange.com/appsuite-core-internal/charts
+  version: 8.13.203
+- name: core-ui
+  repository: file://../../helm/core-ui
+  version: 2.12.1
+digest: sha256:5bfe47d7c20c9570fa20f61941f0a5c162bbb4c5da666f7c1d3e178d5fe15e29
+generated: "2023-03-22T14:19:50.405478+01:00"

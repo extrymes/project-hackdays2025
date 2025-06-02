@@ -1,0 +1,884 @@
+
+#io-ox-desktop {
+  top: 32px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#io-ox-screens {
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#io-ox-windowmanager {
+  overflow: hidden;
+  display: flex;
+}
+
+#io-ox-windowmanager-pane {
+  flex: 1;
+  position: relative;
+}
+
+.io-ox-windowmanager-sticky-panel {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.has-sticky-window {
+  #io-ox-windowmanager-pane {
+    border-radius: 0 var(--default-radius) 0 0;
+    // sometimes the main window just cannot get any smaller, use scrollbars as last resort
+    overflow-x: auto;
+  }
+  .io-ox-windowmanager-sticky-panel {
+    border-radius: var(--default-radius) 0 0 0;
+    border-left: 8px solid transparent;
+  }
+}
+
+#io-ox-taskbar-container {
+
+  border-top: 1px solid var(--border);
+  background-color: var(--background-50);
+  top: auto;
+  height: 2.5rem;
+  padding: 0.1875rem 0 2px 0;
+  margin: 0;
+  display: none;
+
+  html.taskbar-visible & {
+    display: block;
+  }
+
+  #io-ox-taskbar {
+    padding: 0 8px;
+    list-style-type: none;
+    overflow: hidden;
+    margin: 0;
+    width: 100%;
+    display: flex;
+
+    li {
+      width:240px;
+      margin-left: 8px;
+      overflow: hidden;
+      display: flex;
+      height: 2rem;
+      line-height: 26px;
+
+      .taskbar-button {
+        border: 3px solid var(--btn-primary-background);;
+        padding: 0 4px 0px 13px;
+        border-radius: 4px;
+        color: var(--btn-primary);
+        text-align: left;
+        width: 100%;
+        overflow: hidden;
+        background-color: var(--btn-primary-background);
+        display: flex;
+        align-items: center;
+
+        &:focus {
+          border-color: var(--background-50);
+          outline: 2px solid var(--outline);
+          outline-offset: -2px;
+        }
+
+        &.io-ox-busy:before {
+          color: white;
+          margin-top: -15px;
+        }
+
+        .title {
+          @include ellipsis();
+          margin-right: 8px;
+          // when there's no space, let the text win over the icon
+          min-width: 26px;
+          height: 100%;
+        }
+        .count {
+          padding: 4px 5px;
+          margin-right: 8px;
+        }
+        .spacing { flex-grow: 1; }
+
+        svg.bi:first-child {
+          width: 1.25rem;
+          height: 1.25rem;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+.touch {
+  #io-ox-windowmanager .window-container-center .window-body { width: 100% !important; }
+}
+
+.smartphone .window-container.header-top {
+  border-radius: 20px 20px 0 0;
+  background: var(--background);
+  z-index: 10;
+  transition: top 0.2s ease-out;
+
+  .window-header {
+    background-color: unset;
+    border: unset;
+    box-shadow: unset;
+
+    .header.container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      button:nth-child(1) { grid-column: 1; justify-self: flex-start; }
+      button:nth-child(2) { grid-column: 2; justify-self: center; }
+      button:nth-child(3) { grid-column: 3; justify-self: flex-end; }
+      padding: 0 12px;
+
+      .btn-default, .btn-primary {
+        background: unset;
+        border: unset;
+        color: var(--link);
+        height: 40px;
+        margin: 0;
+        min-width: unset;
+      }
+
+      .collapse {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        color: var(--text-gray);
+
+        > div {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  // substract height of header with action buttons except for mail compose with own tinyMCW height calculation
+  &:not(.io-ox-mail-compose-window) .window-body {
+    height: calc(100% - 48px);
+  }
+
+  // For medium zoom level on mobile devices
+  @media (max-width: 20em) {
+    .window-header {
+      height: 40px;
+
+      .header.container {
+        padding: 0;
+
+        .btn-primary, .btn-default {
+          height: 32px;
+        }
+      }
+    }
+  }
+
+  // For high zoom level on mobile devices
+  @media (max-width: 15em) {
+    .window-header {
+      .header.container {
+        height: 32px;
+
+        .btn-default, .btn-primary {
+          height: 24px;
+          padding: 6px;
+        }
+      }
+    }
+  }
+}
+
+.window-container-center {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.window-container {
+
+  display: flex;
+  flex-direction: column;
+
+  .window-header {
+    height: 48px;
+    border-bottom: 1px solid transparent;
+    padding: 8px 0;
+  }
+
+  .window-footer {
+    height: calc(2.5rem + 32px);
+    border-top: 1px solid transparent;
+    padding: 16px 0;
+
+    .container {
+      display: flex;
+    }
+  }
+
+  .window-header,
+  .window-footer {
+
+    position: relative;
+    background-color: var(--background-5);
+
+    border-color: var(--border);
+    z-index: 2;
+    // yep, a shadow
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.10);
+
+    h1.title {
+      margin: 0.2em 0;
+      font-size: 20px;
+      float: left;
+    }
+
+    .btn {
+      min-width: 80px;
+      margin-right: 8px;
+      height: 38px;
+    }
+  }
+
+  &.classic {
+    color: white;
+
+    .window-head {
+      width: auto; right: 0; height: 30px; color: white;
+      border-top: 1px solid #000;
+      padding: 7px 0 11px 0;
+      text-align: center;
+
+      .toolbar-button { display: none; }
+    }
+
+    .window-body {
+      top: 50px;
+      left: 0;
+    }
+  }
+
+  &.simple-window {
+    position: relative;
+    z-index: 11; // higher than io-ox-screens
+  }
+}
+
+#io-ox-windowmanager.fullscreen .window-container-center {
+  width: 100% !important;
+}
+
+.window-blocker {
+
+  background-color: var(--background-a80);
+  z-index: 30;
+
+  &.io-ox-busy {
+    position: absolute;
+  }
+
+  .progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 8px;
+    margin-left: -200px;
+  }
+
+  @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+    .progress {
+      width: 150px;
+      margin-left: -75px;
+    }
+  }
+
+  .header {
+    top: auto;
+    bottom: 50%;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .footer {
+    top: 50%;
+    bottom: auto;
+    margin-top: 8px;
+    text-align: center;
+
+    // consider height of floating-header
+    .floating-window & { top: calc(50% - 2.5rem) }
+    .block-message {
+      margin: 0 32px 16px 32px;
+      .message { margin-bottom: 32px; }
+      .actions {
+        .btn + .btn { margin-left: 8px; }
+      }
+    }
+  }
+
+  .first { margin-top: -20px; }
+
+  .second {
+    margin-top: -5px;
+    height: 4px;
+    .progress-bar {
+      background-color: #555;
+    }
+  }
+
+  .progress .progress-bar { border-radius: 2px; }
+}
+
+.window-sidebar {
+  .smartphone & {
+    display: none !important;
+  }
+  position: relative;
+  width: 72px;
+  min-width: 72px;
+  height: 100%;
+  z-index: 2;
+  border-radius: 0 var(--gap-radius) 0 0;
+  margin-inline-end: var(--gap);
+  padding: 16px 16px 8px 16px;
+  display: flex;
+  flex-direction: column;
+  .btn {
+    width: 100%;
+    height: 2.5rem;
+    padding: 0;
+  }
+  .btn.current {
+    color: var(--text-accent);
+    background-color: var(--btn-current);
+  }
+  .bi {
+    font-size: 18px;
+  }
+}
+
+.margin-top-auto {
+  margin-top: auto;
+}
+
+.margin-left-auto {
+  margin-inline-start: auto;
+}
+
+.window-sidepanel {
+  position: relative;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-inline-end: var(--gap);
+  overflow: visible;
+  width: 250px;
+  background: var(--sidepanel-background);
+
+  .rocket-box {
+    background-color: var(--accent-20);
+    border-radius: var(--default-radius);
+    box-shadow: inset 0 0px 4px var(--accent-100);
+    padding: 16px;
+    margin: 8px 16px;
+  }
+
+  .folder-tree {
+    position: static;
+    flex: 1;
+  }
+
+  .generic-toolbar {
+    flex: 0 0 auto;
+    position: static;
+
+    &.bottom {
+      padding: 0 var(--inner-gap);
+      margin-bottom: 8px;
+    }
+
+    &.premium-toolbar {
+      width: auto;
+      height: auto;
+      line-height: 16px;
+      background-color: var(--accent-700);
+      padding: 0;
+      margin: 0 16px 16px 16px;
+      border-radius: var(--default-radius);
+      flex-direction: column;
+
+      .header {
+        margin: 0 0 8px 0;
+        padding: 0 16px;
+        background-color: var(--shade-a20);
+        color: white;
+        line-height: 40px;
+        border-radius: var(--default-radius) var(--default-radius) 0 0;
+      }
+
+      p {
+        line-height: 24px;
+        padding: 0 16px;
+        margin: 0 0 8px 0;
+      }
+      a:not(.btn-default) {
+        color: $premium-toolbar-link-color;
+      }
+
+      .io-ox-upsell-link {
+        // display list-item has some issues on firefox, so use block and padding to have the same look in all browsers
+        display: block;
+        padding: 4px 16px 0 16px;
+      }
+    }
+  }
+}
+
+.resizebar {
+  position: absolute;
+  height: 100%;
+  width: clamp(4px, var(--gap), 8px);
+  background: transparent;
+  z-index: 10000;
+  cursor: e-resize;
+  cursor: ew-resize;
+  cursor: col-resize;
+  right: calc(0px - min(4px, var(--gap)));
+}
+
+// take different gap into account
+.leftside .resizebar {
+  width: clamp(4px, var(--main-gap), 8px);
+  right: calc(0px - min(8px, var(--main-gap)));
+}
+
+.window-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.window-body {
+  position: relative;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  white-space: normal;
+  z-index: 1;
+  @include user-select(text);
+}
+
+.window-content {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  outline: 0;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  textarea {
+    @include user-select(text);
+    resize: none;
+  }
+}
+
+.leftside {
+  position: relative;
+  width: 320px;
+  /* removed overflow: hidden to position resizebar properly */
+  margin-inline-end: var(--main-gap);
+  display: flex;
+  flex-direction: column;
+}
+
+.rightside {
+  position: relative;
+  outline: 0;
+  flex: 1;
+}
+
+.floating-window {
+  $headerHeight: 2.5rem;
+  $headerColor: #f5f5f5;
+  $headerGradient: linear-gradient(0deg, #f5f5f5, #fff);
+  $headerTextColor: #333;
+  $headerIconColor: #707070;
+  $paddingH: 24px;
+
+  // needed or you move the UI when the window overlaps at the right side or bottom
+  position: fixed;
+  // higher than taskbar
+  z-index: 12;
+  background: transparent;
+  outline: 0;
+  border-radius: var(--double-radius);
+
+  .floating-window-content{
+    border-radius: var(--double-radius);
+  }
+
+  .window-container-center {
+    flex: 1;
+    overflow: auto;
+  }
+
+  .container {
+    padding-left: $paddingH;
+    padding-right: $paddingH;
+  }
+
+  .window-footer:empty {
+    display: none;
+  }
+
+  .floating-window-content {
+    @include elevation-2();
+  }
+  &.active {
+    z-index: 14;
+
+    .floating-window-content {
+      @include elevation-3();
+    }
+
+    .floating-header {
+      background-image: linear-gradient(to bottom, var(--background), var(--background-5));
+
+      h1 {
+        color: var(--text);
+      }
+
+      .controls button {
+          color: var(--text-gray);
+      }
+    }
+  }
+
+  .window-body, .container {
+    width: 100%;
+  }
+
+  width: 920px;
+  height: 750px;
+  max-height: calc(100vh - 40px);
+  top: calc(50% - 375px);
+
+  &.height-xs { height: 650px; }
+  &.height-lg { height: 900px; }
+
+  right: auto;
+  bottom: auto;
+
+  /* width */
+  &.width-xs {
+    // 640
+    width: 40rem;
+    &:not(.maximized) { max-width: 780px; }
+    // start window in the middle
+    left: calc(50% - 320px);
+  }
+  &.width-sm {
+    // 720px
+    width: 45rem;
+    &:not(.maximized) { max-width: 900px; }
+    // start window in the middle
+    left: calc(50% - 360px);
+  }
+  &.width-md {
+    // 800px
+    width: 50rem;
+    &:not(.maximized) { max-width: 1020px; }
+    // start window in the middle
+    left: calc(50% - 400px);
+  }
+  &.width-lg {
+    // 920px
+    width: 57.5rem;
+    &:not(.maximized) { max-width: 1140px; }
+    // start window in the middle
+    left: calc(50% - 460px);
+  }
+
+  @media (min-width: 1280px) {
+    &.width-lg {
+      width: 1040px;
+      left: calc(50% - 520px);
+    }
+  }
+
+  .floating-header .controls button[data-action="normal"] {
+    display: none;
+  }
+
+  .container {
+    width: 100% !important;
+    position: relative;
+    min-width: auto;
+  }
+
+  &.width-xs:not(.maximized) [data-hidden="width-xs"] { display: none; }
+
+  &.maximized {
+    width: 1060px;
+    height: calc(100% - 72px);
+    max-width: 100%;
+    max-height: 1200px;
+    top: 0px;
+    left: calc(50% - 530px);
+
+    @media (max-height: 750px) {
+      height: 100%;
+      top: 0px !important
+    }
+
+    .floating-header .controls button[data-action="maximized"] {
+      display: none;
+    }
+  }
+
+  &.dragging iframe {
+    pointer-events: none;
+  }
+
+
+  .ios & {
+    &.header-top .window-header  { position: relative; }
+  }
+
+  .floating-header {
+    height: $headerHeight;
+    bottom: auto;
+    background: var(--background-5);
+    padding: 0 12px 0 $paddingH;
+    display: flex;
+    border-radius: var(--double-radius) var(--double-radius) 0 0 ;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-width: 0 1px 1px 1px;
+
+    cursor: move;
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: $headerHeight;
+      color: #636363;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .count {
+      padding: 3px 7px;
+      position: relative;
+      top: -1px;
+      margin-left: 8px;
+    }
+    .controls {
+      display: flex;
+      margin-left: auto;
+      flex-shrink: 0;
+
+      button {
+        color: $headerIconColor;
+        line-height: $headerHeight - 0.125;
+        padding: 0 8px;
+        margin-top: -1px;
+        display: inline-block;
+
+
+        svg { vertical-align: middle };
+
+        &[data-action="close"] {
+          padding: 0 6px;
+
+          svg {
+            width: 14px; // icons set to a fixed (pixel) width to not zoom on text-only-zoom
+          }
+        }
+
+        &[data-action="maximize"] {
+          padding: 0 7px;
+        }
+
+        &:focus {
+          box-shadow: none;
+          outline: 2px solid #A0A0A0;
+          outline-offset: -4px;
+        }
+      }
+    }
+  }
+
+  .floating-body {
+    top: $headerHeight;
+    background-color: var(--background);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-width: 0 1px 1px 1px;
+    border-radius: 0 0 var(--double-radius) var(--double-radius);
+    display: flex;
+    flex-direction: column;
+
+    .window-footer {
+      border-radius: 0 0 var(--double-radius) var(--double-radius);
+    }
+  }
+}
+
+.window-container.gray-background {
+  --window-gray-background: var(--background-5);
+  .floating-header {
+    background: var(--window-gray-background);
+    border-color: transparent;
+  }
+  .floating-body {
+    border: 0;
+  }
+  .window-body {
+    background: var(--window-gray-background);
+  }
+  .window-footer {
+    border-color: transparent;
+    box-shadow: none;
+    border-bottom-left-radius: var(--double-radius);
+    border-bottom-right-radius: var(--double-radius);
+  }
+  legend, label {
+    color: var(--text);
+    border: 0;
+  }
+  label {
+    margin-bottom: 0;
+  }
+  .row label.p-0 {
+    padding: 0;
+  }
+  .btn-link {
+    color: var(--accent);
+  }
+}
+
+// used to prevent iframe issues when dragging
+#floating-window-backdrop {
+  z-index: 13;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  // almost transparent
+  background-color: rgba(255, 255, 255, 0.01);
+  position: absolute;
+}
+
+.rightside-navbar { display: none; }
+
+@media (max-width: 900px) {
+  .leftside { width: 250px; }
+
+  #io-ox-taskbar-container #io-ox-taskbar {
+    padding: 0 4px;
+
+    li {
+      margin-left: 4px;
+    }
+  }
+}
+
+@media (min-width: 1300px) {
+  .leftside  { width: 400px; }
+}
+
+@media (min-width: 1500px) {
+  .leftside {  width: 450px; }
+}
+
+@media (min-width: 1700px) {
+  .leftside { width: 500px; }
+}
+
+// TINY SCREENS
+@media (max-width: 540px) {
+
+  .window-body {
+    bottom: 40px;
+    left: 0;
+  }
+
+  .chromeless-window .window-body { bottom: 0; }
+
+  .vsplit {
+    left: 0; width: 200%; right: auto;
+    animation-timing-function: ease-out;
+    animation-duration: 350ms;
+  }
+
+  .vsplit-slide {
+    transform: translateX(-50%);
+    animation-name: slideright;
+  }
+
+  .vsplit-reverse {
+    transform: translateX(0);
+    animation-name: slideleft;
+  }
+
+  .touch .vsplit { backface-visibility: hidden; }
+
+  .vsplit .leftside {
+    width: 50%;
+    right: auto;
+    z-index: 1;
+  }
+
+  .vsplit .rightside {
+    left: 50%;
+    width: 50%;
+    top: 41px;
+    right: auto;
+    z-index: 2;
+  }
+
+  .vsplit .rightside-navbar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 41px;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 13px 5px 13px;
+    z-index: 2;
+    line-height: 2em;
+    display: block;
+  }
+
+  .vsplit-reverse {
+    .rightside-navbar,
+    .rightside { display:none; }
+  }
+}
+
+// small screens (mobile)
+// note that we have to target max-width and max-device-width
+// to target all devices which don't support the max-device-width
+// property
+@media(max-width: $smartphone-breakpoint) and (orientation: portrait), (max-height: $smartphone-breakpoint) and (orientation: landscape) {
+  .window-sidepanel {
+    backface-visibility: hidden;
+  }
+}

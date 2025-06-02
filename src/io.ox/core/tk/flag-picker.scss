@@ -1,0 +1,76 @@
+@import '@/themes/imports.scss';
+
+// flag colors
+.color-flag {
+  &.flag_1     { color: $flag-picker-red }
+  &.flag_7     { color: $flag-picker-orange }
+  &.flag_10    { color: $flag-picker-yellow }
+  &.flag_6     { color: $flag-picker-lightgreen }
+  &.flag_3     { color: $flag-picker-green }
+  &.flag_9     { color: $flag-picker-cyan }
+  &.flag_2     { color: $flag-picker-blue }
+  &.flag_5     { color: $flag-picker-purple }
+  &.flag_8     { color: $flag-picker-pink }
+  &.flag_4     { color: $flag-picker-gray }
+}
+
+ul.classic-toolbar li.flag-picker .dropdown-toggle:focus i { outline: 0; }
+
+.flag-picker {
+
+  position: relative;
+
+  .dropdown-toggle {
+    font-size: 18px;
+
+    &:hover { text-decoration: none; }
+    &:focus i {
+      outline: thin dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+  }
+
+  .color-flag {
+    font-size: 18px;
+    margin-inline-start: auto;
+  }
+
+  .flag-dropdown {
+
+    font-size: 22px;
+    margin: 7px 0 0 14px;
+    cursor: pointer;
+    float: right;
+
+    ul {
+      font: 14px/20 $normal-font-family;
+      right: -20px;
+      left: auto;
+      top: 120%;
+      width: 200px;
+    }
+
+    a {
+      line-height: 24px;
+      text-decoration: none;
+    }
+
+    .flag-dropdown-icon.flag_0 {
+      color: #ddd;
+
+      &:hover { color: #aaa; }
+    }
+    .flag-dropdown-icon.flag_0 { color: #767676; }
+  }
+
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+    width: 200px;
+    a {
+      line-height: 24px;
+      @include ellipsis();
+    }
+  }
+}

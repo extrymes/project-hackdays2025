@@ -1,0 +1,192 @@
+@mixin dropdown-style {
+
+    display: none;
+    position: absolute;
+    z-index: 1000000;
+    width: 18.125rem;
+    min-height: 160px;
+    padding: 16px;
+    line-height: 16px;
+    background-color: var(--background);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    outline: 0;
+    cursor: default;
+    border-radius: 3px;
+
+    &:focus {
+        border-color: rgba(0, 0, 0, 0.50);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.30);
+    }
+
+    &.open {
+        display: block;
+    }
+}
+
+.date-picker {
+
+    @include dropdown-style();
+
+    .navigation {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 8px;
+        button.btn-prev,
+        button.btn-next {
+            width: 32px;
+
+            svg.bi {
+              height: 14px; // icons set to a fixed (pixel) width to not zoom on text-only-zoom
+            }
+        }
+    }
+
+    button {
+        color: var(--text);
+        background-color: inherit;
+        padding: 8px;
+        outline: 0;
+        border: 0;
+        margin: 0;
+        border-radius: 3px;
+        &:hover { background-color: var(--background-100); }
+        &:focus {
+          color: var(--focus);
+          background-color: var(--focus-500);
+        }
+    }
+
+    caption { display: inline-block; }
+
+    td, th {
+        color: var(--text);
+        padding: 4px 0;
+        width: calc(2em + 8px);
+        text-align: center;
+        line-height: 24px;
+        border-radius: 3px;
+    }
+
+    th {
+        &.weekday {
+            color: var(--text);
+            font-weight: bold;
+            font-size: 12px;
+        }
+        &.cw {
+            color: var(--text-gray);
+            font-size: 10px;
+            font-weight: 300;
+        }
+        &.weekend {
+          color: var(--text-gray);
+        }
+    }
+
+    td {
+        cursor: pointer;
+
+        &.outside {
+            color: var(--text-gray);
+            font-weight: 300;
+        }
+
+        &.today {
+            color: white;
+            background-color: var(--today);
+        }
+
+        &.weekend { color: var(--text-gray); }
+        &.weekend.outside { color: var(--text-gray); }
+        &.weekend.today { color: white; }
+
+        &.month, &.year {
+            width: 84px;
+            text-align: center;
+            padding: 16px 0;
+        }
+    }
+
+    .grid-datepicker {
+        clear: both;
+        td:hover { background-color: var(--background-50); color: var(--text); }
+        td[aria-selected="true"] { background-color: var(--background-100); color: var(--text); }
+        td[aria-selected="true"]:hover { background-color: var(--background-200); color: var(--text); }
+        &:focus td[aria-selected="true"] { background-color: var(--focus-500); color: white; }
+        td[aria-selected="true"].today { background-color: var(--today); color: white; }
+        &:focus td[aria-selected="true"].today { background-color: var(--today); color: white; }
+    }
+
+    .btn-today {
+        color: var(--text);
+        font-size: 13px;
+        text-align: center;
+        display: block;
+        margin: 8px 0 0 0;
+        width: 100%;
+    }
+
+    .window-sidepanel & {
+
+        display: block;
+        position: relative;
+        width: 100%;
+        border: 0;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 12px 16px;
+        margin-bottom: 8px;
+        z-index: 9;
+
+        &:focus {
+            border-color: #66afe9;
+            z-index: 10;
+            outline: 0;
+            box-shadow: 0px 0px 8px 2px rgba(102,175,233,.6);
+        }
+
+        .navigation {
+            margin: 3px 0 13px 0;
+        }
+
+        .grid {
+            margin: 0 auto;
+        }
+
+        td, th {
+            font-size: 12px;
+            line-height: 16px;
+        }
+    }
+}
+
+.time-picker {
+
+    @include dropdown-style();
+    padding: 8px 0;
+    max-height: 160px;
+    max-width: 100px;
+    overflow-y: auto;
+
+    .date {
+        color: #707070;
+        font-size: 13px;
+        line-height: 16px;
+        padding: 0 16px;
+    }
+
+    .date.fullhour {
+        color: #333;
+        font-weight: 500;
+        margin-top: 3px;
+        border-top: 1px solid #ccc;
+        padding-top: 4px;
+    }
+
+    .date.fullhour:first-child {
+        margin-top: 0;
+        border-top: 0;
+        padding-top: 0;
+    }
+}

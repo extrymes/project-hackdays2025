@@ -1,0 +1,321 @@
+@import '@/themes/imports.scss';
+
+.participantsrow {
+  margin-bottom: 20px;
+
+  legend { margin-bottom: 10px; }
+
+  .participant-wrapper {
+    margin-bottom: 8px;
+    margin-left: -15px;
+    @media (min-width: 768px) {
+      &.col-sm-6:nth-child(even) {
+        margin-left: 8px;
+      }
+    }
+    @media (max-width: 767px) {
+      .remove {
+        right: -15px;
+      }
+    }
+  }
+}
+
+.participant-wrapper {
+
+  margin-bottom: 8px;
+  position: relative;
+  min-height: 3.5rem; /* for floating icon */
+  line-height: 16px;
+
+  .autocomplete-item & { margin: 0; }
+
+  &.pointer { cursor: pointer; }
+
+  .remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30px;
+    line-height: 1em;
+    color: var(--text-disabled);
+    cursor: pointer;
+    display: none;
+
+    &:hover, &:focus {
+      background-color: var(--delete);
+      color: #fff;
+      text-decoration: none;
+      outline: 0;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      margin-top: -0.5em;
+      text-align: center;
+    }
+  }
+
+  &.removable {
+    padding-right: 40px;
+
+    .remove { display: block; }
+  }
+
+  .participant-name {
+    padding-top: 7px;
+    font-weight: bold;
+    @include ellipsis();
+  }
+
+  .participant-email-wrapper,
+  .extra-decorator-wrapper,
+  .participant-email { @include ellipsis(); }
+
+  .extra-decorator {
+    color: var(--text-gray);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover { color: #777; text-decoration: none }
+  }
+
+  &.three-rows {
+    line-height: 16px;
+    // needed or we get cut of descenders on smartphones
+    font-size: 14px;
+    .participant-name { padding-top: 4px; }
+  }
+
+  .participant-image {
+    float: left;
+    margin-right: 14px;
+    @include picture(54px, 54px); /* 54px allows 3 lines with 18px line-height */
+    max-height: 100px;
+    max-width: 100px;
+
+    &.contact-image,
+    &.external-user-image { background-image: url($fallback-image-contact); }
+
+    &.group-image {
+      background-image: url($fallback-image-group);
+      background-position: 0 -4px;
+    }
+
+    &.resource-image { background-image: url($fallback-image-resource); }
+  }
+}
+
+.attendee {
+
+  font-size: 14px;
+  min-height: 2.5rem;
+  line-height: 1.25rem;
+  background-color: var(--background);
+
+  .btn-toolbar {
+    color: var(--text-gray);
+  }
+
+  .remove {
+    &:hover:enabled, &:focus:enabled {
+      background-color: var(--delete);
+      color: #fff;
+      outline: 0;
+    }
+  }
+
+  .attendee-image {
+    @include picture(32px, 32px);
+    &.contact-image,
+    &.external-user-image { background-image: url($fallback-image-contact); }
+    &.group-image {
+      background-image: url($fallback-image-group);
+      background-position: 0 -4px;
+    }
+    &.resource-image { background-image: url($fallback-image-resource); }
+  }
+
+  .attendee-name {
+    color: var(--text);
+    .last_name, .display_name, .cn {
+      font-weight: 600;
+    }
+  }
+}
+
+.attendee-container {
+  &.animated {
+    .attendee {
+      transition: background-color 1s ease-in-out;
+      &.added {
+        background-color: var(--background-100);
+      }
+    }
+  }
+  .attendee {
+    padding-inline-start: 16px;
+    border-bottom: 1px solid var(--border-bright);
+
+    &:first-child {
+      border-top-left-radius: var(--default-radius);
+      border-top-right-radius: var(--default-radius);
+    }
+
+    &:last-child {
+      border-bottom-left-radius: var(--default-radius);
+      border-bottom-right-radius: var(--default-radius);
+      border-bottom: 0;
+    }
+  }
+}
+
+.participants-view {
+
+  $participant-needs-action:   #707070;
+  $participant-accepted:    #5C7F31;
+  $participant-declined:    #913F3F;
+  $participant-tentative:   #cc8800;
+
+  .group { border: none; }
+
+  fieldset{
+    margin: 0;
+  }
+
+  legend {
+    margin-bottom: 1px;
+    line-height: 18px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+  }
+
+  .status {
+    // prevent icons from floating around with multiple columns
+    display: inline-block;
+    position: absolute;
+    width: 16px;
+  }
+
+  .accepted .status { color: var(--status-green); }
+  .tentative .status { color: var(--status-yellow); }
+  .declined .status { color: var(--status-red); }
+  .needs-action .status { color: var(--text-gray); }
+
+  .summary-container {
+    color: var(--text-gray);
+  }
+
+  .io-ox-inline-links.embedded {
+    margin: 14px 0 18px 0;
+    line-height: 24px;
+    min-height: 0;
+  }
+
+  @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+    .io-ox-inline-links.embedded {
+      margin: 18px 0 14px 0;
+      line-height: 16px;
+    }
+  }
+
+  .summary {
+    margin-bottom: 0px;
+    display: inline-block;
+
+    .status {
+      position: relative;
+      margin-right: 0.3em;
+      line-height: 20px;
+    }
+
+    .active {
+      border: 1px solid #e5e5e5;
+      border-bottom: 1px solid #fff;
+      background-color: white;
+      border-top-right-radius: 7px;
+      border-top-left-radius: 7px;
+      margin-top: -1px;
+      margin-bottom: -1px;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+  }
+
+  .participant-list-header {
+    margin: 0;
+    font-size: inherit;
+    font-weight: normal;
+    line-height: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-gray);
+    .label-subtle {
+      font-size: 0.75rem;
+    }
+  }
+
+  .participant-list {
+
+    li {
+      width: 100%;
+      list-style-type: none;
+    }
+
+    .participant {
+      line-height: 1rem;
+      margin-bottom: 0.5rem;
+      padding-left: 32px;
+      position: relative;
+
+      .status {
+        position: absolute;
+        left: 8px;
+      }
+
+      &:focus {
+        .person.accepted,
+        .person.declined { color: black; }
+      }
+
+      a {
+        color: var(--text);
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      .person {
+         line-height: 16px;
+         @include ellipsis();
+      }
+
+      .comment {
+        color: var(--text-gray);
+        white-space: normal;
+      }
+    }
+  }
+}
+
+// keep this as "portable" as possible; just color
+.participation-status {
+  &.accepted { color: var(--status-green); }
+  &.tentative { color: var(--status-yellow); }
+  &.declined { color: var(--status-red); }
+  &.needs-action { color: var(--text-gray); }
+}
+
+.vgrid-cell ul.participant-list {
+  width: 500px;
+  white-space: normal;
+
+  .participant {
+    margin: auto;
+  }
+}

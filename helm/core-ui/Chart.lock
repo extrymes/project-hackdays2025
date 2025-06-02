@@ -1,0 +1,6 @@
+dependencies:
+- name: ox-common
+  repository: oci://registry.cloud.oxoe.io/common/charts
+  version: 1.0.17
+digest: sha256:07a37932f3dd3f060e79b3b7774a96782b302d0150502534eeff859c68bda625
+generated: "2022-02-01T15:47:52.768287+01:00"

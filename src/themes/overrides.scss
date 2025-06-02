@@ -1,0 +1,363 @@
+body {
+  color: var(--text);
+}
+
+a, .btn.btn-link {
+  color: var(--link);
+  &:hover, &:focus {
+    color: var(--link-hover)
+  }
+}
+
+a:focus {
+  outline: 5px auto var(--focus-500);
+  outline-offset: 0px;
+}
+
+a:focus-visible:not(.btn):not([href="#"]) {
+  color: var(--focus) !important;
+  background-color: var(--focus-500);
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px var(--focus-500);
+  outline: 0;
+}
+
+.btn {
+  border-radius: var(--button-radius);
+}
+
+// adopt bootstrap's more recent outline style
+
+.btn.btn-primary {
+  color: var(--btn-primary);
+  border-color: var(--btn-primary-background);
+  background-color: var(--btn-primary-background);
+  &:active {
+    background-color: var(--btn-primary-background);
+  }
+  &:hover, &:focus {
+    background-color: var(--btn-primary-background-hover);
+  }
+  &:focus {
+    box-shadow: 0 0 0 4px var(--btn-primary-outline);
+  }
+}
+
+.btn.btn-secondary {
+  color: var(--btn-secondary);
+  border-color: var(--btn-secondary-background);
+  background-color: var(--btn-secondary-background);
+  &:active {
+    background-color: var(--btn-secondary-background);
+  }
+  &:hover, &:focus {
+    background-color: var(--btn-secondary-background-hover);
+  }
+  &:focus {
+    box-shadow: 0 0 0 4px var(--btn-secondary-outline);
+  }
+}
+
+.btn.btn-default {
+  color: var(--text);
+  border-color: var(--border-bootstrap);
+  background-color: var(--background);
+  &:active, &:focus {
+    background-color: var(--background);
+  }
+  &:hover {
+    background-color: var(--background-100);
+    color: var(--text)
+  }
+  &:focus {
+    border-color: var(--focus-500);
+    box-shadow: 0 0 0 0.25rem var(--btn-primary-outline);
+  }
+}
+
+.btn-group .btn.btn-default.active {
+  color: var(--text);
+  background-color: var(--background-50);
+  opacity: 1;
+  box-shadow: none;
+  &:active, &:focus, &:hover {
+    background-color: var(--background-100);
+  }
+  &:active, &:focus {
+    box-shadow: 0 0 0 0.25rem var(--btn-primary-outline);
+  }
+}
+
+.btn-group.btn-group-accent {
+  .btn.btn-default {
+    border-color: var(--border-bright);
+  }
+}
+
+.btn.btn-link {
+  color: var(--link);
+  &:focus {
+    box-shadow: 0 0 0 4px var(--btn-primary-outline);
+  }
+}
+
+.btn.btn-outline {
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn.btn-text {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  justify-content: flex-start;
+  background: transparent;
+  border: 0;
+  padding: 0.25rem 0.5rem;
+  outline: 0;
+  &:active, &:focus, &:hover {
+    background-color: transparent;
+    outline: 0;
+    box-shadow: none;
+  }
+}
+
+.btn.btn-primary, .btn.btn-default, .btn.btn-link {
+  transition: background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+  &:focus, &:active:focus {
+    outline: 0;
+  }
+}
+
+.btn.btn-primary.disabled, .btn.btn-primary.btn[disabled] {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.btn.disabled, .btn[disabled] {
+  filter: opacity(0.70);
+}
+
+.form-control {
+  padding: .375rem .75rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.25rem;
+  height: auto;
+  color: var(--text);
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid var(--border-bootstrap);
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+select.form-control {
+  /* Otherwise Safari renders ugly boxes */
+  appearance: none;
+  /* taken from Bootstrap 5 */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  background-size: 16px 12px;
+  padding-right: 32px;
+  // overflow hidden is ignored by some browser but required for safari
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.twitter-typeahead {
+  .tt-input {
+    color: var(--text);
+  }
+  .tt-hint {
+    color: var(--text-gray)
+  }
+  .tt-input, .tt-hint {
+    background-color: #fff;
+  }
+
+  &.dropup .tt-dropdown-menu {
+    bottom: 100% !important;
+    top: auto !important;
+  }
+}
+
+.form-control:focus {
+  -ms-scroll-limit-x-max: #86b7fe;
+  outline: 0;
+  border-color: var(--focus-500);
+  box-shadow: 0 0 0 0.25rem var(--btn-primary-outline);
+}
+
+body .checkbox label, body .radio label {
+  font-size: 14px;
+}
+
+.dropdown > a {
+  color: inherit;
+}
+
+ul.dropdown-menu > li, ul.dropdown-menu > [role=group] > li {
+  a:hover{
+    color: var(--text);
+    background-color: var(--selected-dropdown-background-hover);
+  }
+  > a:focus{
+    color: var(--focus);
+    background-color: var(--focus-500);
+  }
+}
+
+.open > .dropdown-toggle.btn-primary {
+  border-color: var(--focus-600);
+  background-color: var(--focus-500);
+}
+
+.open > .dropdown-toggle.btn-primary:focus {
+  background-color: var(--focus-700);
+}
+
+ul.dropdown-menu > li > a:hover {
+  color: var(--text);
+  background-color: var(--background-5);
+}
+
+.dropdown-menu .gridview a {
+  display: inline-block;
+
+  &.current {
+    outline: 2px solid var(--accent);
+    border-color: var(--accent);
+    text-decoration: underline;
+  }
+}
+
+ul.dropdown-menu,
+div.dropdown-menu {
+  color: var(--text);
+  background-color: var(--background);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--default-radius);
+  box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
+  .dropdown-header {
+    color: var(--text-gray);
+  }
+}
+
+ul.dropdown-menu .divider {
+  background-color: var(--border-bright);
+}
+
+ul.dropdown-menu > li > a, ul.dropdown-menu > [role=group] > li > a {
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+li.dropdown-header {
+  max-width: none;
+}
+
+.list-unstyled {
+  padding-inline-start: 0;
+}
+
+.label.label-success {
+  background-color: #008500;
+}
+
+.progress-bar {
+  background-color: var(--accent-500);
+}
+
+.modal-content {
+  background-color: var(--background);
+  box-shadow: 0 15px 70px 10px rgb(0 0 0 / 50%);
+  .smartphone & { border-radius: 12px; }
+}
+
+.modal-header, .modal-footer {
+  border-color: var(--border-bright);
+}
+
+pre {
+  color: var(--text);
+  background-color: var(--background-100);
+  border-color: var(--border);
+}
+
+legend, label {
+  color: var(--text);
+}
+
+legend {
+  border-bottom-color: var(--border-bright);
+}
+
+.list-group-item {
+  background-color: var(--background);
+  border-color: var(--border);
+}
+
+@keyframes spin {
+  0%    { transform: rotate(0deg);          }
+  100%  { transform: rotate(360deg);        }
+}
+
+.animate-spin {
+  animation: spin 2s linear infinite;
+}
+
+.pause-animation {
+  animation-play-state: paused;
+}
+
+.alert-accent {
+  color: var(--accent-600);
+  background-color: var(--accent-20);
+  border-color: var(--accent-100);
+  .dark & {
+    color: var(--accent-200);
+    background-color: var(--accent-800);
+    border-color: var(--accent-700);
+  }
+}
+
+html[dir="rtl"] {
+
+  select.form-control {
+    background-position: left .75rem center;
+  }
+
+  .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0 var(--default-radius) var(--default-radius) 0;
+  }
+
+  .btn-group > .btn:last-child:not(:first-child),
+  .btn-group > .dropdown-toggle:not(:first-child) {
+    border-radius: var(--default-radius) 0 0 var(--default-radius);
+  }
+
+  @media (min-width: 768px) {
+    .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+      float: right;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+      float: right;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+      float: right;
+    }
+  }
+}

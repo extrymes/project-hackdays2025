@@ -1,0 +1,70 @@
+@import '@/themes/imports.scss';
+.editor .mce-tinymce,
+.mce-tinymce .mce-top-part::before {
+  box-shadow: none;
+}
+
+.contenteditable-editor {
+  z-index: 3;
+  margin-bottom: 0px;
+}
+
+.mce-content-body {
+
+  pre {
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    background-color: inherit;
+    border: none;
+    border-radius: 0;
+    font-family: inherit;
+  }
+}
+
+// align closing button of tinyMCE toolbar to the right
+.smartphone .tox-toolbar-overlord .tox-toolbar:nth-child(1) .tox-toolbar__group:last-child {
+  flex-grow: 1;
+  justify-content: flex-end;
+  padding-right: 14px;
+}
+
+.tox.tox-tinymce.tox-tinymce--toolbar-bottom {
+  position: static;
+  border: 0;
+
+  .tox-editor-header {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+
+  }
+
+  // fix for tinymce alerts
+  .tox-toolbar .tox-toolbar__group { padding: 0; }
+}
+
+.tox:not([dir=rtl]) .tox-toolbar .tox-toolbar__group:first-child {
+  border-right: 0;
+}
+
+.modal-open .tox .tox-dialog-wrap__backdrop {
+  background-color: inherit;
+}
+
+.io-ox-mail-compose-window {
+
+  .window-body {
+    .smartphone & { padding-bottom: 0; }
+  }
+
+  .window-container-center {
+    overflow: hidden;
+
+    .window-content {
+      position: static;
+    }
+  }
+}

@@ -1,0 +1,188 @@
+@import '@/themes/imports.scss';
+
+$size: 7.5rem;
+.contact-edit {
+
+    padding: 32px 0;
+    width: 100%;
+    display: block;
+    overflow-y: auto;
+
+    .form-group {
+        margin-bottom: 8px;
+    }
+
+    .contact-header {
+        height: $size;
+        margin-bottom: 32px;
+    }
+
+    .height-100 {
+        height: 100%;
+    }
+
+    label {
+        color: var(--text);
+        &.control-label { padding-top: 7px; }
+    }
+
+    input, select {
+        height: 2rem;
+    }
+
+    textarea {
+        min-height: 120px;
+    }
+
+    .section, fieldset {
+        margin-bottom: 32px;
+    }
+
+    .section-title {
+        font-weight: 500;
+        line-height: 32px;
+        color: #707070;
+    }
+
+    .dropdown[data-add] button {
+        color: var(--text-gray);
+        min-height: 32px;
+        .dropdown-label svg {
+          color: var(--add);
+          margin-right: 8px;
+      }
+    }
+
+    button.remove {
+        padding: 0;
+        outline: 0;
+
+        .bi-dash-circle {
+          color: var(--delete);
+          font-size: 20px;
+          position: relative;
+        }
+        &:hover, &:focus {
+            .bi-dash-circle {
+                color: #333;
+            }
+        }
+    }
+}
+
+.contact-photo-upload {
+
+    .contact-photo {
+
+        width: $size;
+        height: $size;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+        /* border: 3px solid white; */
+        box-shadow: 0 0 3px #000, 0 0 0px 3px var(--background) inset;
+        float: right;
+
+        padding: 8px;
+        font-size: 14px;
+        color: var(--text-gray);
+        display: flex;
+        align-items: center;
+        text-align: center;
+        background-color: var(--background-5);
+        cursor: pointer;
+        position: relative;
+
+        label {
+          margin: 0;
+          font-weight: normal;
+          line-height: 16px;
+          cursor: pointer;
+        }
+
+        &.focus {
+          border: 1px solid var(--focus-500);
+          box-shadow: 0 0 8px 2px var(--focus-500), 0 0 0px 2px white inset;
+        }
+    }
+
+    button.remove {
+        font-size: 18px;
+        position: absolute;
+        bottom: -0.25rem;
+        right: $size + 0.25rem;
+        outline: 0;
+    }
+
+    form {
+        position: absolute;
+        z-index: 1;
+    }
+
+    input[type=file] {
+        position: absolute;
+        top: 0;
+        width: $size;
+        height: $size;
+        opacity: 0;
+        cursor: pointer;
+        right: 16px;
+    }
+}
+
+@media (max-width: $smartphone-breakpoint) {
+
+    $size: 72px;
+
+    .contact-edit {
+
+        padding: 16px 0;
+        margin-left: 24px;
+        margin-right: 24px;
+        width: calc(100% - 15px);
+
+        .section, .fieldset {
+          &:last-child { margin-bottom: -8px; }
+        }
+
+        .contact-header {
+            height: $size;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        label.control-label {
+            padding-top: 9px;
+            margin-bottom: 3px;
+        }
+
+        button.remove {
+            .bi-dash-circle {
+                color: #a00;
+                font-size: 22px;
+                position: relative;
+            }
+        }
+
+        .dropdown[data-add] button {
+            padding: 4px;
+        }
+    }
+
+    .contact-photo-upload {
+        .contact-photo {
+            //width: $size;
+            //height: $size;
+            float: none;
+            border: 0;
+            box-shadow: none;
+        }
+        button.remove {
+            font-size: 14px;
+        }
+    }
+}

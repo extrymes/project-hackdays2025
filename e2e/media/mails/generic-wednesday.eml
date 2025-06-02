@@ -1,0 +1,19 @@
+To: Jane Doe <jane@doe.com>
+Subject: Wednesday
+From: John Doe <john@doe.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 4 Jan 2023 08:40:07 +0000
+
+
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+ </head>
+ <body>
+  <div class="default-style">
+   Received on a wednesday.
+  </div>
+ </body>
+</html>

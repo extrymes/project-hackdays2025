@@ -1,0 +1,24 @@
+@import '@/themes/imports.scss';
+
+.io-ox-multifactor-settings {
+  .list-item-controls > a.action {
+    @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+      min-width: 46px;
+      padding: 0;
+    }
+  }
+}
+
+.settings-list-view .mfName {
+  flex-basis: 100%;
+  padding-bottom: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 700;
+}
+
+.settings-list-view > li.multifactordevice > .mfTitle {
+  flex: 1;
+}
+
+.verification-options .modal-body button { height: 52px; }

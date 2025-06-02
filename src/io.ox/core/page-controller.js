@@ -1,0 +1,327 @@
+/*
+ *
+ * @copyright Copyright (c) OX Software GmbH, Germany <info@open-xchange.com>
+ * @license AGPL-3.0
+ *
+ * This code is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with OX App Suite. If not, see <https://www.gnu.org/licenses/agpl-3.0.txt>.
+ *
+ * Any use of the work other than as authorized under this license or copyright law is prohibited.
+ *
+ */
+
+import $ from '@/jquery'
+import _ from '@/underscore'
+import apps from '@/io.ox/core/api/apps'
+
+const PageController = function (o) {
+  const pages = {}
+  let current
+  const order = []
+  let lastPage = []
+  const self = this
+  // mimic an app object instead of real reference
+  const app = {
+    navbar: o.navbar || $(),
+    toolbar: o.toolbar || $(),
+    options: {
+      name: o.appname
+    }
+  }
+  // app = app,
+  let backButtonRules
+  const options = o || {}
+
+  function createPage (opt) {
+    const defaults = {
+      tag: '<div>',
+      classes: 'io-ox-pagecontroller page',
+      container: $()
+    }
+
+    opt = _.extend(defaults, opt)
+    if (options.container) opt.container = options.container
+    // store page
+    pages[opt.name] = {
+      $el: $(opt.tag).addClass(opt.classes),
+      navbar: opt.navbar,
+      toolbar: opt.toolbar,
+      secondaryToolbar: opt.secondaryToolbar,
+      name: opt.name
+    }
+
+    // pages must be created in the correct order
+    // to make the back function work
+    // first page created is the most left page in the stack
+    order.push(opt.name)
+
+    // for easier debugging
+    pages[opt.name].$el.attr('data-page-id', app.options.name + '/' + opt.name)
+
+    // append to container
+    $(opt.container)
+      .append(pages[opt.name].$el)
+
+    if (opt.startPage) {
+      self.setCurrentPage(opt.name)
+    }
+  }
+  /**
+   * simple showpage, does not add transition to pages
+   */
+  this.showPage = function (page) {
+    if (page !== current) {
+      self.setCurrentPage(page)
+    }
+  }
+
+  /**
+   * changePage
+   * changes the actual page to the given one
+   * with given animation and options
+   */
+  this.changePage = function (to, options) {
+    // check if valid
+    if (!pages[to]) {
+      console.warn('target page does not exist: ', to)
+      return
+    }
+    // check if same page
+    if (to === current) return
+
+    // no animations on anything but smartphones
+    const disableAnimations = !_.device('smartphone')
+    const opt = _.extend({
+      from: current,
+      // Android's native UI standard is pop, so we use this too
+      animation: _.device('android') ? 'pop' : 'slideleft',
+      disableAnimations
+    }, options || {})
+    const $toPage = pages[to].$el
+    const $fromPage = pages[opt.from].$el
+    const def = $.Deferred()
+
+    // trigger 'before' events
+    $toPage.trigger('pagebeforeshow', { frompage: opt.from })
+    $fromPage.trigger('pagebeforehide', { topage: opt.to })
+
+    // since the pagecontroller is also used on desktop
+    // we have to dismiss this part on desktop to prevent focus and a11y trouble
+    if (_.device('smartphone')) {
+      // page blur, dismiss keyboard
+      try {
+        if (document.activeElement && document.activeElement.nodeName.toLowerCase() !== 'body') {
+          $(document.activeElement).blur()
+        } else {
+          $('input:focus, textarea:focus, select:focus').blur()
+        }
+      } catch (e) {
+        // nothing
+      }
+    }
+
+    // save for back-button
+    lastPage = current
+    // start animation to-page in
+    current = to
+    let tapTrap = $('<div class="taptrap">')
+    if (_.device('!smartphone')) {
+      // taptrap is not needed on desktop, use empty node
+      tapTrap = $()
+    }
+
+    if (!opt.disableAnimations) {
+      _.defer(function () {
+        $toPage
+          .append(tapTrap)
+          .addClass('io-ox-core-animation in current ' + opt.animation)
+          .one('webkitAnimationEnd mozAnimationEnd animationend', function () {
+            $(this).removeClass('io-ox-core-animation in ' + opt.animation)
+            $toPage.trigger('pageshow', { from: opt.from, to: opt.to })
+            $(this).find('.taptrap').remove()
+            def.resolve()
+          })
+        // prevent leaking
+        tapTrap = null
+      }, 1)
+
+      // start animation "from" page out
+      _.defer(function () {
+        $fromPage.removeClass('current')
+          .addClass('io-ox-core-animation out inmotion ' + opt.animation)
+          .one('webkitAnimationEnd mozAnimationEnd animationend', function () {
+            $(this).removeClass('io-ox-core-animation out inmotion ' + opt.animation)
+            $fromPage.trigger('pagehide', { from: opt.from, to: opt.to })
+          })
+      }, 1)
+    } else {
+      // no animations, direct page change
+      $toPage.addClass('current').trigger('pageshow', { from: opt.from, to: opt.to })
+      $fromPage.removeClass('current').trigger('pagehide', { from: opt.from, to: opt.to })
+    }
+
+    showNavbar(to)
+    showToolbar(to)
+    apps.trigger('layout', app)
+    return def
+  }
+
+  /**
+   * setBackButtonRules is used to customize
+   * the back button navigation. The rules object
+   * is used to navigate back from a page (key) to another page (value)
+   * @param {object[]} rules An object with key-value pairs of currentPage and toPage
+   */
+  this.setBackbuttonRules = function (rules) {
+    backButtonRules = rules
+  }
+
+  this.goBack = function (options) {
+    let target = lastPage
+    const o = _.extend({ animation: 'slideright' }, options || {})
+    // if we do have a custom navigation for some pages
+    // use this instead of the last page
+    if (backButtonRules && backButtonRules[current]) {
+      target = backButtonRules[current]
+    }
+    this.changePage(target, o)
+  }
+
+  /**
+   * addPage creates a new page and adds it to the current page stack
+   * @param {object[]} opt an object like this { name: string, container: Node, navbar: NavbarView, toolbar: ToolbarView }
+   */
+  this.addPage = function (opt) {
+    if (!opt) return
+    createPage(opt)
+    return this
+  }
+
+  /**
+   * getPage
+   * return the main DOM node of the page
+   * @param  {string}      page pagename to return
+   * @return {jQuery.Node}
+   */
+  this.getPage = function (page) {
+    if (!pages[page]) {
+      console.error('PageController: Page ' + page + ' does not exist.')
+      console.error('PageController: Available pages are ' + order.join())
+      return
+    }
+    return pages[page].$el
+  }
+  /**
+   * returns the whole page object
+   * @param  {string} page identifier of the page
+   * @return {object}      the page object
+   */
+  this.getPageObject = function (page) {
+    if (!pages[page]) {
+      console.error('PageController: Page ' + page + ' does not exist.')
+      console.error('PageController: Available pages are ' + order.join())
+      return
+    }
+    return pages[page]
+  }
+
+  this.getNavbar = function (page) {
+    if (!pages[page]) {
+      console.error('PageController: Page ' + page + ' does not exist.')
+      return
+    }
+    return pages[page].navbar
+  }
+
+  this.getAll = function () {
+    return pages
+  }
+
+  this.getToolbar = function (page) {
+    if (!pages[page]) {
+      console.error('PageController: Page ' + page + ' does not exist.')
+      return
+    }
+    return pages[page].toolbar
+  }
+
+  this.getSecondaryToolbar = function (page) {
+    if (!pages[page]) {
+      console.error('PageController: Page ' + page + ' does not exist.')
+      return
+    } else if (!pages[page].secondaryToolbar) {
+      console.error('PageController: Page ' + page + ' does not own a secondary toolbar.')
+      return
+    }
+    return pages[page].secondaryToolbar
+  }
+
+  this.getCurrentPage = function () {
+    return pages[current]
+  }
+
+  this.setCurrentPage = function (page) {
+    if (current) pages[current].$el.removeClass('current')
+    pages[page].$el.addClass('current')
+    showNavbar(page)
+    showToolbar(page)
+    current = page
+  }
+
+  this.getPages = function () {
+    return pages
+  }
+
+  const showNavbar = function (page) {
+    const bar = pages[page].navbar; const last = pages[lastPage]
+    if (last && last.navbar) last.navbar.toggle(false)
+    if (bar) {
+      if (!bar.rendered) bar.render()
+      app.navbar.append(bar.$el)
+      app.navbar.toggle(true)
+      bar.toggle(true)
+    } else {
+      // hide navbar from previous page to get "fullscreen" page
+      app.navbar.hide()
+      pages[page].$el.addClass('fullscreen') // remove padding
+    }
+  }
+
+  const showToolbar = function (page, secondary) {
+    let bar
+    if (secondary && !!pages[page].secondaryToolbar) {
+      bar = pages[page].secondaryToolbar
+    } else if (pages[page].toolbar) {
+      bar = pages[page].toolbar
+    }
+    if (bar) {
+      // remove old stuff
+      app.toolbar.children().detach()
+      // append new toolbar view and show toolbar container
+      app.toolbar.append(bar.$el).show()
+      app.toolbar.trigger('show')
+      if (!secondary) {
+        bar.render()
+      }
+    } else if (app.toolbar) {
+      // if there is no toolbar defined for the current page, hide the whole container
+      app.toolbar.children().detach()
+      app.toolbar.hide()
+      app.toolbar.trigger('hide')
+    }
+  }
+
+  this.toggleSecondaryToolbar = showToolbar
+}
+
+export default PageController

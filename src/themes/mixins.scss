@@ -1,0 +1,77 @@
+@mixin picture($width: 64px, $height: 64px){
+  width: $width;
+  height: $height;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  border-radius: $contact-picture-radius;
+}
+
+@mixin vertical-gradient($startColor: #888888, $endColor: #333333){
+  background-color: mix($startColor, $endColor, 60%);
+  background-image: linear-gradient(to bottom, $startColor, $endColor);
+  background-repeat: repeat-x;
+}
+
+@mixin radial-gradient($color1: #000000, $color2: #555555, $color3: #ffffff){
+  background: radial-gradient(center, ellipse cover,  $color1 0,$color2 31%,$color3 100%)
+}
+
+@mixin placeholder($color, $weight: normal){
+  &::placeholder {
+    color: $color;
+    font-weight: $weight;
+  }
+}
+
+@mixin displayByState($selector-a, $selector-b, $selector-state: '.expanded', $display: inline-block ){
+  @include displayWhen($selector-a, ':not(#{$selector-state})', $display);
+  @include displayWhen($selector-b, #{$selector-state}, $display)
+}
+
+// exchange visibility of $default and $other when $toggleclass is set
+@mixin displayWhen($selector, $selector-show, $display: inline-block){
+  #{$selector} { display: none; }
+  &#{$selector-show} #{$selector} { display: $display; }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin user-select($type: none) {
+  user-select: $type;
+  // safari still needs this (even in 2021)
+  -webkit-user-select: $type;
+}
+
+@mixin overflow($type: auto){
+  overflow: $type;
+}
+
+@mixin overflow-x($type: auto){
+  overflow-x: $type;
+}
+
+@mixin overflow-y($type: auto){
+  overflow-y: $type;
+}
+
+@mixin backface-visibility($type: hidden){
+  .touch & {
+    backface-visibility: $type;
+  }
+}
+
+@mixin align-self($align: auto){
+  align-self: $align;
+}
+
+@mixin flex-center($direction: column){
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}

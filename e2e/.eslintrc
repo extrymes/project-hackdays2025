@@ -1,0 +1,19 @@
+{
+    "plugins": [
+        "codeceptjs"
+    ],
+
+    "env": {
+        "mocha": true,
+        "codeceptjs/codeceptjs": true
+    },
+    "globals": {
+        "locate": false,
+        "session": false
+    },
+
+    "rules": {
+      "no-unused-expressions": 0,
+      "import/no-absolute-path": 0
+    }
+}

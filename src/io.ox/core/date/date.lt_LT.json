@@ -1,0 +1,124 @@
+{
+    "daysInFirstWeek": 4,
+    "weekStart": 1,
+    "days": [
+        "sekmadienis",
+        "pirmadienis",
+        "antradienis",
+        "trečiadienis",
+        "ketvirtadienis",
+        "penktadienis",
+        "šeštadienis"
+    ],
+    "daysShort": [
+        "sk",
+        "pr",
+        "an",
+        "tr",
+        "kt",
+        "pn",
+        "št"
+    ],
+    "daysStandalone": [
+        "Sk",
+        "Pr",
+        "An",
+        "Tr",
+        "Kt",
+        "Pn",
+        "Št"
+    ],
+    "months": [
+        "sausis",
+        "vasaris",
+        "kovas",
+        "balandis",
+        "gegužė",
+        "birželis",
+        "liepa",
+        "rugpjūtis",
+        "rugsėjis",
+        "spalis",
+        "lapkritis",
+        "gruodis"
+    ],
+    "monthsShort": [
+        "saus.",
+        "vas.",
+        "kov.",
+        "bal.",
+        "geg.",
+        "birž.",
+        "liep.",
+        "rugp.",
+        "rugs.",
+        "spal.",
+        "lapkr.",
+        "gruod."
+    ],
+    "formats": {
+        "E": "E",
+        "yMd": "y-MM-dd",
+        "yMEd": "y-MM-dd, E",
+        "yMMMd": "y MMM d",
+        "yMMMEd": "y MMM d, E",
+        "hm": "hh:mm a",
+        "Hm": "HH:mm",
+        "v": "v",
+        "Md": "MM-d",
+        "Hmv": "HH:mm v",
+        "hmv": "hh:mm a v",
+        "yMdHm": "y-MM-dd HH:mm",
+        "yMdHmv": "y-MM-dd HH:mm v",
+        "yMdhm": "y-MM-dd hh:mm a",
+        "yMdhmv": "y-MM-dd hh:mm a v",
+        "yMEdHm": "y-MM-dd, E HH:mm",
+        "yMEdHmv": "y-MM-dd, E HH:mm v",
+        "yMEdhm": "y-MM-dd, E hh:mm a",
+        "yMEdhmv": "y-MM-dd, E hh:mm a v"
+    },
+    "date": "y MMM d",
+    "time": "HH:mm",
+    "dateTimeFormat": "%2$s %1$s",
+    "intervals": {
+        "fallback": "%1$s – %2$s",
+        "hm": {
+            "a": "hh:mm a–hh:mm a",
+            "h": "hh:mm–hh:mm a",
+            "m": "hh:mm–hh:mm a"
+        },
+        "Hm": {
+            "h": "HH:mm–HH:mm",
+            "m": "HH:mm–HH:mm"
+        },
+        "hmv": {
+            "a": "hh:mm a–hh:mm a v",
+            "h": "hh:mm–hh:mm a v",
+            "m": "h:mm–h:mm a v"
+        },
+        "Hmv": {
+            "h": "HH:mm–HH:mm v",
+            "m": "HH:mm–HH:mm v"
+        },
+        "yMMMd": {
+            "d": "y MMM d–d",
+            "m": "y MMM d – MMM d",
+            "y": "y MMM d – y MMM d"
+        },
+        "yMMMEd": {
+            "d": "y MMM d, E – MMM d, E",
+            "m": "y MMM d, E. – MMM d, E.",
+            "y": "y MMM d, E. – y MMM d, E."
+        }
+    },
+    "dayPeriods": {
+        "am": "priešpiet",
+        "pm": "popiet"
+    },
+    "eras": [
+        "pr. m. e.",
+        "po m. e."
+    ],
+    "dateTime": "y MMM d HH:mm",
+    "h12": false
+}

@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "danlevett.pattern-links",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "editorconfig.editorconfig",
+    "gruntfuggly.todo-tree",
+    "mikestead.dotenv",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "octref.vetur",
+    "prantlf.fold-on-open",
+    "redhat.vscode-yaml",
+    "rlnt.keep-a-changelog",
+    "streetsidesoftware.code-spell-checker-german",
+    "streetsidesoftware.code-spell-checker-scientific-terms",
+    "streetsidesoftware.code-spell-checker",
+    "tim-koehler.helm-intellisense",
+    "zignd.html-css-class-completion"
+  ]
+}

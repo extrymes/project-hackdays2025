@@ -1,0 +1,304 @@
+@import '@/themes/imports.scss';
+
+$viewer-toolbar-height: 2.5rem;
+$viewer-toolbar-link-width: 48px;
+$viewer-toolbar-link-width-smartphone: 50px;
+$viewer-sidebar-width: 320px;
+$viewer-sidebar-width-smartphone: 100%;
+
+/* OX Viewer =============================================================== */
+
+.io-ox-viewer {
+  outline: 0;
+  z-index: 1000;
+  background: var(--background);
+
+  &.dark {
+    background: rgba(0, 0, 0, 90%);
+
+    > .viewer-toolbar, > .viewer-sidebar, .viewer-overlay-button, .swiper-slide:not(.exclude-dark), .window-blocker {
+      --background-base: 0, 0%, 0%;
+      --background: #222;
+      --background-100: #333;
+      --background-a80: hsla(var(--background-base), 80%);
+      --shade-base: 0, 0%, 100%;
+      --shade-a5: hsla(var(--shade-base), 5%);
+      --shade-a10: hsla(var(--shade-base), 10%);
+      --border: #444;
+      --border-bright: #111;
+      --text: #aaa;
+      --text-gray: #888;
+      // adjust link colors in dark mode (TODO: should be fixed in dark theme itself)
+      --link: var(--indigo-300);
+      --link-hover: var(--indigo-400);
+      --toolbar: #999;
+      --avatar: var(--text);
+      --avatar-background: #333;
+      color: var(--text);
+      color-scheme: dark;
+    }
+
+    .viewer-sidebar .dropdown-menu {
+      // colors taken from dark theme
+      --background: #303030;
+      --border-bright: #444444;
+      --background-5: #2A2A2A;
+
+    }
+  }
+
+  @media print {
+    background: white !important;
+  }
+}
+
+/* OX Viewer Toolbar ======================================================= */
+
+.io-ox-viewer .viewer-toolbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  padding: 0 !important;
+  margin: 0 !important;
+  @include user-select(none);
+
+  .classic-toolbar {
+    box-sizing: content-box;
+    height: $viewer-toolbar-height;
+    background: var(--background);
+    border-bottom: 1px solid var(--border-bright);
+
+    > li {
+      display: inline-block;
+      text-align: center;
+
+      > .btn {
+        min-width: $viewer-toolbar-link-width;
+        border-radius: 0;
+      }
+    }
+
+    .viewer-toolbar-flex-spacer {
+      flex-grow: 1;
+    }
+
+    .viewer-toolbar-filename-parent {
+      overflow: hidden;
+
+      > .btn.viewer-toolbar-filename {
+
+        &.current-version { // special behavior rename button, icon should be outside of hitzone
+          margin-left: 35px;
+          padding-left: 5px;
+          padding-right: 5px;
+          @media (max-width: 580px)  { margin-left: 33px; }
+          svg.file-type-icon {
+            position: absolute;
+            left: 16px;
+            width: 16px;
+            height: 16px;
+            @media (max-width: 580px)  { left: 14px; }
+          }
+          .filename-label {
+            @include ellipsis();
+          }
+        }
+
+        &.old-version {
+          color: var(--toolbar);
+          opacity: 1;
+          svg {
+            min-width: 16px;
+          }
+          .version-label {
+            padding-left: 8px;
+            @include ellipsis();
+          }
+        }
+      }
+    }
+
+    .viewer-toolbar-navigation {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .viewer-toolbar-page {
+        width: 2.5rem;
+        margin: 0 5px;
+        padding: 4px;
+        text-align: right;
+      }
+
+      .viewer-toolbar-page-total {
+        color: var(--text-gray);
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      @media (max-width: 767px)  { display: none; }
+    }
+
+    .more-dropdown {
+      margin-right: $viewer-toolbar-link-width;
+      @media (max-width: 1023px) { margin-right: 0; }
+    }
+  }
+}
+
+/* OX Viewer Main Area ===================================================== */
+
+.io-ox-viewer .viewer-displayer {
+  position: absolute;
+  top: calc($viewer-toolbar-height + 1px);
+  width: 100%;
+  bottom: 0;
+}
+
+/* OX Viewer Sidebar ======================================================= */
+
+// overrides for generic sidebar styling (io.ox/core/viewer/views/sidebarview.scss)
+.io-ox-viewer .viewer-sidebar {
+  position: absolute;
+  top: calc($viewer-toolbar-height + 1px);
+  right: 0;
+  bottom: 0;
+  width: $viewer-sidebar-width;
+  background: var(--background);
+  border-left: 1px solid var(--border-bright);
+
+  &.smartphone {
+    width: $viewer-sidebar-width-smartphone;
+  }
+
+  .viewer-sidebar-tabs {
+    list-style: none;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 0;
+    @include user-select(none);
+
+    li {
+      display: inline-block;
+      width: 50%;
+
+      a {
+        display: block;
+        border-bottom: 2px solid var(--border);
+        line-height: 2.5em;
+        text-align: center;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        color: var(--text-gray);
+
+        &:hover {
+          background: var(--shade-a5);
+        }
+
+        &.selected {
+          background-color: var(--shade-a10);
+          border-bottom-color: var(--accent);
+          color: var(--text);
+        }
+      }
+    }
+
+    &:not(.hidden) ~ .viewer-sidebar-pane.detail-pane .details-title {
+      display: none;
+    }
+  }
+
+  .viewer-sidebar-pane.thumbnail-pane {
+    display: flex;
+    flex-flow: row wrap;
+
+    &.io-ox-busy::before {
+      top: 100px;
+      color: var(--shade-a30);
+    }
+
+    .document-thumbnail-link {
+      width: 50%;
+      max-width: 150px;
+      height: 180px;
+      padding: 10px 0 0 0;
+      vertical-align: top;
+      cursor: pointer;
+      color: var(--text-gray);
+
+      &:hover {
+        background: var(--shade-a5);
+        text-decoration: none;
+      }
+
+      .document-thumbnail {
+        width: 100px;
+        height: 140px;
+        margin: 0 auto;
+        overflow: hidden;
+        background: white; // intentionally always white (document contents)
+        border: 1px solid var(--border);
+
+        &.landscape {
+          width: calc(100% - 4px);
+          height: 100px;
+        }
+      }
+
+      .thumbnail-image {
+        width: 100%;
+        height: auto;
+      }
+
+      .page-number {
+        text-align: center;
+        margin-top: 5px;
+        font-weight: bold;
+      }
+
+      &.selected {
+        background: var(--shade-a10);
+        .page-number {
+          color: var(--accent);
+        }
+      }
+    }
+  }
+
+  @media print {
+    display: none !important;
+  }
+
+  /* enable iOS momentum scrolling */
+  :root.ios & {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* OX Viewer Print Preview Overlay ========================================= */
+
+.io-ox-viewer .viewer-print-overlay {
+  display: none;
+
+  @media print {
+    @include flex-center(row);
+    position: absolute;
+    z-index: 2;
+    background-color: white !important;
+    height: 100%;
+
+    .print-content > * {
+      margin: 15px 100px;
+      font-size: 32px;
+      text-align: center;
+      color: #333 !important;
+
+      svg.bi {
+        width: 75px;
+        height: 75px;
+      }
+    }
+  }
+}

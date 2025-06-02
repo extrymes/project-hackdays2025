@@ -1,0 +1,17 @@
+.about-dialog {
+  .extended-placeholder {
+    min-height: 2em;
+  }
+
+  .modal-body .details {
+    padding: 8px;
+    font-family: monospace;
+    white-space: pre-line;
+
+    p:last-child { margin: 0; }
+  }
+
+  &.extended .modal-dialog{
+    width: 600px;
+  }
+}

@@ -1,0 +1,405 @@
+html {
+  width: 100%;
+}
+
+body {
+  padding: 1.5cm;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 13px;
+  line-height: 18px;
+  max-width: 21cm;
+  margin: 0;
+}
+
+.note {
+  background-color: #08c;
+  color: #fff;
+  padding: 13px;
+  margin: 0 0 2em 0;
+}
+
+.note i {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media print {
+  /* see OXUIB-467 and OXUIB-2148, https://www.w3.org/TR/css-page-3/#propdef-page */
+  * { page: none !important; }
+  body { padding: 0; }
+  .note { display: none; }
+  thead { display: table-header-group; }
+  /* chrome currently doesn't support page-break-... */
+  tbody.no-break, header, div.no-break { page-break-inside: avoid; }
+  a, a:visited { color: #000; text-decoration: underline; }
+
+  @page {
+    margin: 2cm;
+  }
+}
+
+h1 {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 200;
+  margin: 0.4em 0 0.4em 0;
+  clear: both;
+}
+
+h2 {
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 200;
+  margin: 0;
+  clear: both;
+}
+
+a, a:visited { color: #08c; }
+
+p {
+  padding: 0;
+  margin: 0.5em 0 0.5em 0;
+}
+
+blockquote {
+  border-left: 1px solid #aaa;
+  padding: 0 0 0 23px;
+  margin: 16px 0;
+}
+
+.item {
+  margin: 0 0 2cm 0;
+}
+
+.item-compact {
+  margin: 0 0 0.25cm 0;
+
+}
+
+.compact-subject {
+  font-weight: bold;
+}
+
+.item-compact:not(:first-of-type) {
+  border-top: 1px solid #CCC;
+  padding-top: 0.25cm;
+}
+
+label {
+  color: #888;
+}
+
+/* on paper this looks fine #888 looks like black */
+.label-compact {
+  color: #CCC;
+}
+
+.content, .top-border {
+  margin: 1em 0 0 0;
+  padding-top: 1em;
+  border-top: 1px solid #CCC;
+}
+
+pre.content {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  white-space: pre-line;
+}
+
+pre.content a {
+  word-break: break-word;
+}
+
+/* only apply for html-mail content*/
+section.html pre.content {
+  line-height: normal;
+  white-space: normal;
+}
+
+section.text.fixed-width-font pre.content {
+  font-family: monospace;
+  -webkit-font-feature-settings: normal;
+  font-feature-settings: normal;
+}
+
+table {
+  width: 100%;
+}
+
+div.phonelist th {
+  line-height: 1.2em;
+  padding: 1em 1em 1em 0;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: normal;
+  font-style: italic;
+}
+
+div.phonelist td {
+  line-height: 1.2em;
+  padding: 0 1em 0 0;
+  vertical-align: top;
+}
+
+td.spacer {
+  line-height: 2em;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+div.phonelist-details > div {
+  padding-bottom: 1.5em;
+}
+
+div.phonelist-details .contact-details > div {
+  width: 50%;
+  display: inline-block;
+  min-height: 1px;
+  float: left;
+}
+
+div.phonelist-details fieldset {
+  border: 0;
+  padding: 0;
+}
+
+div.phonelist-details legend {
+  font-weight: bold;
+  padding: 16px 0 8px 0;
+}
+
+div.phonelist-details h1 {
+  margin: 0;
+  padding: 0.4em 0 0.4em 0;
+}
+
+div.phonelist-details ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0px;
+}
+
+div.phonelist-details address {
+  font-style: normal;
+  white-space: pre-line;
+}
+
+div.phonelist-details table {
+  border-spacing: 0px;
+}
+
+div.phonelist-details td {
+  padding: 0px;
+}
+
+div.spacer-bottom {
+  line-height: 2em;
+  border-bottom: 1px solid #aaa;
+  clear: both;
+}
+
+img {
+  /* see bug 57066
+  width: auto;
+  max-width: 100%;
+  */
+  height: auto;
+  margin-bottom: 2em;
+  border: 0;
+}
+
+/* Phone list */
+
+.thumb-index {
+  color: #CCC;
+  font-size: 32px;
+  line-height: 1.2em;
+  font-weight: bold;
+  padding: 0em 0 0.5em 0;
+}
+
+/* Calendar & Tasks */
+
+.person { white-space: nowrap; }
+.comment { color: #555; }
+.accepted .person { color: #353; }
+.tentative .person { color: #CA8812; }
+.declined .person { color: #800; text-decoration: line-through; }
+
+/* resized preview in iframe */
+body.scaled-preview {
+  transform: scale(0.22);
+  transform-origin: 0 0;
+  width: 21cm;
+  overflow: hidden;
+}
+
+/* Month view */
+
+.month-view {
+  border-top: 1px solid #C0C0C0;
+  border-left: 1px solid #C0C0C0;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: 12px;
+}
+
+h1.calendar-title {
+  text-align: center;
+}
+
+.month-view tr {
+  min-height: 16%;
+}
+
+.month-view td {
+  vertical-align: top;
+  position: relative;
+}
+
+.month-view td.out {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.month-view .date {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.month-view td, .month-view th{
+  border-right: 1px solid #C0C0C0;
+  border-bottom: 1px solid #C0C0C0;
+  overflow: hidden;
+}
+
+.month-view ul {
+  padding: 2px;
+  margin: 0;
+  list-style-type: none;
+  min-height: 40px;
+}
+
+.month-view .time{
+  font-weight: bold;
+}
+
+/* Week view */
+
+.week-view {
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.week-view th {
+  border-right: 1px solid #C0C0C0;
+  border-bottom: 1px solid #C0C0C0;
+  z-index: 2;
+}
+
+.week-view .label {
+  white-space: nowrap;
+  width: 80px;
+  text-align: right;
+  vertical-align: top;
+  padding: 4px 8px;
+  position: relative;
+
+  border-bottom: 1px solid #C0C0C0;
+  border-right: 1px solid #C0C0C0;
+}
+
+.week-view tr:last-child .label {
+  border-bottom: none;
+}
+
+.week-view .label > span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 2px 4px;
+}
+
+.week-view td {
+  padding: 0;
+}
+
+.week-view .slot {
+  position: relative;
+  height: 60px;
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+.week-view .allday-slot {
+  border-bottom: 1px solid #C0C0C0;
+  border-right: 1px solid #C0C0C0;
+}
+
+.week-view .slot-border {
+  position:  absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px solid #C0C0C0;
+  border-right: 1px solid #C0C0C0;
+}
+
+.week-view .event {
+  overflow: hidden;
+  border: 1px solid gray;
+  z-index: 1;
+  background-color: white;
+  padding: 1px;
+  font-size: 12px;
+  line-height: 14px;
+
+  box-sizing: border-box;
+}
+
+.week-view .event.absolute {
+  position: absolute;
+}
+
+.week-view-event-list {
+  display: inline;
+  position: absolute;
+  padding-right: 1.5cm;
+}
+
+.week-view-event-list .event-list-header {
+  font-weight: bold;
+  border-bottom: 1px solid #C0C0C0;
+  padding-left: 8px;
+  line-height: 20px;
+}
+
+.week-view-event-list .event {
+  padding-left: 8px;
+  padding-top: 8px;
+  margin-bottom: 8px;
+  border-top: 1px solid #C0C0C0;
+}
+
+.week-view-event-list .event .summary{
+  font-weight: bold;
+}
+
+.recovery-code {
+  font-size: 3em;
+  font-weight: bold;
+  padding: 10px;
+  line-height: 50px;
+}

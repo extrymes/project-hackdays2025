@@ -1,0 +1,143 @@
+global:
+  appsuite:
+    appRoot: "/"
+
+core-ui:
+  containerPort: 8080
+  image:
+    registry: registry.gitlab.open-xchange.com
+    repository: frontend/ui
+    pullPolicy: Always
+  imagePullSecrets:
+    - name: gitlab-registry-credentials
+  podAnnotations:
+    sidecar.istio.io/inject: "false"
+    sidecar.istio.io/proxyCPU: "100m"
+    sidecar.istio.io/proxyCPULimit: "200m"
+    sidecar.istio.io/proxyMemory: "128Mi"
+    sidecar.istio.io/proxyMemoryLimit: "128Mi"
+  resources:
+    requests:
+      cpu: "5m"
+      memory: "32Mi"
+    limits:
+      memory: "32Mi"
+
+appsuite:
+  core-ui-middleware:
+    existingConfigMap: "preview-core-ui-middleware"
+
+    ingress:
+      enabled: false
+
+    autoscaling:
+      enabled: true
+      minReplicas: 1
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 80
+
+    redis:
+      hosts:
+        - main-redis-master.main-e2e-stack.svc.cluster.local:6379
+    podAnnotations:
+      sidecar.istio.io/inject: "false"
+      sidecar.istio.io/proxyMemory: "196Mi"
+      sidecar.istio.io/proxyMemoryLimit: "196Mi"
+    resources:
+      requests:
+        cpu: "200m"
+        memory: "384Mi"
+      limits:
+        memory: "768Mi"
+    extras:
+      monitoring:
+        enabled: true
+
+  core-user-guide:
+    ingress:
+      enabled: false
+    podAnnotations:
+      sidecar.istio.io/inject: "false"
+      sidecar.istio.io/proxyCPU: "100m"
+      sidecar.istio.io/proxyCPULimit: "200m"
+      sidecar.istio.io/proxyMemory: "128Mi"
+      sidecar.istio.io/proxyMemoryLimit: "128Mi"
+    resources:
+      requests:
+        cpu: "5m"
+        memory: "32Mi"
+      limits:
+        memory: "32Mi"
+
+  office-web:
+    enabled: true
+    ingress:
+      enabled: false
+    podAnnotations:
+      sidecar.istio.io/inject: "false"
+      sidecar.istio.io/proxyCPU: "100m"
+      sidecar.istio.io/proxyCPULimit: "200m"
+      sidecar.istio.io/proxyMemory: "128Mi"
+      sidecar.istio.io/proxyMemoryLimit: "128Mi"
+    resources:
+      requests:
+        cpu: "5m"
+        memory: "32Mi"
+      limits:
+        memory: "32Mi"
+
+  office-user-guide:
+    enabled: true
+    ingress:
+      enabled: false
+    podAnnotations:
+      sidecar.istio.io/inject: "false"
+      sidecar.istio.io/proxyCPU: "100m"
+      sidecar.istio.io/proxyCPULimit: "200m"
+      sidecar.istio.io/proxyMemory: "128Mi"
+      sidecar.istio.io/proxyMemoryLimit: "128Mi"
+    resources:
+      requests:
+        cpu: "5m"
+        memory: "32Mi"
+      limits:
+        memory: "32Mi"
+
+  core-ui:
+    enabled: false
+
+  core-guidedtours:
+    enabled: false
+
+  guard-ui:
+    enabled: false
+
+  core-documents-collaboration:
+    enabled: false
+
+  core-documentconverter:
+    enabled: false
+
+  core-imageconverter:
+    enabled: false
+
+  core-spellcheck:
+    enabled: false
+
+  core-mw:
+    enabled: false
+
+  plugins-ui:
+    enabled: false
+
+  cloud-plugins-ui:
+    enabled: false
+
+  core-drive-help:
+    enabled: false
+
+  drive-client-windows-ox:
+    enabled: false
+
+  switchboard:
+    enabled: false

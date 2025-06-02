@@ -1,0 +1,6 @@
+{
+  "path": "io.ox/calendar/resources/main",
+  "namespace": "core",
+  "requires": "calendar",
+  "feature": "resourceCalendars"
+}

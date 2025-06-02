@@ -1,0 +1,263 @@
+@import '@/themes/imports.scss';
+
+.monthview-container {
+
+  * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+  .header {
+    min-height: 64px;
+    height: auto;
+    flex: 0 0 auto;
+    display: flex;
+    padding-top: 16px;
+
+    .smartphone & {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .info {
+      height: 1.875rem;
+    }
+  }
+
+  .month-container {
+    flex: 1;
+    overflow: hidden;
+    outline: none;
+  }
+
+  .month {
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+
+    .weekend { display: none; }
+    &.weekends .weekend { display: table-cell; }
+    .cw { display: none; }
+    &.cw .cw { display: table-cell; }
+
+    thead {
+      display: none;
+
+      tr {
+        height: 32px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      th {
+        text-align: center;
+        color: var(--text-gray);
+        font-size: 14px;
+        font-weight: normal;
+      }
+    }
+
+    .week {
+      .day {
+        // background color removed to avoid firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=688556
+        background: transparent;
+        border-top: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        position: relative;
+
+        &.cw {
+          width: 80px;
+          .number {
+            font-weight: normal;
+            color: var(--text-gray);
+          }
+        }
+
+        .number {
+          position: absolute;
+          color: var(--text);
+          font-weight: bold;
+          text-align: center;
+          right: 1px;
+          top: 1px;
+          padding: 3px 8px;
+          z-index: 1;
+          font-size: 13px;
+          line-height: 16px;
+          background-color: transparent;
+          @include user-select(none);
+          cursor: default;
+
+          .day-label {
+            font-weight: normal;
+            color: var(--text-gray);
+            margin-right: 4px;
+          }
+        }
+
+        &.today .number {
+          color: #fff;
+          font-weight: bold;
+          background-color: var(--today);
+          border-radius: 4px;
+          .day-label {
+            color: white;
+          }
+        }
+
+        &.out {
+          background-color: var(--background-5);
+
+          .appointment {
+            border-inline-start-color: transparent !important;
+            background-color: transparent!important;
+            color: var(--text-gray)!important;
+            background-image: none;
+            &.hover {
+              background-color: var(--background-300)!important;
+            }
+          }
+
+          &:not(.today) {
+            .number {
+              color: var(--text-gray);
+              font-weight: normal;
+            }
+          }
+        }
+
+        .list {
+          top: 1.5rem;
+          bottom: 1px;
+          margin: 0 1px;
+          @include overflow-y(auto);
+          z-index: 0;
+        }
+      }
+    }
+
+  }
+
+  // Appointment
+  .appointment {
+    line-height: 23px;
+    border-bottom: 0;
+    margin-bottom: 1px;
+    white-space: nowrap;
+    cursor: pointer;
+    background-color: $appointment-reserved;
+    border-radius: 4px;
+    border-left: 4px solid transparent;
+    @include transition(opacity 0.2s);
+    @include backface-visibility(hidden);
+
+    .appointment-content {
+      display: flex;
+      height: 100%;
+      font-size: 12px;
+      padding: 0 4px;
+
+      & > * { margin-right: 4px; }
+      & > .location { flex: 2 1; padding-right: 0; }
+      & > .title, & > .location { @include ellipsis(); }
+    }
+
+    .start {
+      min-width: 32px;
+      text-align: right;
+      flex: 0 0 auto;
+    }
+
+    .private-flag {
+      font-size: 14px;
+    }
+
+    &.resizing {
+      outline: 2px solid var(--outline);
+      outline-offset: -2px;
+      z-index: 1000;
+    }
+  }
+
+  // Mobile
+  @media (max-width: $smartphone-breakpoint) and (orientation: portrait), (max-height: $smartphone-breakpoint) and (orientation: landscape) {
+
+    .month-toolbar {
+      text-align: center;
+      font-size: 24px;
+      padding: 8px;
+    }
+
+    .month {
+
+      @include user-select(none);
+      top: 33px;
+
+      thead {
+        display: table-header-group;
+      }
+
+      .week {
+        min-height: 40px;
+        border-bottom: 1px solid #ccc;
+        padding-left: 0;
+
+        &.no-border { border: 0; }
+
+        .day {
+          width: 100/7%;
+          vertical-align: baseline;
+          border-width: 0;
+          @include user-select(auto);
+
+          &:active {
+            @include transition(none);
+            background-color: #ccc;
+          }
+
+          .number {
+            top: 8px;
+            bottom: auto;
+            left: 0;
+            text-align: center;
+            color: rgba(1,1,1,.6);
+            font-size: 18px;
+            font-weight: 400;
+            background-color: transparent;
+
+            .day-label {
+              display: none;
+            }
+          }
+
+          &.out .number {
+            font-weight: 100;
+          }
+
+          &.today, &.today .number {
+            font-weight: bold;
+            color: var(--today);
+            background-color: transparent;
+          }
+
+          .list {
+            top: 50%;
+            font-size: 12px;
+            text-align: center;
+            color: #767676;
+            @include transition(color 0.2s linear);
+          }
+        }
+      }
+
+      .month-name {
+        margin-left: 0;
+        border: 0;
+        font-size: 26px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .no-select .appointment {
+    pointer-events: none;
+    @include user-select(none);
+  }
+}

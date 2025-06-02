@@ -1,0 +1,277 @@
+@import '@/themes/imports.scss';
+
+.vgrid.editable .vgrid-cell.tasks {
+  padding-left: calc(1.5rem + 24px);
+}
+
+.vgrid-cell.tasks {
+
+  padding-bottom: 11px;
+
+  .vgrid-cell-checkbox { padding-top: 11px; }
+
+  .first-row {
+    display: flex;
+    line-height: 18px;
+  }
+
+  .end_date {
+    color: var(--text-gray);
+    margin-inline-start: 0.5em;
+    overflow: visible;
+    font-weight: normal;
+  }
+
+  .status {
+    margin-top: -1px;
+    margin-inline-start: auto;
+    border-radius: 4px;
+  }
+
+  .priority {
+    font-size: 16;
+    font-weight: bold;
+    padding: 0 0.5em;
+    display: inline-block;
+    position: relative;
+    overflow: visible;
+
+    i.fa-star { display: inline-block; }
+  }
+
+  .title {
+    font-weight: bold;
+    display: inline-block;
+    white-space: nowrap;
+    flex-grow: 1;
+  }
+
+  .private-flag {
+    float: left;
+    font-size: 18px;
+    margin-inline-end: 4px;
+    color: var(--text-gray);
+    min-width: 12px;
+    max-width: 12px;
+  }
+
+  .second-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+    height: 16px;
+    overflow: visible;
+  }
+
+  .participants {
+    line-height: 1em;
+  }
+
+  .progress {
+    flex: 1;
+    margin: 4px 0 0 0;
+    // remove transition of vgrid progress bars. Otherwise we get some funny moving bars if the list is reordered and nodes are reused.
+    .progress-bar {
+      transition: none;
+    }
+  }
+}
+
+.has-focus .vgrid-cell.tasks.selected .progress {
+  border: 1px solid var(--accent-600);
+}
+
+.vgrid-cell.tasks, .tasks-detailview {
+  .progress {
+    height: 8px;
+    background-color: var(--background-200);
+    border-radius: 4px;
+    position: relative;
+    .progress-bar {
+      background-color: var(--accent);
+      position: absolute; // rtl
+    }
+  }
+}
+
+.tasks-detailview {
+  .io-ox-inline-links:first-child { margin: 0 0 26px 0; }
+
+  .task-header {
+    margin-bottom: 16px;
+    padding-top: 1px;
+
+    &:after {
+      content: "\00A0";
+      display: block;
+      clear: both;
+      visibility: hidden;
+      line-height: 0;
+      height: 0;
+    }
+    .title {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 10px 15px 0 15px;
+    }
+  }
+
+  .note {
+    padding-top: 16px;
+    line-height: 24px;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    cursor: text;
+  }
+
+  .info-panel {
+    margin-left: 2em;
+    display: inline;
+    float: right;
+    line-height: 20px;
+  }
+
+  .state {
+    margin-bottom: 2px;
+    margin-top: 2px;
+    border-radius: 4px;
+  }
+
+  .task-details {
+    padding: 8px 0 0 0;
+    margin: 0 0 8px 0;
+  }
+
+  .task-details:empty {
+    display: none;
+  }
+
+  .detail-label {
+    cursor: default;
+    color: var(--text);
+    padding-top: 8px;
+    line-height: 24px;
+  }
+
+  .detail-value {
+    line-height: 24px;
+    padding-top: 8px;
+    padding-left: 12px;
+  }
+
+  .private-flag {
+    font-size: 20pt;
+    margin-right: 12px;
+    color: #aaa;
+  }
+
+  .priority {
+    font-weight: bold;
+    vertical-align: top;
+    white-space: nowrap;
+    .high, .low, .medium {
+      margin-inline-end: 16px;
+      font-size: inherit;
+      color: var(--attention);
+    }
+    .bi {
+      margin: 0 -8px;
+    }
+  }
+
+  .progress {
+    max-width: 320px;
+    margin-bottom: 0;
+  }
+
+  .attachment-list {
+    max-width: min(calc(100vw - 12px), 400px);
+  }
+
+}
+
+@media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+  .io-ox-tasks-edit {
+    width: 100%;
+  }
+
+  .vgrid-cell.tasks {
+    z-index: 2;
+    width: 100%;
+    font-size: 14px;
+    border-top: 1px solid $gray-300;
+    border-radius: 0;
+    left: 0;
+    @include transition(unquote('left 0.40s cubic-bezier(0.1, 0.7, 0.1, 1), padding 0.40s cubic-bezier(0.1, 0.7, 0.1, 1)'));
+
+    &:first-child { border-top-width: 0; }
+
+    &.swipe-left { left: -80px; }
+  }
+
+  .tasks-detailview {
+
+    .title {
+      margin: 0;
+      padding-bottom: 1px;
+    }
+
+    .detail-label,
+    .detail-value:not(.attachment-list),
+    .participant-list,
+    .participants-view legend,
+    .participants-table-confirmmessage {
+      display: block;
+      padding: 0 15px;
+    }
+
+    .participants-view {
+      margin-top: 24px;
+    }
+
+    .detail-label {
+      margin-bottom: 0;
+      padding-top: 15px;
+      &.attachment-label {
+        padding-bottom: 6px;
+      }
+    }
+
+    .detail-value { padding-top: 0; }
+
+    .io-ox-inline-links:first-child {
+      margin: 0;
+      padding: 15px 0;
+    }
+
+    .participants-table-confirmmessage { padding-left: 0; }
+
+    // to push the title under the info panel, prevents long titles to be ripped apart
+    .info-panel { width: 100%; }
+  }
+
+  div.io-ox-tasks-edit.task-edit-wrapper.container.default-content-padding { padding-bottom: 40px; }
+
+}
+
+//io.ox/tasks/listview, io.ox/tasks/common-extensions
+.task-item {
+
+  .title {
+    @include ellipsis();
+    font-weight: 500;
+  }
+
+  .date {
+    font-weight: 300;
+    display: inline-block;
+    margin-left: 0.5em;
+    float: right;
+    opacity: 0.50;
+  }
+
+  .prog { color: rgb(119, 119, 119); }
+}

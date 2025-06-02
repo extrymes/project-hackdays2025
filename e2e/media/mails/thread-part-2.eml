@@ -1,0 +1,86 @@
+Return-Path: <test.user-6yacctysh@box.ox.io>
+Delivered-To: test.user-6yacctysh@box.ox.io
+Received: from smtp.box.ox.io ([10.42.83.79])
+	by main-asbox-dovecot-55b8d486b8-p8b45 with LMTP
+	id 0J38OpICi2RJaiQA4qA+IA
+	(envelope-from <test.user-6yacctysh@box.ox.io>)
+	for <test.user-6yacctysh@box.ox.io>; Thu, 15 Jun 2023 12:22:42 +0000
+Received: from main-core-mw-default-0.main-core-mw-hazelcast-headless.main-e2e-stack.svc.cluster.local (10-42-4-20.main-core-mw-sync.main-e2e-stack.svc.cluster.local [10.42.4.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: test.user-6yacctysh@box.ox.io)
+	by smtp.box.ox.io (Postfix) with ESMTPSA id EDB436023A
+	for <test.user-6yacctysh@box.ox.io>; Thu, 15 Jun 2023 12:22:42 +0000 (UTC)
+Date: Thu, 15 Jun 2023 14:22:42 +0200 (CEST)
+From: User 6yacctysh <test.user-6yacctysh@box.ox.io>
+To: User 6yacctysh <test.user-6yacctysh@box.ox.io>
+Message-ID: <579698336.51479.1686831762864@core-ui-main.dev.oxui.de>
+In-Reply-To: <1617310919.51465.1686831738677@core-ui-main.dev.oxui.de>
+References: <1617310919.51465.1686831738677@core-ui-main.dev.oxui.de>
+Subject: Re: My thread
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_51477_2066482421.1686831762863"
+X-Priority: 3
+Importance: Normal
+X-Mailer: Open-Xchange Mailer v8.14.64
+X-Originating-Client: open-xchange-appsuite
+
+------=_Part_51477_2066482421.1686831762863
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_51478_517955553.1686831762863"
+
+------=_Part_51478_517955553.1686831762863
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+ 
+
+> On 06/15/2023 2:22 PM CEST User 6yacctysh <test.user-6yacctysh@box.ox.io> wrote:
+>  
+>  
+> first
+> 
+
+------=_Part_51478_517955553.1686831762863
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!doctype html>
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ </head>
+ <body>
+  <div>
+   &nbsp;
+  </div>
+  <blockquote type="cite">
+   <div>
+    On 06/15/2023 2:22 PM CEST User 6yacctysh &lt;test.user-6yacctysh@box.ox.io&gt; wrote:
+   </div>
+   <div>
+    &nbsp;
+   </div>
+   <div>
+    &nbsp;
+   </div>
+   <div class="default-style">
+    first
+   </div>
+  </blockquote>
+ </body>
+</html>
+------=_Part_51478_517955553.1686831762863--
+
+------=_Part_51477_2066482421.1686831762863
+Content-Type: application/pdf; name=document.pdf
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=document.pdf
+X-Part-Id: c42c63e2bcdc41ad9b134ca36cf9cd3f
+
+
+------=_Part_51477_2066482421.1686831762863--

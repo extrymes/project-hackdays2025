@@ -1,0 +1,55 @@
+@import '@/themes/imports.scss';
+
+.freetime-view-header {
+
+    .input-group.has-picker {
+        padding-left: 0px;
+    }
+}
+
+.input-group.has-picker {
+    // we use bootstraps hard-coded value for borders here
+    // otherwise input fields next to each other have different border colors
+    border: 1px solid var(--border-bootstrap);
+    background: var(--background);
+    border-radius: var(--default-radius);
+
+    button.btn-default {
+        border: 0;
+        padding: 2px 21px 2px 12px;
+        color: var(--text-gray);
+    }
+
+    button.btn-default:hover, button.btn-default:focus {
+        background-color: var(--background-100)
+    }
+
+    .twitter-typeahead {
+        input.tt-input {
+            border-color: transparent;
+            border-radius: var(--default-radius);
+            box-shadow: none;
+            // removed placeholder rules
+            // placeholder usually inherits color from .form-control
+        }
+    }
+
+    button i {
+        color: $hc-gray;
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+    }
+}
+
+.share-wizard {
+
+    .input-group.has-picker {
+
+        .tokenfield.form-control {
+            border: 0;
+            box-shadow: none;
+        }
+    }
+
+}

@@ -1,0 +1,63 @@
+Return-Path: <test.user-6yacctysh@box.ox.io>
+Delivered-To: test.user-6yacctysh@box.ox.io
+Received: from smtp.box.ox.io ([10.42.83.79])
+	by main-asbox-dovecot-55b8d486b8-p8b45 with LMTP
+	id mIZ0MHoCi2RJaiQA4qA+IA
+	(envelope-from <test.user-6yacctysh@box.ox.io>)
+	for <test.user-6yacctysh@box.ox.io>; Thu, 15 Jun 2023 12:22:18 +0000
+Received: from main-core-mw-default-0.main-core-mw-hazelcast-headless.main-e2e-stack.svc.cluster.local (10-42-4-20.main-core-mw-admin.main-e2e-stack.svc.cluster.local [10.42.4.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: test.user-6yacctysh@box.ox.io)
+	by smtp.box.ox.io (Postfix) with ESMTPSA id C1C456023A
+	for <test.user-6yacctysh@box.ox.io>; Thu, 15 Jun 2023 12:22:18 +0000 (UTC)
+Date: Thu, 15 Jun 2023 14:22:18 +0200 (CEST)
+From: User 6yacctysh <test.user-6yacctysh@box.ox.io>
+To: User 6yacctysh <test.user-6yacctysh@box.ox.io>
+Message-ID: <1617310919.51465.1686831738677@core-ui-main.dev.oxui.de>
+Subject: My thread
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_51463_664277159.1686831738677"
+X-Priority: 3
+Importance: Normal
+X-Mailer: Open-Xchange Mailer v8.14.64
+X-Originating-Client: open-xchange-appsuite
+
+------=_Part_51463_664277159.1686831738677
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_51464_1367550608.1686831738677"
+
+------=_Part_51464_1367550608.1686831738677
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+first
+------=_Part_51464_1367550608.1686831738677
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!doctype html>
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ </head>
+ <body>
+  <div class="default-style">
+   first
+  </div>
+ </body>
+</html>
+------=_Part_51464_1367550608.1686831738677--
+
+------=_Part_51463_664277159.1686831738677
+Content-Type: application/msword; name=document.doc
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=document.doc
+X-Part-Id: ee8384d32db54e14b7d6be093046b518
+
+
+------=_Part_51463_664277159.1686831738677--

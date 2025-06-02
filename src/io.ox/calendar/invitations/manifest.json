@@ -1,0 +1,4 @@
+{
+    "namespace": ["io.ox/mail", "io.ox/mail/detail"],
+    "requires": "calendar"
+}

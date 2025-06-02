@@ -1,0 +1,38 @@
+@import '@/themes/imports.scss';
+
+.view-upload-wrapper {
+
+  .upload-entry {
+    clear: both;
+
+    .file-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-size {
+      color: rgb(170, 170, 170);
+      float: left;
+    }
+
+    .remove-icon {
+      margin-left: 5px;
+      float: right;
+
+      .fa-times {
+        color: $error-text-color; // red
+        cursor: pointer;
+
+        &:hover { color: rgb(192, 0, 0); }
+      }
+
+      .fa-check { color: green; }
+    }
+
+    .progress {
+      clear: both;
+      height: 8px;
+    }
+  }
+}
+

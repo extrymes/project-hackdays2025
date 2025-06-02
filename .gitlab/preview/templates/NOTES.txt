@@ -1,0 +1,7 @@
+Thank you for trävelling with CI Building Blocks!
+
++=========================================={{ regexReplaceAll "." .Values.host "=" }}=+
+|                                          {{ regexReplaceAll "." .Values.host " " }} |
+| Your preview app is now ready at https://{{ .Values.host }} |
+|                                  ~~~~~~~~­{{ regexReplaceAll "." .Values.host "~" }} |
++=========================================={{ regexReplaceAll "." .Values.host "=" }}=+

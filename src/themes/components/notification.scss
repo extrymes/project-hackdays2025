@@ -1,0 +1,336 @@
+@import '@/themes/components/launcher.scss';
+
+$notification-area-width: 350px;
+$notification-area-width-xl: 450px;
+
+.ellipsis-2-lines {
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+// back drop
+.notification-backdrop {
+  z-index: 13;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: none;
+
+  &.visible { display: block }
+}
+
+
+// main view
+.io-ox-notifications {
+  height: calc(100% - calc($appcontrol-height + var(--offset-top) + var(--offset-bottom)));
+  top: calc($appcontrol-height + var(--offset-top));
+  position: fixed;
+  overflow-x: auto;
+  padding: 16px;
+  z-index: 14;
+  box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
+  color: var(--text);
+  background-color: var(--background-5);
+  transition: right 0.2s ease-in-out;
+  @media (prefers-reduced-motion: reduce) {
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  width: $notification-area-width;
+  right: calc(0px - $notification-area-width - var(--offset-right));
+
+  @media (min-width: 1600px) {
+    width: $notification-area-width-xl;
+    right: calc(0px - $notification-area-width-xl - var(--offset-right));
+  }
+
+  @media (max-width: $smartphone-breakpoint) {
+    height: calc(100% - calc($appcontrol-height-smartphone + var(--offset-top) + var(--offset-bottom)));
+    width: 100%;
+    // --offset-top is changed by OX Display when injecting a leaderboard ad
+    top: calc($appcontrol-height-smartphone + var(--offset-top));
+    right: 0;
+    display: none;
+    transition: none;
+
+    &.visible {
+      display: block
+    }
+  }
+
+  &.visible {
+    right: var(--offset-right);
+    @media (prefers-reduced-motion: reduce) {
+      opacity: 1
+    }
+  }
+
+  // reused parts
+  .icon-wrap {
+    width: 24px;
+    height: 24px;
+    margin-inline-end: 6px;
+    position: relative;
+    flex-shrink: 0;
+
+    .icon-background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      border-radius: var(--default-radius);
+      background: $gray-700;
+    }
+    svg {
+      width: 16px;
+      height: auto;
+      max-height: 24px;
+      overflow: visible;
+    }
+  }
+
+  // empty state
+  .empty-message {
+    display: none;
+    height: 100%;
+    color: var(--text-gray);
+    font-size: 16px;
+  }
+
+  &.empty .empty-message {
+    display: flex;
+  }
+
+  // category view
+  .category {
+
+    .btn-category {
+      width: 100%;
+      height: 2rem;
+      border-radius: var(--default-radius);
+      border-width: 0;
+      outline-style: none;
+      border-color: transparent;
+      background: transparent;
+
+      &:hover {
+        background-color: var(--selected-background-hover);
+      }
+      &:focus {
+        background-color: var(--selected-background-focus);
+        * { color: var(--selected-focus); }
+      }
+
+      h1 {
+        justify-content: left;
+
+        .icon-wrap {
+          margin-left: 2px;
+        }
+
+        .category-label {
+          cursor: pointer;
+          margin-bottom: 0;
+        }
+
+        .counter {
+          height: auto;
+          border-radius: var(--default-radius);
+          margin-left: 16px;
+          background-color: $gray-200;
+          color: $gray-700
+        }
+      }
+    }
+
+    // visibility
+    .items, .icon-expanded { display: none; }
+    &.expanded {
+      .items { display: block; }
+      .icon-expanded { display: initial; }
+      .icon-collapsed { display: none; }
+    }
+
+  }
+
+  // item view
+  .item-container {
+    .item {
+      cursor: pointer;
+      margin: 10px 0;
+      padding: 8px 0;
+      background-color: white;
+      background-color: var(--background);
+      border-radius: 10px;
+
+      // different styles for focus and hover
+      &:focus-within { outline: 2px solid var(--focus-500) }
+
+      &:hover, &:focus-within, .smartphone & {
+        // show secondary actions
+        .item-row .btn.action, .item-row .btn.close {
+          // use opacity here and not display none. Otherwise it cannot be focused correctly.
+          opacity: 1;
+        }
+      }
+
+      .item-row {
+        display: flex;
+        align-items: baseline;
+        padding: 2px 8px;
+        min-height: 32px;
+
+        .icon-wrap {
+          top: 3px;
+        }
+
+        .title {
+          // prevent cut of descenders (especially common on Windows)
+          line-height: inherit;
+          font-size: 16px;
+          margin: 0;
+        }
+
+        .date-time .time .label {
+          margin-left: 8px;
+        }
+
+        .label-default {
+          margin-left: 7px;
+          position: relative;
+          top: -1px;
+          font-weight: 500;
+          color: var(--text-gray-on-gray);
+          background-color: var(--background-50);
+        }
+
+        a.date:hover {
+            cursor: pointer;
+            color: var(--text);
+        }
+        a.date {
+          color: var(--text);
+        }
+
+        .date-label {
+          font-weight: bold;
+          margin-right: 16px;
+        }
+
+        .relative-time, .recurrence {
+          color: var(--text-gray);
+        }
+
+        .status {
+          border-radius: 4px;
+          padding: 6px 10px;
+        }
+
+        .dropdown {
+          align-self: flex-start;
+        }
+
+        &.actions-container {
+          margin-top: 6px;
+          margin-bottom: 4px;
+          height: 32px;
+        }
+
+        .actions {
+          overflow: hidden;
+          .btn-group {
+            display: flex;
+            min-width: 0;
+            .btn-default {
+              flex: 1;
+              overflow: hidden;
+              padding: 6px 6px;
+            }
+            .btn-default.icon {
+              padding: 6px 13px;
+              min-width: 42px;
+              flex: 0;
+            }
+          }
+        }
+
+        .btn.action, .btn.close {
+          // use opacity here and not display none. Otherwise it cannot be focused correctly.
+          opacity: 0;
+          width: 24px;
+          height: 24px;
+          padding: 0;
+          top: 3px;
+          position: relative;
+          svg {
+            width: 18px;
+            height: 18px;
+          }
+          align-self: flex-start;
+        }
+        .close svg { margin: 0; }
+      }
+
+      .organizer, .title, .location  {
+        flex: 1;
+        min-width: 0;
+        padding-right: 18px;
+
+        & > * {
+          @include ellipsis();
+          min-width: 0;
+          display: block;
+          word-break: keep-all;
+        }
+      }
+
+      .row-icon { color: var(--text-gray); }
+      &[data-type$=":reminder"] {
+        .icon-background { background: $gray-700; }
+        .title-icon { color: var(--topbar-icon); }
+      }
+      .title-icon, .row-icon { color: var(--text-gray); }
+
+      &[data-type^="task:invitation"] {
+        .icon-background { background: var(--app-color-tasks); }
+        .title-icon { color: var(--app-color-tasks); }
+      }
+      &[data-type^="appointment:invitation"], &[data-type^="resource:invitation"] {
+        .icon-background { background: var(--app-color-calendar); }
+        .title-icon { color: var(--app-color-calendar); }
+      }
+      &[data-type^="contacts:"] {
+        .icon-background { background: var(--app-color-contacts); }
+        .title-icon { color: var(--app-color-contacts); }
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        overflow: hidden;
+
+        .row-container { overflow: hidden; }
+
+        .contact-photo {
+          // text is too small for default color (a11y contrast too low)
+          color: var(--gray-600);
+          flex-shrink: 0;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+}
+
+// toolbar toggle button
+#io-ox-appcontrol > div > ul > #io-ox-notifications-toggle {
+  display: inline-flex;
+
+  .indicator { display: none; }
+  &.show-indicator .indicator { display: flex; }
+}

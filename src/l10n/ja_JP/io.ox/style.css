@@ -1,0 +1,8 @@
+.contact-summary .with-furigana {
+  display: inline-block;
+}
+
+.contact-summary .furigana {
+  font-size: 13px;
+  color: #707070;
+}

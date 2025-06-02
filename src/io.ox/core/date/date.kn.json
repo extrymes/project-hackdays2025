@@ -1,0 +1,123 @@
+{
+    "daysInFirstWeek": null,
+    "days": [
+        "ರವಿವಾರ",
+        "ಸೋಮವಾರ",
+        "ಮಂಗಳವಾರ",
+        "ಬು���ವಾರ",
+        "ಗುರುವಾರ",
+        "ಶುಕ್ರವಾರ",
+        "ಶನಿವಾರ"
+    ],
+    "daysShort": [
+        "ರ.",
+        "ಸೋ.",
+        "ಮಂ.",
+        "ಬು.",
+        "ಗು.",
+        "ಶು.",
+        "ಶನಿ."
+    ],
+    "daysStandalone": [
+        "ರವಿ",
+        "ಸೋಮ",
+        "ಮಂಗಳ",
+        "ಬುಧ",
+        "ಗುರು",
+        "ಶುಕ್ರ",
+        "ಶನಿ"
+    ],
+    "months": [
+        "ಜನವರಿ",
+        "ಫೆಬ್ರವರಿ",
+        "ಮಾರ್ಚ್",
+        "ಏಪ್ರಿಲ್",
+        "ಮೇ",
+        "ಜೂನ್",
+        "ಜುಲೈ",
+        "ಆಗಸ್ಟ್",
+        "ಸಪ್ಟೆಂಬರ್",
+        "ಅಕ್ಟೋಬರ್",
+        "ನವೆಂಬರ್",
+        "ಡಿಸೆಂಬರ್"
+    ],
+    "monthsShort": [
+        "ಜನ.",
+        "ಫೆಬ್ರು.",
+        "ಮಾ",
+        "ಏಪ್ರಿ.",
+        "ಮೇ",
+        "ಜೂ",
+        "ಜು.",
+        "ಆಗ.",
+        "ಸೆಪ್ಟೆಂ.",
+        "ಅಕ್ಟೋ.",
+        "ನವೆಂ.",
+        "ಡಿಸೆಂ."
+    ],
+    "formats": {
+        "E": "E",
+        "yMd": "d/M/y",
+        "yMEd": "E, d/M/y",
+        "yMMMd": "d, MMM, y",
+        "yMMMEd": "d MMM, y E",
+        "hm": "h:mm a",
+        "Hm": "HH:mm",
+        "v": "v",
+        "Md": "d/M",
+        "Hmv": "HH:mm v",
+        "hmv": "h:mm a v",
+        "yMdHm": "d/M/y HH:mm",
+        "yMdHmv": "d/M/y HH:mm v",
+        "yMdhm": "d/M/y h:mm a",
+        "yMdhmv": "d/M/y h:mm a v",
+        "yMEdHm": "E, d/M/y HH:mm",
+        "yMEdHmv": "E, d/M/y HH:mm v",
+        "yMEdhm": "E, d/M/y h:mm a",
+        "yMEdhmv": "E, d/M/y h:mm a v"
+    },
+    "date": "d MMM y",
+    "time": "hh:mm a",
+    "dateTimeFormat": "%2$s %1$s",
+    "intervals": {
+        "fallback": "%1$s – %2$s",
+        "hm": {
+            "a": "h:mm a – h:mm a",
+            "h": "h:mm–h:mm a",
+            "m": "h:mm–h:mm a"
+        },
+        "Hm": {
+            "h": "HH:mm–HH:mm",
+            "m": "HH:mm–HH:mm"
+        },
+        "hmv": {
+            "a": "h:mm a – h:mm a v",
+            "h": "h:mm–h:mm a v",
+            "m": "h:mm–h:mm a v"
+        },
+        "Hmv": {
+            "h": "HH:mm–HH:mm v",
+            "m": "HH:mm–HH:mm v"
+        },
+        "yMMMd": {
+            "d": "d, MMM –d y",
+            "m": "d MMM - d MMM, y",
+            "y": "d, MMM, y - d, MMM, y"
+        },
+        "yMMMEd": {
+            "d": "d MMM,E - d MMM, y E",
+            "m": "d MMM, E - d MMM, y, E",
+            "y": "d MMM, y E - d MMM, y E"
+        }
+    },
+    "dayPeriods": {
+        "am": "AM",
+        "pm": "PM"
+    },
+    "eras": [
+        "ಕ್ರಿ.ಪೂ",
+        "ಸಾಮಾನ್ಯ ಯುಗ"
+    ],
+    "dateTime": "d MMM y hh:mm a",
+    "h12": true
+}

@@ -1,0 +1,311 @@
+@import '@/themes/imports.scss';
+
+$viewer-sidebar-width: 320px;
+$viewer-sidebar-width-smartphone: 100%;
+
+// generic styles of the Viewer sidebar, used in other applications too (e.g. Drive)
+.viewer-sidebar {
+  font-size: 13px;
+  padding: 16px;
+  display: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  outline: 0;
+  z-index: 2;     // hide captions when sidebar is 100% width
+
+  /* set the text context of responsive labels according to the device and it's orientation */
+  /* the default */
+  *.viewer-responsive-label[data-label-normal]:before {
+    content: attr(data-label-normal);
+  }
+
+  /* for smartphones with orientation portrait */
+  *.smartphone *.viewer-responsive-label[data-label-normal]:before {
+    @media (orientation: portrait) {
+      content: attr(data-label-short);
+    }
+  }
+
+  &.open { display: block; }
+
+  .viewer-uploadnewversion {
+    padding: 8px 0 8px 24px;
+    .btn-file {
+      width: 100%;
+    }
+    & > .form-group {
+      margin-top: 5px;
+      & > .btn-default {
+        background-color: transparent;
+        width: 100%;
+      }
+    }
+  }
+
+  .breadcrumb-view { margin: 0; }
+
+  .breadcrumb-tail { font-weight: normal; }
+
+  h1 {
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0;
+  }
+
+  h2.filename {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 16px 0 24px 0;
+    word-break: break-word;
+
+    .extension {
+      font-size: 0.9em;
+      font-weight: normal;
+      color: var(--text-gray);
+    }
+  }
+
+  svg.bi {
+    width: 14px; // icons set to a fixed (pixel) width to not zoom on text-only-zoom
+    height: 20px;
+  }
+
+  svg.file-type-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  svg.toggle-icon {
+    width: 14px;
+    height: 16px;
+  }
+
+  svg.favorite {
+    height: 16px;
+  }
+
+  .file-icon, .favorite {
+    flex: 0 0 24px;
+    margin: 20px 0 0 0;
+  }
+
+  .favorite {
+    color: var(--favorite);
+    margin-top: 20px;
+  }
+
+  .thumbnail-container {
+    width: 100%;
+    max-width: 300px;
+    height: 160px;
+
+    &.contain {
+      border-radius: calc(2 * var(--default-radius));
+      border: 5px solid transparent;
+      background-color: var(--shade-a5);
+      .details-thumbnail {
+        margin: 0 auto;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-origin: border-box;
+      }
+    }
+
+    &.cover {
+      .details-thumbnail {
+        border-radius: calc(2 * var(--default-radius));
+        background-color: var(--shade-a5);
+        margin: 0 auto;
+        background-size: cover;
+        background-position: top;
+        background-repeat: no-repeat;
+        background-origin: border-box;
+        //box-shadow: 0 0 0 1px var(--shade-a5); // keep as option - only visible on white content for seperation
+      }
+      &.file-type-image .details-thumbnail {
+        background-position: center;
+      }
+    }
+
+    @media (min-height: 800px) {
+      height: 200px;
+    }
+
+    .details-thumbnail svg.bi {
+      opacity: 0.3;
+      height: 64px; // icons set to a fixed (pixel) width to not zoom on text-only-zoom
+      width: 64px;
+    }
+  }
+
+  .sidebar-panel {
+    margin-bottom: 16px;
+
+    .close { font-size: 16px; }
+
+    .sidebar-panel-heading {
+      position: relative;
+      padding: 0;
+
+      .panel-toggle-btn {
+        color: inherit;
+        margin-right: 10px;
+      }
+
+      h3 {
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 0;
+        cursor: default;
+        position: relative;
+        .btn {
+          position: absolute;
+          right: 0;
+          top: -8px;
+        }
+      }
+
+      .count {
+        display: inline-block;
+        background-color: var(--shade-a10);
+        border-radius: 4px;
+        padding: 0 8px;
+        line-height: 16px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      &.io-ox-busy:before { top: 185%; }
+    }
+
+    .sidebar-panel-body {
+
+      padding: 8px 0 8px 24px;
+
+      &.panel-collapsed { display: none; }
+
+      &:after {
+        content: " ";
+        display: table;
+        clear: both;
+      }
+
+      dd,
+      dt {
+        line-height: 16px;
+        margin-bottom: 8px;
+        float: left;
+      }
+
+      dt {
+        width: 33%;
+        font-weight: 500;
+        cursor: default;
+        clear: both;
+        color: var(--text-gray);
+        @include ellipsis();
+      }
+
+      dd {
+        width: 66%;
+        color: var(--text);
+        @include user-select(text);
+        word-wrap: break-word;
+
+        &.io-ox-busy:before {
+          font-size: inherit;
+          left: 0px;
+          margin-left: 0px;
+        }
+
+        &.modified {
+          > span {
+            display: block;
+          }
+        }
+      }
+
+      .versiontable {
+        white-space: nowrap;
+        margin-bottom: 0;
+
+        td {
+          padding: 0;
+          border-top: none;
+          line-height: 16px;
+        }
+
+        .version-content {
+          padding: 0 0 16px 0;
+          .version-data {
+            width: 0;
+          }
+        }
+
+        .version-detail {
+          color: var(--text-gray);
+          font-size: 0.95em;
+        }
+
+        .current-version .version-filename {
+          font-weight: bold;
+        }
+
+        .dropdown > a.current {
+          font-weight: bold;
+        }
+      }
+
+      .description {
+        display: block;
+        white-space: pre-wrap;
+        word-break: break-word;
+        line-height: 16px;
+        @include user-select(text);
+
+        &.description-empty {
+          @include user-select(none);
+          cursor: default;
+        }
+      }
+    }
+
+    &.viewer-fileinfo {
+      .copy-link {
+        margin: 0;
+        height: initial;
+      }
+
+      .sidebar-panel-body dd:last-child {
+        margin-bottom: 0px;
+      }
+    }
+
+    h2.filename {
+      line-height: 24px;
+    }
+
+    &.viewer-capture-info .capture-info {
+      background: var(--shade-a5);
+      padding: 16px;
+      border-radius: var(--default-radius);
+      .border-top {
+        border-top: 1px solid var(--border);
+        padding-top: 3px;
+        margin-top: 4px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .inplace-dropzone {
+    width: 306px; // DOCS-4438: some backdrop-filter values on parent elements intoduce problems with size calculation
+    left: initial; // DOCS-4438: some backdrop-filter values on parent elements intoduce problems with size calculation
+    svg.bi {
+      width: 60px;
+      height: 60px;
+    }
+  }
+}

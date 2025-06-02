@@ -1,0 +1,523 @@
+@import '@/themes/imports.scss';
+
+$weekview-time-widthSmall: $weekview-time-width - 13;
+
+.weekview-container {
+
+  * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+  .calendar-header {
+
+    .cw {
+      font-size: 13px;
+      color: var(--text-gray);
+      font-weight: normal;
+      margin-left: 8px;
+    }
+  }
+
+  .weekview-toolbar {
+
+    height: 56px;
+    margin-inline-start: 0;
+    display: flex;
+    border-radius: var(--gap-radius) 0 0 0;
+
+    .weekday {
+      flex: 1;
+      color: var(-text-gray);
+      height: 2.5rem;
+      line-height: 24px;
+      text-decoration: none;
+      padding: 1px 3px;
+      @include ellipsis();
+      border: none;
+      background: none;
+
+      &.merge-view-label {
+        border-bottom: 2px solid;
+        margin-inline-end: 1px;
+        margin-inline-start: 1px;
+        padding-top: 6px;
+        height: 34px;
+      }
+
+      .number {
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--text);
+        margin-inline-end: 8px;
+        display: inline-block; /* rtl */
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &.today {
+        .number {
+          color: white;
+          background-color: var(--today);
+          border-radius: var(--default-radius);
+          display: inline-block;
+          padding: 4px 8px;
+          min-width: 32px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .fulltime-container {
+    min-height: 32px;
+    display: flex;
+    padding-top: 2px;
+
+    .time-label-bar {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+
+      height: 100%;
+      width: $weekview-time-width;
+
+      > div {
+        flex: 1;
+        padding-inline-end: 16px;
+        margin-bottom: 5px;
+        text-align: end;
+        color: var(--text-gray);
+        font-size: 12px;
+      }
+
+      > .timezone-label-dropdown { padding-right: 11px; }
+    }
+
+    .appointment-panel {
+      flex: 1;
+      position: relative;
+      border: 1px solid var(--border);
+      @include overflow-y(scroll);
+      @include overflow-x(hidden);
+    }
+
+    .note {
+      position: absolute;
+      background: none;
+      width: 100%;
+      font-size: 12px;
+      font-weight: 200;
+      color: var(--text-gray);
+      text-align: end;
+      @include ellipsis();
+      @include user-select(none);
+      padding: 0 10px;
+    }
+
+    .day { border: none; }
+
+    .appointment .appointment-content {
+      padding: 0 4px;
+      line-height: 20px;
+    }
+    .appointment:focus {
+      //increase z-index so box shadow is shown fully
+      z-index: 1;
+    }
+  }
+
+  .appointment-container {
+
+    flex: 1;
+    position: relative;
+    @include overflow-y(scroll);
+    @include overflow-x(hidden);
+    outline: 0;
+
+    .appointment {
+      // same as minCellHeight in view minus border
+      min-height: 27px - 2px;
+
+      &.resizing {
+        left: 0!important;
+        width: 100%!important;
+      }
+    }
+
+    .hidden-appointment-indicator-container {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .scrollpane {
+
+      display: flex;
+      position: relative;
+
+      .week-container-label {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        width: $weekview-time-width;
+
+        .time {
+          flex: 1;
+          position: relative;
+          text-align: end;
+          margin-inline-end: 1em;
+          color: var(--text-gray);
+
+          &.in {
+            color: var(--text);
+          }
+
+          .number {
+            font-size: 12px;
+            position: absolute;
+            top: -8px;
+            right: 0;
+            left: 0;
+          }
+
+          &:last-child { border-color: transparent; }
+        }
+
+        &.secondary-timezone .time.in {
+          font-weight: normal;
+          color: #767676;
+        }
+      }
+    }
+
+    .day {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      border-left: 1px solid var(--border);
+      position: relative;
+      @include user-select(none);
+
+      .timeslot {
+        flex: 1;
+        -webkit-touch-callout: none !important;
+        border-bottom: 1px solid var(--border-subdued);
+        height: 1.5rem;
+
+        &.out {
+          border-color: transparent;
+          background-color: hsla(var(--gray-base), 50%, 10%);
+        }
+
+        &:last-child, .time:last-child { border-color: transparent; }
+
+        &.working-time-border {
+          border-bottom: 1px solid $weekview-working-time-border;
+        }
+      }
+    }
+
+    &.time-scale-1 {
+      .day .timeslot:not(.working-time-border) {
+        border-color: var(--border);
+        &.out { border-color: var(--border); }
+      }
+    }
+
+    &.time-scale-2 {
+      .day .timeslot:nth-child(2n):not(.working-time-border) {
+        border-color: var(--border);
+        &.out { border-color: var(--border); }
+      }
+    }
+
+    &.time-scale-3 {
+      .day .timeslot:nth-child(3n):not(.working-time-border) {
+        border-color: var(--border);
+        &.out { border-color: var(--border); }
+      }
+    }
+
+    &.time-scale-4 {
+      .day .timeslot:nth-child(4n):not(.working-time-border) {
+        border-color: var(--border);
+        &.out { border-color: var(--border); }
+      }
+    }
+
+    &.time-scale-6 {
+      .day .timeslot:nth-child(3n):not(.working-time-border) {
+        border-color: var(--border);
+        &.out { border-color: var(--border); }
+      }
+    }
+
+    &.time-scale-12 {
+      .day .timeslot:nth-child(3n):not(.working-time-border) {
+        border-color: var(--border);
+        &.out { border-color: var(--border); }
+      }
+    }
+
+    .current-time-indicator {
+      position: absolute;
+      height: 0;
+      left: $weekview-time-width;
+      right: 0;
+      z-index: 10;
+      @include user-select(none);
+      pointer-events: none;
+
+      .dot {
+        position: absolute;
+        top: -4px;
+        left: #{"calc(100% / var(--column-count) * var(--column-index) - 5px)"};
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background-color: var(--today);
+      }
+      .thin-line {
+        position: absolute;
+        top: 1px;
+        width: 100%;
+        height: 0;
+        border-bottom: 1px solid var(--today);
+        opacity: 0.75;
+      }
+      .dark-line {
+        position: absolute;
+        top: 0;
+        left: #{"calc(100% / var(--column-count) * var(--column-index))"};
+        width: #{"calc(100% / var(--column-count))"};
+        height: 0;
+        border-bottom: 3px solid var(--today);
+      }
+    }
+
+    .hidden-appointment-indicator-container {
+      left: $weekview-time-width;
+
+      right: 12px; //assume scrollbars are around 12px width. It's not browser independent, but a good guess. Needed to center indicators
+      pointer-events: none;
+
+      .more-appointments {
+        position: absolute;
+        text-align: center;
+        opacity: 0.5;
+
+        &.earlier {
+          top: 0px;
+        }
+        &.later {
+          bottom: 0px;
+        }
+      }
+    }
+  }
+
+  .no-select .appointment {
+    pointer-events: none;
+  }
+
+  .appointment {
+    position: absolute;
+    background-color: $appointment-reserved;
+    opacity: 1;
+    @include transition(#{"opacity 0.2s, background-color 0.2s, border-color 0.2s, color 0.2s"});
+    @include backface-visibility(hidden);
+    // see Bug 32753 - Not possible to reduce an appointment to 30 minutes using drag&drop
+    box-sizing: content-box;
+    border-radius: 4px;
+
+    &.resizing {
+      opacity: 0.7;
+      z-index: 5000;
+      box-shadow: initial;
+      @include user-select(none);
+    }
+
+    &.no-wrap {
+      .appointment-content {
+        display: flex;
+        & > .location {
+          flex: 2 1;
+          margin-left: 4px;
+        }
+      }
+    }
+
+    &.modify { cursor: pointer; }
+
+    &.current, &.hover {
+      z-index: 999 !important;
+      @include transition(background-color 0.2s);
+    }
+
+    .private-flag, .confidential-flag, .tentative-flag, .declined-flag, .implicit-cancel-flag {
+      float: left;
+      font-size: 14px;
+      margin-right: 4px;
+    }
+
+    .tentative-flag { font-size: 12px; }
+    .implicit-cancel-flag { color: var(--attention); }
+
+    .appointment-content {
+      height: 100%;
+      font-size: 12px;
+      line-height: 16px;
+      padding: 4px 6px;
+      text-align: start;
+      border-inline-start: 4px solid;
+      border-color: inherit;
+      border-radius: 4px;
+      @include ellipsis();
+
+      * { @include ellipsis(); }
+
+      .flags {
+        display: block;
+        text-align: end;
+        font-size: 11px;
+        opacity: 0.70;
+        line-height: 1em;
+
+        span {
+          margin-inline-start: 4px;
+        }
+
+        &.bottom-right {
+          position: absolute;
+          bottom: 4px;
+          right: 4px;
+          left: 4px;
+        }
+      }
+    }
+  }
+
+  .lasso {
+    position: absolute;
+    border: 1px solid var(--accent-400);
+    background-color: var(--accent-a10);
+    border-radius: var(--default-radius);
+    width: 100%;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .io-ox-busy .resizable-handle {
+    display: none;
+  }
+
+  // Resize bars
+  .resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+  }
+
+  .resizable-n {
+    cursor: n-resize;
+    height: 7px;
+    width: 100%;
+    top: -3px;
+    left: 0;
+  }
+
+  .resizable-s {
+    cursor: s-resize;
+    height: 7px;
+    width: 100%;
+    bottom: -3px;
+    left: 0;
+  }
+
+  .resizable-e {
+    cursor: e-resize;
+    width: 7px;
+    right: 0;
+    top: 0;
+    height: 100%;
+  }
+
+  .resizable-w {
+    cursor: w-resize;
+    width: 7px;
+    left: 0;
+    top: 0;
+    height: 100%;
+  }
+
+  @media (min-width: 1281px) {
+    $adjusted-width: $weekview-time-width * 1.25;
+
+    .weekview-toolbar {
+      padding-inline-start: $adjusted-width - 80px;
+    }
+
+    .fulltime-container .time-label-bar { width: $adjusted-width; }
+
+    .appointment-container {
+      .scrollpane {
+        .week-container-label { width: $adjusted-width; }
+        .current-time-indicator { left: $adjusted-width; }
+      }
+      .scrollpane.secondary .week-container-label { width: $weekview-time-width; }
+      .hidden-appointment-indicator-container { left: $adjusted-width; }
+    }
+  }
+
+  // Mobile
+  .smartphone & {
+
+    .info { cursor: auto; }
+
+    .weekview-toolbar { display: none; }
+
+    .fulltime-container { margin: 0; margin-left: $weekview-time-widthSmall; min-height: auto; }
+    .appointment-container {
+      margin-top: 0;
+      .scrollpane {
+        .current-time-indicator { left: $weekview-time-widthSmall; }
+        .week-container-label {
+          width: $weekview-time-widthSmall;
+          .time { margin-left: 0.3em; }
+        }
+      }
+    }
+    .more-appointments-container { left: $weekview-time-widthSmall; }
+
+    .dayview:not(.merge-view) .week-view-container { top: 0; }
+  }
+
+}
+
+.timezone-label-dropdown {
+  .timezone-abbr {
+    display: inline-block;
+    width: 3em;
+  }
+
+  .offset {
+    color: #767676;
+    display: inline-block;
+    width: 3.5em;
+  }
+
+  &.double {
+    .timezone-abbr {
+      width : 6em;
+    }
+    .offset {
+      width : 7em;
+    }
+  }
+
+  a:focus .offset{ color: inherit };
+}
+

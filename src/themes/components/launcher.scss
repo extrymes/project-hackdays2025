@@ -1,0 +1,544 @@
+$appcontrol-height:                     72px;
+$appcontrol-height-smartphone:          50px;
+$appcontrol-launcher-height-smartphone: 50px;
+
+$appcontrol-border-color:               rgba(0, 0, 0, 0.90);
+$appcontrol-launcher-color:             var(--topbar-icon);
+$appcontrol-launcher-color-highlight:   var(--topbar-icon);
+
+$launcher-fg:       #666;
+$launcher-bg:       #fff;
+$launcher-fg-hover: #666;
+$launcher-bg-hover: #eee;
+
+$launcher-stroke-width: 3px;
+$launcher-stroke-width-retina: 3px;
+
+$launcher-text-size: 1em;
+$launcher-badge-color: #757575; //#c30000;
+
+$launcher-size: 96px;
+$launcher-vertical-amount: 2;
+$launcher-spacing: 2px;
+$launcher-outer-spacing: 16px;
+
+$quicklaunch-width: $appcontrol-height;
+$quicklaunch-width-smartphone: $appcontrol-height-smartphone;
+
+$quicklaunch-stroke-width: 3px;
+$quicklaunch-stroke-width-retina: 3px;
+$quicklaunch-button-color: var(--topbar-icon);
+
+$svg-wrap-size: 56px; // absolute value to avoid subpixel rendering
+
+$launcher-sidebar-width: 200px;
+// adjust positions of top-bar and screens
+#io-ox-core {
+  #io-ox-topbar { display: none; }
+}
+
+.smartphone {
+
+  .popover-signout {
+    margin-right: 10px;
+    .popover-content-signout { color: #333; }
+  }
+}
+
+#io-ox-top-logo {
+  width: auto;
+  // Keep this for dynamic themes
+  font-size: 0;
+  // this is needed for firefox when logo has auto width, see OXUIB-1213
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  min-width: 72px;
+
+  .smartphone & {
+    margin: 0 10px;
+  }
+  // Align the logo in the topbar if it is smaller than 36px
+  .logo-container {
+    // Always apply the max-content width to the logo container. See OXUIB-2490
+    width: max-content;
+    min-width: 52px; // 36px + 16px padding
+  }
+  img, svg {
+    width: auto;
+    height: 32px;
+    max-height: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    object-fit: contain;
+  }
+}
+
+.logo-btn {
+  height: 48px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  &:focus, &:hover {
+    .smartphone & {
+      // just a quick fix for the sticky hover effect on the clickable logo
+      background: none;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+}
+
+#io-ox-appcontrol {
+  position: relative;
+  z-index: 12;
+  color: var(--topbar-icon);
+  background: var(--topbar-background);
+  height: $appcontrol-height;
+  padding: 0;
+  display: flex;
+  align-content: center;
+  container-type: size;
+  container-name: appcontrol;
+
+  .smartphone & {
+    height: $appcontrol-height-smartphone;
+    #io-ox-topleftbar { padding-inline-start: initial; }
+  }
+
+  & > div > ul {
+    display: flex;
+    height: 100%;
+    margin-bottom: 0;
+    > li {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
+  .badge {
+    background-color: $notification-icon-background;
+    top: 0;
+  }
+
+  #io-ox-topleftbar, #io-ox-quicklaunch, #io-ox-topsearch, #io-ox-toprightbar {
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+  }
+
+  // use button selector here or buttons in launcher dropdown are styled too (causes some cut of text, see OXUIB-1704)
+
+  button.btn-topbar:not(.launcher-dropdown *) {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+    padding: 0;
+    position: relative;
+    color: var(--topbar-icon);
+    &:focus-visible {
+      color: #fff;
+    }
+    &:hover {
+      background-color: var(--topbar-hover);
+      color: var(--topbar-icon);
+    }
+  }
+
+  #io-ox-quicklaunch {
+    @container appcontrol (max-width: 820px) {
+      display: none
+    }
+    @container appcontrol (max-width: 940px) {
+      button:not(:first-child) {
+        display: none;
+      }
+    }
+    @container appcontrol (max-width: 1100px)  {
+      button:nth-child(n+4) {
+        display: none;
+      }
+    }
+
+    .smartphone & {
+      display: none;
+    }
+
+    .upsell-icon {
+      color: var(--upsell);
+      position: absolute;
+      top: 8px;
+      right: 2px;
+    }
+  }
+
+  #io-ox-toprightbar {
+    // more space needed on smartphones
+    .smartphone & { padding-right: 0}
+
+    #io-ox-topbar-account-dropdown-icon .dropdown-toggle {
+      display: block;
+    }
+
+    .contact-picture {
+      @include picture(40px, 40px);
+      @include flex-center;
+      color: var(--avatar);
+      background-color: var(--avatar-background);
+      font-size: 18px;
+      font-weight: bold;
+      fill: currentColor;
+      background-clip: padding-box;
+      margin: 0 4px;
+    }
+  }
+}
+
+#io-ox-topbar-account-dropdown-icon {
+  margin-inline-start: 8px;
+  & > button {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+#topbar-account-dropdown .user {
+  $sidelength: 64px;
+
+  padding: 3px 20px;
+  display: flex;
+  width: 100%;
+
+  .action { //, .action:hover, .action:focus {
+    display: flex;
+    padding: 0;
+    background: none;
+  }
+
+  .user-picture-container {
+    margin-right: 16px;
+    width: $sidelength;
+  }
+
+  .user-picture {
+    @include flex-center;
+    @include picture($sidelength, $sidelength);
+    background-color: #eee;
+    color: rgba(0, 0, 0, 0.60);
+    font-size: 11px;
+    font-weight: bold;
+    fill: currentColor;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.50);
+
+    svg { display: none; }
+
+    .initials { font-size: 20px; }
+  }
+
+  // overwrites dropdown defaults
+  // .action:hover, .action:focus { background: none; }
+
+  // unset user image
+  .action:hover, .action:focus {
+    svg { display: block; }
+    .initials { display: none; }
+  }
+
+  // box shadow outline
+  .action:focus .user-picture {
+    box-shadow: 0 0 8px 2px var(--focus-500);
+    &[style] {
+      box-shadow: 0 0 8px 2px var(--focus-500), 0 0 0 2px white inset;
+    }
+  }
+
+  .text-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    .name {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .name, .mail {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .smartphone & {
+    .user-picture-container {
+      width: 48px;
+    }
+    .user-picture {
+      width: 48px;
+      height: 48px;
+    }
+    .action {
+      flex-direction: column;
+      justify-content: center;
+    }
+    .text-container {
+      text-align: left;
+    }
+    width: auto;
+  }
+}
+
+.launcher-dropdown.dropdown-menu {
+  .launcher.open & { display: flex; }
+  padding: $launcher-outer-spacing;
+  min-width: 340px;
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .apps {
+    display: flex;
+    flex-direction: column;
+    flex: 1.5;
+    border-inline-end: 1px solid var(--border-bright);
+    padding-inline-end: 8px;
+    ul { padding: 0; }
+  }
+  .smartphone .launcher.open & {
+    display: block;
+    top: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border: none;
+    margin: 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+    .btn-close {
+      border: none;
+      background-color: var(--shade-a10);
+      padding: 0;
+      border-radius: 16px;
+      width: 32px;
+      height: 32px;
+      position: fixed;
+      top: 8px;
+      right: 8px;
+    }
+    .user {
+      display: flex;
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      a {
+        flex: 0;
+        padding: 0;
+        margin-right: 16px;
+        width: 64px;
+      }
+      .text-container {
+        margin-left: 16px;
+        overflow: hidden;
+        div {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .name {
+          font-weight: bold;
+          font-size: 1.25rem;
+          line-height: 1.75rem;
+        }
+        .mail {
+          color: var(--text-gray);
+          font-size: 1rem;
+          line-height: 1.5rem;
+        }
+      }
+      .user-picture {
+        @include flex-center;
+        @include picture(48px, 48px);
+        padding: 0;
+        background-color: #eee;
+        color: rgba(0, 0, 0, 0.60);
+        font-size: 11px;
+        font-weight: bold;
+        fill: currentColor;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.50);
+        svg { display: none; }
+        .initials { font-size: 20px; }
+      }
+    }
+    .apps,.drafts {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 0;
+      padding-bottom: 24px;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      row-gap: 16px;
+      li {
+        width: 50%;
+        button { width: 100%; }
+      }
+      .lcell .icon-wrap {
+        margin-right: 16px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+    .menu {
+      padding-inline-start: 0;
+      >li { row-gap: 8px; }
+      .btn.btn-toolbar svg { display: inline-block; }
+    }
+  }
+
+  .menu {
+    flex: 1;
+    display: flex;
+    padding-inline-start: 16px;
+    .menu-actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      button.btn.btn-toolbar {
+        padding-left: 8px;
+        text-align: left;
+      }
+    }
+  }
+
+  button.lcell {
+    height: $launcher-size;
+  }
+
+  .btn-topbar {
+    padding: 0;
+  }
+
+  .lcell {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .icon-wrap {
+      width: 48px;
+      height: 48px;
+      margin-inline-end: 12px;
+      position: relative;
+      flex-shrink: 0;
+      .icon-background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        border-radius: var(--default-radius);
+      }
+      svg {
+        width: 24px;
+        height: auto;
+        max-height: 48px;
+        overflow: visible;
+      }
+    }
+
+    svg.indicator { display: none; }
+
+    .closer {
+      font-size: 15px;
+      color: var(--text-gray);
+      height: 42px;
+    }
+
+    .smartphone & {
+      padding: 0;
+      margin: 0;
+    }
+
+    .title {
+      color: var(--text);
+      font-size: $launcher-text-size;
+      text-align: left;
+      .smartphone & {
+        font-size: 14px;
+        top: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        // to make ellipsis actually work (test with open mail compose and long subject)
+        display: block;
+        white-space: nowrap;
+      }
+      &.upsell svg {
+        color: var(--upsell);
+        margin-inline-start: 4px;
+        font-size: 14px;
+      }
+    }
+    .badge {
+      position: absolute;
+      top: 43%;
+      right: 17%;
+      font-size: 9px;
+      z-index: 1;
+      background-color: $launcher-badge-color;
+    }
+  }
+
+  button.btn.btn-toolbar {
+    display: block;
+    width: 100%;
+    padding-right: 8px;
+    margin-bottom: 0.5rem;
+
+    // color handling for hover/focus with keyboard/mouse
+    &:hover:not(:focus){
+      text-decoration: none;
+      background-color: var(--background-5);
+    }
+    &:focus:focus-visible .title { color: var(--selected-focus)}
+    &:focus:active .title { color: var(--text); }
+    &:focus-visible:active .title { color: var(--selected-focus); }
+  }
+}
+
+#io-ox-launchgrid-overlay {
+  z-index:11;
+  display:none;
+  background-color: rgba(255, 255, 255, 0.01);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: $appcontrol-height;
+  &.open { display:block; }
+}
+
+#io-ox-launchgrid-overlay-inner {
+  position: absolute;
+  display:none;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+@media (max-width: 320px)  {
+  // reduce spacings to fit topbar on really small devices
+  .smartphone #io-ox-appcontrol {
+    #io-ox-topsearch { margin-right: 0; }
+    #io-ox-topleftbar .launcher > button { padding: 16px 9px; }
+    #io-ox-toprightbar .launcher > button { padding: 16px 9px; }
+    #io-ox-launcher > button.launcher-btn { width: 44px; }
+  }
+}

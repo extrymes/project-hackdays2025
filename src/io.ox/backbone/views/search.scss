@@ -1,0 +1,245 @@
+@import '@/themes/imports.scss';
+
+#io-ox-topsearch {
+  width: 100%;
+  .search-container {
+    color: var(--text);
+    max-width: 600px;
+    min-width: 290px;
+    position: relative;
+    border-radius: var(--input-radius);
+  }
+}
+
+.search-view {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 40px;
+  z-index: 2;
+
+  background-color: var(--topbar-search-background);
+  border-radius: var(--input-radius);
+  border: 1px solid transparent;
+
+  &.has-focus {
+    border-color: var(--focus-500);
+    box-shadow: 0 0 0 4px var(--btn-primary-outline);
+    background-color: var(--background);
+  }
+
+  label {
+    align-self: center;
+    margin-bottom: 0;
+
+    svg { color: var(--toolbar); }
+  }
+
+  .search-field {
+    width: 100%;
+    font-size: 14px;
+    height: 40px;
+    box-shadow: none;
+    background: transparent;
+    flex: 1;
+    line-height: 37px;
+    border: 0;
+    outline: 0;
+  }
+
+  .search-field-wrapper{
+    width: 100%;
+  }
+
+  .bi-search {
+    font-size: 18px;
+  }
+
+  .btn-toolbar {
+    // color: var(--text);
+    // background-color: transparent;
+    font-size: 14px;
+    height: 100%;
+    width: 40px;
+    &:focus {
+      box-shadow: none;
+    }
+    // padding: 0;
+  }
+
+  // .submit-button:focus, .cancel-button:focus, .dropdown-toggle:focus {
+  //   color: #fff;
+  //   background-color: var(--focus-500);
+  //   box-shadow: none;
+  // }
+
+  .submit-button {
+    border-radius: var(--default-radius) 0 0 var(--default-radius);
+  }
+
+  .cancel-button {
+    border-radius: 0;
+  }
+
+  .dropdown-toggle {
+    border-radius: 0 var(--default-radius) var(--default-radius) 0;
+  }
+
+  .dropdown, .autocomplete {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background-color: var(--background);
+    border-radius: var(--default-radius);
+    min-height: 200px;
+    max-height: calc(100vh - 80px);
+    box-shadow: 0 12px 32px 0px rgb(0 0 0 / 20%);
+    z-index: 11;
+  }
+
+  &.open .dropdown {
+    display: block;
+  }
+
+  .dropdown {
+    // needed for really small windows
+    overflow: auto;
+    .form-group {
+      margin-bottom: 8px;
+      position: relative;
+      label {
+          padding-top: 6px;
+          margin-bottom: 2px;
+          display: block;
+      }
+      .autocomplete {
+        top: 64px;
+        z-index: 1;
+        overflow: auto;
+      }
+    }
+  }
+
+  .progress {
+    position: absolute;
+    top: 37px;
+    left: 0;
+    width: 0;
+    transition: width 0.3s;
+    height: 2px;
+    background-color: var(--accent);
+  }
+
+  .autocomplete {
+    display: block;
+    max-height: 290px;
+    min-height: 0;
+    padding: 8px 8px;
+    .list-item {
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: var(--default-radius);
+      &.py-4 { padding-top: 4px; padding-bottom: 4px; }
+    }
+    .list-item-content {
+      span {
+        flex-shrink: 1;
+      }
+    }
+    .list-item-checkmark {
+      display: none;
+    }
+    .list-item:hover {
+      background-color: var(--accent-20);
+    }
+    .list-item.selected {
+      background-color: var(--accent-50);
+    }
+    .list-item.selected:hover {
+      background-color: var(--accent-100);
+    }
+    .divider {
+      height: 1px;
+      margin: 9px 0;
+      overflow: hidden;
+      background-color: var(--border-bright);
+    }
+    .divider:last-child {
+      display: none;
+    }
+  }
+
+  .autocomplete:empty {
+    display: none;
+  }
+
+  .filters {
+    position: fixed;
+    // --offset-top is changed e.g. by OX Display when injecting a leaderboard ad
+    top: calc(68px + var(--offset-top));
+    z-index: 10;
+    justify-content: center;
+  }
+
+  .filter {
+    background-color: var(--background-50);
+    border-radius: var(--default-radius);
+    height: 32px;
+    white-space: nowrap;
+    min-width: 0;
+    .content {
+      padding: 4px 0;
+      line-height: 24px;
+    }
+    button { color: inherit; }
+  }
+
+  .filters-centered {
+    justify-content: left;
+    gap: 8px;
+    min-width: 600px;
+    @media (max-width: 1400px)  { min-width: 500px; }
+    @media (max-width: 1280px)  { min-width: 400px; }
+  }
+}
+
+#io-ox-core {
+  // smartphone
+  @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+    .smartphone-search-container {
+      padding: 0 4px;
+      .dropdown {
+        max-height: calc(100vh - 180px);
+      }
+    }
+  }
+  &.show-search-filters {
+    // NOT smartphone
+    @media (min-width: ($smartphone-breakpoint + 1)), (min-device-width: ($smartphone-breakpoint + 1)) {
+      #io-ox-appcontrol {
+        height: 112px;
+        padding-bottom: 40px;
+      }
+    }
+    // smartphone
+    @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+      .search-view {
+        margin-bottom: 40px;
+        .filters {
+          top: 96px;
+          left: 4px;
+          right: 4px;
+          justify-content: flex-start;
+          overflow-x: auto;
+        }
+        .filters-centered {
+          min-width: auto;
+        }
+      }
+    }
+  }
+  // @include transition(height 0.2s linear, padding-bottom 0.2s linear);
+}

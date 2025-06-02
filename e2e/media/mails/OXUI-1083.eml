@@ -1,0 +1,15 @@
+X-Account-Key: account2
+From: Test User <user@example.com>
+To: Another User <anotheruser@example.com>
+Subject: Mixed content mail
+MIME-Version: 1.0
+Content-Type: text/html
+
+<html>
+	<head></head>
+	<body>
+		This mail contains an image which was linked from http and should be blocked.
+		<br><br>
+		<img src="http://www.columbia.edu/~fdc/picture-of-something.jpg" alt="unsecure image">
+	</body>
+</html>

@@ -1,0 +1,57 @@
+.io-ox-tasks-edit {
+  // baseline adjustments
+  padding-top: 16px;
+  padding-bottom: 16px;
+  min-height: 100%;
+  width: 100%;
+  // needed to make it grow correctly when view is expanded/collasped (bottom padding would be missing otherwise)
+  height: fit-content;
+
+  // hide collapsed and details on startup
+  .collapsible, .task-edit-details { display: none; }
+
+  &.expanded {
+    .collapsible { display: block; }
+    &.details-expanded .task-edit-details { display: block; }
+  }
+}
+
+.io-ox-tasks-edit-main {
+
+  .progress-field {
+    text-align: center;
+  }
+
+  .note-field {
+    resize: vertical;
+    padding: 10px;
+    min-height: 120px;
+  }
+
+  .container .summary {
+    padding-left: 0;
+    margin-bottom: 9px;
+  }
+
+  .input-group.has-picker input {
+    height: 1.875rem;
+  }
+
+  // add temporary higher z index to fix the focus outline (Bug 41266)
+  .input-group {
+    button[data-action='minus']:focus,
+    button[data-action='plus']:focus { z-index: 3; }
+  }
+
+}
+
+.io-ox-tasks-edit-main.expanded {
+  // hide collapsed and details on startup
+  .collapsible { display: block; }
+  &.details-expanded .task-edit-details { display: block; }
+}
+
+.smartphone .io-ox-tasks-edit {
+  padding-left: 24px;
+  padding-right: 24px;
+}

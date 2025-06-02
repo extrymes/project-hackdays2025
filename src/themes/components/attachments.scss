@@ -1,0 +1,30 @@
+@import '@/themes/imports.scss';
+
+@mixin iconColor($color-variable) {
+  svg { color: var($color-variable); }
+}
+
+.attachment-list {
+  display: grid;
+  gap: 4px 32px;
+  &.grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .file { background: var(--background-5); }
+
+  .remove-attachment {
+    @include iconColor(--delete);
+    &:hover, &:focus {
+      @include iconColor(--gray-800);
+    }
+  }
+  &:empty { display: none; }
+}
+
+:is(.add-local-file, .add-from-storage) {
+  @include iconColor(--add)
+}
+
+.touch :is(.filename, .filesize) {
+    font-size: 14px;
+}

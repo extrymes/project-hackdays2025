@@ -1,0 +1,135 @@
+@import '@/themes/imports.scss';
+
+.settings-list-view {
+  border: 1px solid var(--border-bright);
+  border-radius: var(--double-radius);
+  &:empty { display: none; }
+}
+
+.settings-list-view > li {
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border-bright);
+  padding: 16px;
+
+  &:first-child {
+    border-top-left-radius: var(--double-radius);
+    border-top-right-radius: var(--double-radius);
+  }
+  &:last-child {
+    border-bottom-left-radius: var(--double-radius);
+    border-bottom-right-radius: var(--double-radius);
+    border-bottom: 0;
+  }
+
+  .list-item-controls .bi {
+    padding: 0;
+    margin: 4px;
+  }
+
+  &:focus {
+    outline: 2px solid var(--focus-500);
+  }
+
+  .list-item-title {
+    @include ellipsis;
+    flex: 1;
+  }
+
+  .list-item-subtitle {
+    color: var(--text-gray);
+    // support ellipsis for sub nodes
+    display: flex;
+    label {
+      margin-right: 10px;
+    }
+  }
+
+  .drag-handle {
+    margin-inline-end: 16px;
+    &:focus {
+      outline: 2px solid var(--focus-500);
+      text-decoration: underline;
+    }
+
+    &.selected {
+      background-color: var(--background-200);
+    }
+  }
+
+  .list-item-controls {
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    .dropdown-toggle, .action {
+      margin:0;
+
+      &:focus {
+        outline: 2px solid var(--focus-500);
+        text-decoration: underline;
+      }
+    }
+
+    .remove {
+
+      margin: 0;
+
+      &:hover, &:focus {
+        text-decoration: none;
+        background-color: #c00;
+
+        .bi {color: #fff;}
+      }
+      &:focus {
+        outline: 2px solid var(--focus-500);
+      }
+
+      i { color: #aaa; }
+    }
+  }
+
+  &.disabled {
+    background-color: var(--background-5);
+    .list-item-title {
+      font-weight: normal;
+      color: var(--text-gray);
+    }
+  }
+
+  .error-wrapper {
+    color: var(--text);
+    flex: 100%;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border-bright);
+
+    .error-message {
+      padding-left: 16px;
+      margin-right: 2em;
+    }
+
+    .error-icon {
+      width: 2.5rem;
+      margin-inline-start: 6px;
+      margin-inline-end: 0;
+      margin-block: 3px;
+    }
+  }
+
+  .warning-message {
+    color: #888;
+    margin-right: 2em;
+  }
+
+  @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+    .list-item-controls {
+      .remove {
+        margin-left: 0;
+      }
+    }
+  }
+}

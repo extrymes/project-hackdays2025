@@ -1,0 +1,6 @@
+{
+  "namespace": "core",
+  "feature": "notes",
+  "delay": 0,
+  "requires": "infostore"
+}

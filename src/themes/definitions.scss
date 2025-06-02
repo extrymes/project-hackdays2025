@@ -1,0 +1,184 @@
+// - Variables containing the word 'background' will always refer to the background color.
+// - Variables containing 'color' will refer to the foreground color of an element, like color of a font.
+// - Hover in most cases means 'hovered' elements.
+// - Selected relates to the currently selected item.
+
+@import 'temp-vars';
+@import 'temp-mixins';
+
+// GLOBALS
+
+// base colors
+$brand-success:                         #008500;   // unused?
+$background:                            $white;      // e.g. used for window-content
+
+// high contrast colors
+$hc-gray:                               #767676;
+$hc-green:                              #198919;  // unused?
+$hc-blue:                               #3774a8;
+
+$hc-link-color:                         $hc-blue;   // unused?
+$hc-border-color:                       $hc-gray;   // unused?
+
+// typography
+$light-font-family:                     -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$normal-font-family:                    $light-font-family;
+$font-family-sans-serif:                $light-font-family;    // Bootstrap overwrite
+
+$font-size-touch:                       16px;
+$topbar-font-size:                      13px; // unused?
+$vgrid-font-size:                       13px; // no effect regarding css specificity and markup
+$inline-link-font-size:                 14px; // no effect as inline links are deprecated
+$sm-mail-detail-font-size:              15px;
+
+// base layout
+$padding-base-vertical:                  4px;   // Bootstrap overwrite
+$padding-base-horizontal:               12px;   // Bootstrap overwrite
+$modal-inner-padding:                   13px;   // Bootstrap overwrite
+
+$base-padding:                          4px;
+$default-padding:                       $base-padding * 4;
+$list-view-padding:                     $default-padding; // unused?
+
+// links
+$link-on-dark:                          #3bf; // unused?
+$inline-link-border-color:              #eee; // unused?
+$inline-links-margin:                   18px 0; // no effect as inline links are deprecated
+
+// icons
+$trash-icon-hover-background:           $red;
+$trash-icon-hover-color:                $white;
+$upsell-icon-color:                     #ffc107; // only used for some upsell items as default yet (therefore not documented)
+
+// images
+$theme:                                 'default';
+$fallback-image-contact:                '@/themes/#{$theme}/assets/fallback-image-contact.png';
+$fallback-image-group:                  '@/themes/#{$theme}/assets/fallback-image-group.png';
+$fallback-image-resource:               '@/themes/#{$theme}/assets/fallback-image-resource.png';
+
+$onboarding-mailapp-appstore:           '@/themes/default/assets/mobileapps/mailapp_ios.png';
+$onboarding-mailapp-googleplay:         '@/themes/default/assets/mobileapps/mailapp_android.png';
+$onboarding-driveapp-googleplay:        '@/themes/default/assets/mobileapps/driveapp_android.png';
+$onboarding-driveapp-appstore:          '@/themes/default/assets/mobileapps/driveapp_ios.png';
+
+// border radius
+$border-radius-large:                   3px;   // Bootstrap overwrite
+$border-radius-base:                    3px;   // Bootstrap overwrite
+$border-radius-small:                   3px;   // Bootstrap overwrite
+
+$contact-picture-radius:                50%;
+
+// misc
+$default-border-color:                  #ddd; // unused? replaced by --border
+$error-text-color:                      #a94442;
+$outline-color:                         blue; // unused? replaced by --focus-500
+$ui-disabled-color:                     #ccc;
+
+$smartphone-breakpoint:                 540px;  // matches smartphone detection threshold in browser.js
+$pagecontroller-animation-duration:     400ms;
+
+$mobile-launcher-icon-size:             18px;   // unused?
+$mobile-toolbar-height:                 50px;
+
+$session-expired-blur: 4px;
+
+
+// COMMONS
+
+// alerts
+$alert-info-text:                       #396ca0;     // Bootstrap overwrite
+$alert-info-icon-color:                 #08c;
+$alert-error-icon-color:                #a00;
+$alert-warning-icon-color:              #fc0;
+$alert-success-icon-color:              #92d050;
+$alert-busy-icon-color:                 #555;
+
+// buttons
+$btn-info-bg:                           #5bc0de;     // Bootstrap overwrite
+$btn-success-bg:                        #198819;     // Bootstrap overwrite
+$btn-warning-bg:                        #fbb450;     // Bootstrap overwrite
+$btn-warning-color:                     #764500;     // Bootstrap overwrite
+$btn-danger-bg:                         #df332e;     // Bootstrap overwrite
+$btn-inverse-bg:                        #444;        // Bootstrap overwrite
+
+// labels
+$label-info-bg:                         #3a87ad;     // Bootstrap overwrite
+$label-default-bg:                      #666;        // Bootstrap overwrite
+
+
+// COMPONENTS
+
+// flag picker
+$flag-picker-red: #d13200;
+$flag-picker-orange: #ff9800;
+$flag-picker-yellow: #fdd835;
+$flag-picker-lightgreen: #92d742;
+$flag-picker-green: #109759;
+$flag-picker-cyan: #26c6da;
+$flag-picker-blue: #29a0ff;
+$flag-picker-purple: #7024ff;
+$flag-picker-pink: #e02aff;
+$flag-picker-gray: $gray-600;
+
+// notification
+$notification-icon-color:               rgba(255, 255, 255, 1); // unused?
+$notification-icon-background:          rgba(200, 0, 0, 1);
+$notification-icon-color-active:        #333;                   // unused?
+$notification-icon-background-active:   $white;                   // unused?
+$notification-pane-background:          rgba(255, 255, 255, 1); // unused?
+$notification-pane-item-background:     rgba(0, 0, 0, 0.10);    // unused?
+
+// toolbar
+$toolbar:                               blue;   // unused?
+$toolbar-vertical-padding:              8px;
+$toolbar-height:                        24px + 2 * $toolbar-vertical-padding;
+
+$link-disabled-color:                   #aaa;
+
+// premium toolbar
+$premium-toolbar-background:            blue;
+$premium-toolbar-header-background:     lighten($premium-toolbar-background, 10%);
+$premium-toolbar-link-color:            $white;
+$premium-toolbar-header-color:          lighten($premium-toolbar-header-background, 50%); // unused?
+
+// wizard & tours
+$wizard-backdrop-color:                 rgba(0, 0, 0, 0.15);
+$wizard-backdrop-color-dark:            rgba(0, 0, 0, 0.25);
+
+$hotspot-color:                         #FD057C; // e.g. used as visual marker in guided tours
+$pulse-color:                           fade($hotspot-color, 70%);
+$pulse-border-color:                    $hotspot-color;
+
+
+// OX APPS
+
+// calendar
+$appointment-reserved:                  #3774a8;
+$appointment-free:                      #8eb360;
+$appointment-unconfirmed-font:          #555;
+$appointment-declined-font:             #686868;
+$appointment-unconfirmed:               #e8e8e8;
+$appointment-declined:                  #e8e8e8;
+
+$appointment-hover-pct:                 15%;
+$weekview-time-width:                   80px;
+$weekview-working-time-border:          #aaa;
+
+// tasks
+$badge-notstarted-color: $gray-700;
+$badge-notstarted-background: $gray-200;
+$badge-deferred-color: shade-color($orange, 35%);
+$badge-deferred-background: tint-color($orange, 90%);
+$badge-waiting-color: shade-color($orange, 35%);
+$badge-waiting-background: tint-color($orange, 90%);
+$badge-inprogress-color: shade-color($cyan, 41%);
+$badge-inprogress-background: tint-color($blue, 90%);
+$badge-done-color: $green-600;
+$badge-done-background: tint-color($green, 90%);
+$badge-overdue-color: $pink-600;
+$badge-overdue-background: $pink-100;
+
+// presence
+$presence-color-online: #7CB342;                    // unused? replace by --presence-online
+$presence-color-busy:   #d00;                       // unused? replace by --presence-busy
+$presence-color-absent: #ffa500;                    // unused? replace by --presence-absent

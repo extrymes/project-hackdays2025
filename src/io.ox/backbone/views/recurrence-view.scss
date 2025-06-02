@@ -1,0 +1,76 @@
+@import '@/themes/imports.scss';
+
+.recurrence-view {
+
+    display: flex;
+    align-items: baseline;
+
+    .checkbox {
+        display: inline-block;
+        margin-top: 0;
+    }
+
+    label {
+        margin-right: 5px;
+    }
+
+    .btn {
+        padding-top: 1px;
+    }
+
+    .btn-link.summary {
+        white-space: normal;
+        text-align: left;
+        margin-left: 1em;
+    }
+}
+
+.modal.flex.recurrence-view-dialog {
+  .modal-dialog {
+    max-width: 780px;
+  }
+  .text-group {
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    .simple-text-view {
+      padding-top: 5px;
+      font-weight: 500;
+    }
+  }
+
+  .radio {
+    display: inline-block;
+    margin-right: 32px;
+  }
+
+  .extra-label {
+    padding-left: 10px;
+  }
+
+  .form-control.small {
+    max-width: 50px;
+    display: inline-block;
+  }
+
+  .btn-group .btn.focus {
+    z-index: 10;
+
+    &:not(.active) {
+      background-color: transparent;
+    }
+  }
+
+  legend.control-label {
+    border-bottom: none;
+  }
+
+  @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+    .btn-group .btn {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  &.mobile-dialog .modal-content { min-width: 300px }
+}

@@ -1,0 +1,83 @@
+core-ui-middleware:
+  baseUrls:
+    - http://preview-app-core-ui
+  appRoot: /appsuite/
+  imagePullSecrets:
+    - name: open-xchange-registry-credentials
+  ingress:
+    enabled: false
+  redis:
+      hosts:
+        - update-redis-master.appsuite-stack-1494-update.svc.cluster.local:6379
+      prefix: core-ui-transition-8
+
+core-user-guide:
+  ingress:
+    enabled: false
+  imagePullSecrets:
+    - name: open-xchange-registry-credentials
+
+core-ui:
+  image:
+    registry: registry.gitlab.open-xchange.com
+    repository: frontend/ui
+    pullPolicy: Always
+    tag: latest
+  imagePullSecrets:
+    - name: gitlab-registry-credentials
+
+  ingress:
+    enabled: false
+
+core-guidedtours:
+  ingress:
+    enabled: false
+  imagePullSecrets:
+    - name: open-xchange-registry-credentials
+
+office-web:
+  enabled: true
+  imagePullSecrets:
+    - name: open-xchange-registry-credentials
+  ingress:
+    enabled: false
+
+office-user-guide:
+  enabled: true
+  imagePullSecrets:
+    - name: open-xchange-registry-credentials
+  ingress:
+    enabled: false
+
+guard-ui:
+  enabled: false
+
+core-documents-collaboration:
+  enabled: false
+
+core-documentconverter:
+  enabled: false
+
+core-imageconverter:
+  enabled: false
+
+core-spellcheck:
+  enabled: false
+
+core-mw:
+  enabled: false
+
+cloud-plugins-ui:
+  enabled: false
+
+plugins-ui:
+  enabled: false
+
+core-drive-help:
+  enabled: false
+
+drive-client-windows-ox:
+  enabled: false
+
+switchboard:
+  enabled: false

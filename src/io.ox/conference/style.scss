@@ -1,0 +1,67 @@
+@import '@/themes/imports.scss';
+.conference-view {
+  padding: 16px 0 16px 56px;
+  min-height: 72px;
+  position: relative;
+  .conference-logo {
+    position: absolute;
+    top: 16px;
+    left: 0;
+  }
+  .secondary-action {
+    color: #707070;
+    margin-right: 16px;
+  }
+  &.zoom .conference-logo {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    color: white;
+    background-color: #4290FF;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &.zoom .fa-exclamation.conference-logo {
+    color: #a00;
+    background-color: #f0f0f0;
+  }
+  .pending {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    i.fa-refresh {
+      color: #555;
+      margin-left: 16px;
+    }
+  }
+  .alert { margin-bottom: 0; }
+
+  .recurrence-warning {
+    margin: 16px 0 0 0;
+  }
+}
+
+.modal .conference-view {
+  padding: 40px 0 0 0;
+  .pending {
+    justify-content: center;
+  }
+}
+
+/* settings */
+.conference-account {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px 64px 16px 16px;
+  .name {
+    font-weight: bold;
+  }
+  [data-action="remove"] {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+  }
+}

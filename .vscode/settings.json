@@ -1,0 +1,26 @@
+{
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false,
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "eslint.workingDirectories": [
+    "./"
+  ],
+  "patternlinks.rules": [
+    {
+      "linkPattern": "OXUIB?-\\d+",
+      "linkTarget": "https://jira.open-xchange.com/browse/$0"
+      // Example URL: https://jira.open-xchange.com/browse/OXUI-299
+    },
+    {
+      "linkPattern": "[Bb]ug #?(\\d+)",
+      "linkTarget": "https://bugs.open-xchange.com/buglist.cgi?no_redirect=1&quicksearch=$1"
+    }
+  ],
+  "yaml.customTags": [ "!reference sequence" ],
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": [
+    "scss"
+  ]
+}

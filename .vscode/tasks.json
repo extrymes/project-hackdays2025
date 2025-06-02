@@ -1,0 +1,27 @@
+/* This tasks.json can be used to start often recurring tasks.
+ *
+ *  'Start DevServer' runs `yarn dev` in the VS Code terminal.
+ *  The output is not presented to the user to prevent distractions but can be seen by opening the corresponding terminal.
+ *  To start the dev server on start, uncomment the 'runOptions' block.
+ *
+ *  To prevent local changes from merging it is advised to add tasks.json to the global gitignore (~/.gitignore_global).
+ */
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start DevServer",
+      "type": "shell",
+      "command": "yarn dev",
+      "group": "none",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "new"
+      },
+      // "runOptions": {
+      //   "runOn": "folderOpen"
+      // },
+      "problemMatcher": [],
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+@import '@/themes/imports.scss';
+
+.io-ox-editor {
+
+  &.container {
+    height: 100%;
+    padding: 26px 13px;
+  }
+
+  .title { font-weight: bold; }
+
+  form, .body > div { height: 100%; }
+
+  .body {
+    height: calc(100% - 20px);
+  }
+
+  .body { padding-bottom: 35px; }
+
+  textarea.form-control {
+    font-family: monospace;
+    line-height: 1.3333em;
+    color: var(--text);
+    padding: 13px;
+    height: 100% !important;
+  }
+
+  .alert {
+    overflow: hidden;
+    margin: 0;
+  }
+
+  @media (max-width: $screen-xs-max) {
+    .body {
+      height: calc(100% - 40px);
+    }
+  }
+ }
+
+.smartphone .io-ox-editor {
+  padding-left: 24px;
+  padding-right: 24px;
+}

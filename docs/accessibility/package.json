@@ -1,0 +1,12 @@
+{
+  "name": "open-xchange-docs-accessibility",
+  "version": "1.0.0",
+  "description": "",
+  "license": "MIT",
+  "scripts": {
+    "openacr": "openacr output -t node_modules/@openacr/openacr/templates/openacr-markdown-0.1.0.handlebars -f acr-out.yaml -c catalog/2.4-edition-wcag-2.1-508-eu-en.yaml -o acr.md"
+  },
+  "devDependencies": {
+    "@openacr/openacr": "^0.3.7"
+  }
+}

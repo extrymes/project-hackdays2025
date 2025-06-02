@@ -1,0 +1,118 @@
+.presence {
+  display: inline-block;
+  line-height: 0;
+  .icon {
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline-end: 8px;
+    // prevents some artefact pixels to show up under the border, especially visible in firefox in the gab
+    background-clip: content-box;
+    svg {
+      font-size: 14px;
+      transform: scale(1.25);
+      path { display: none; }
+    }
+  }
+  &.dot {
+    font-size: 0;
+    .icon {
+      width: 10px;
+      height: 10px;
+      svg { display: none; }
+    }
+  }
+  &.offline {
+    .icon { background-color: #aaa; }
+  }
+  &.online {
+    .icon { background-color: var(--presence-online); }
+    svg .online { display: inline; }
+  }
+  &.busy {
+    .icon { background-color: var(--presence-busy); }
+    svg .busy { display: inline; }
+  }
+  &.absent {
+    .icon { background-color: var(--presence-absent); }
+    svg .absent { display: inline; }
+  }
+
+}
+
+#io-ox-topbar-account-dropdown-icon > .dropdown-toggle > .presence {
+  position: absolute;
+  top: 28px;
+  right: -2px;
+  .icon {
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    margin: 0;
+  }
+}
+
+#topbar-account-dropdown .offline {
+  display: inline-block;
+}
+
+
+// alternative selection mode
+.list-view.show-avatars:not(.hide-checkboxes) .list-item .presence {
+    top: 32px;
+    left: 86px;
+    right: 86px;
+}
+
+.list-view.show-avatars, .vgrid-scrollpane {
+
+  .list-item .presence {
+    position: absolute;
+    top: 20px;
+    left: 46px;
+    right: 46px;
+  }
+
+  .presence.offline {
+    display: none;
+  }
+
+  .presence .icon {
+    border: 1px solid var(--background);
+    box-sizing: content-box;
+  }
+
+  .selected .presence .icon {
+    border-color: var(--selected-background);
+  }
+
+  &.has-focus .selected .presence .icon {
+    border-color: var(--selected-background-focus);
+  }
+}
+
+.participant-wrapper {
+  .presence {
+    position: absolute;
+    top: 37px;
+    left: 40px;
+    .icon {
+      border: 1px solid white;
+      box-sizing: content-box;
+    }
+  }
+  .presence.offline {
+    display: none;
+  }
+}
+
+.participantsrow .participant-wrapper .presence {
+  left: 56px;
+}
+
+.freetime-view .participant-wrapper .presence {
+  top: 18px;
+  left: 23px;
+}

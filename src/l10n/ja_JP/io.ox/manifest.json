@@ -1,0 +1,8 @@
+{
+  "namespace": [
+    "io.ox/contacts/detail",
+    "io.ox/contacts/edit",
+    "io.ox/contacts"
+  ],
+  "device": "ja_JP"
+}

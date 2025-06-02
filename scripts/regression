@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# check parameters
+if [ $# -eq 0 ]
+  then
+    echo -e "\033[0;37mDetect regressions by comparing two branches to look for missing bug fixes in the newer branch"
+    echo -e "Usage: \033[0;33mregression <older-branch-name> <newer-branch-name>"
+    echo -e "\033[0;37mExample: regression origin/stable-8.5 origin/stable-8.6"
+    exit 1
+fi
+
+# first is old branch, second is newer branch
+olderBranch=$1
+newerBranch=$2
+
+fixes() {
+  branch=$1
+  echo -e "\033[0;37mReading $branch:CHANGELOG.md" >&2
+  git show "$branch:CHANGELOG.md" | grep -E 'OXUIB-\d+' | perl -pe 's/^.+(OXUIB-\d+).*$/$1/' | sort
+}
+
+older=$(fixes "$olderBranch")
+newer=$(fixes "$newerBranch")
+
+echo -e "\033[0;33mBug fixes potentially missing in newer branch \033[1;37m$newerBranch:"
+# compare list of bug fixes
+result=$(comm <(echo "$older") <(echo "$newer") | grep -E '^OXUIB')
+length=${#result}
+# empty result means no fixes missing
+if [ $length -eq 0 ]
+  then
+    echo -e "\033[0;32mNone!"
+    exit 0
+fi
+echo -e "\033[0;31m$result"

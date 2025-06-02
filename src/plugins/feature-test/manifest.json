@@ -1,0 +1,7 @@
+{
+  "path": "plugins/feature-test/main",
+  "namespace": "core",
+  "device": "!smartphone",
+  "feature": "test",
+  "delay": 0
+}

@@ -1,0 +1,121 @@
+@import '@/themes/imports.scss';
+
+.mail-detail-frame {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: auto;
+  /* default iframe height is 150px. we start height calculation with 0 */
+  height: 0;
+  border-radius: var(--default-radius);
+}
+
+.mail-detail-content {
+
+  cursor: auto;
+  // for large images (see bug #22756 and bug #25033)
+  display: block;
+  // helper for absolutely positioned elements
+  overflow: hidden;
+
+  * {
+    // see Bug 25737 - [L3] HTML mail with pasted text from MS Word not displayed correctly (cut off at upper edge)
+    line-height: normal;
+    box-sizing: content-box;
+  }
+
+  // TODO: remove / temp. fix for bootstrap
+  [class*="span"] {
+    float: none;
+    margin-left: 0;
+  }
+
+  // reset bootstrap stuff
+
+  small {
+    color: inherit;
+    font-size: initial;
+  }
+
+  code { font-family: inherit; }
+
+  th {
+    padding: $table-cell-padding-x;
+    text-align: center;
+  }
+
+  // special case, see bug #37082
+  th[align="left"] { text-align: left; }
+}
+
+.touch .mail-detail .mail-detail-content.plain-text { font-size: $font-size-touch; }
+
+.smartphone {
+  .mail-detail-content {
+    padding: 0;
+    font-size: 16px;
+    overflow: auto;
+
+    * { line-height: 1.42857142em; } // ~20px at 14px
+
+    ul, ol {
+      padding-left: 10px;
+      margin-left: 16px;
+    }
+  }
+
+  .io-ox-pagecontroller.page .mail-detail .mail-detail-content { margin: 0; }
+}
+
+// hide text preview if expanded or if setting is disabled
+.thread-view-control.hide-text-preview .mail-detail .text-preview, .mail-detail.expanded .text-preview {
+  display: none;
+}
+
+.mail-detail .text-preview {
+  line-height: 16px;
+  padding:  3px 16px 21px 40px;
+  color: var(--text);
+}
+
+.toggle-mail-body, .toggle-mail-body-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  padding: 0;
+  margin: 0;
+}
+.toggle-mail-body-btn {
+  display: inline-block;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  &:focus {
+    color: var(--focus);
+    background-color: var(--focus-500);
+  }
+}
+
+.notifications .federated-sharing {
+  // same color as .well
+  background-color: #F5F5F5;
+  .item {
+    padding: 16px 40px;
+    .password {
+      max-width: 370px;
+      margin: 16px 0;
+      &:empty { display: none; }
+    }
+    .controls {
+      display: inline-block;
+      &:empty { display: none; }
+      .btn {
+        margin-right: 8px;
+        margin-top: 8px;
+      }
+    }
+  }
+}

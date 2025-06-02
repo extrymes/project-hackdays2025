@@ -1,0 +1,131 @@
+{
+    "daysInFirstWeek": 1,
+    "weekStart": 0,
+    "days": [
+        "���期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六"
+    ],
+    "daysShort": [
+        "週日",
+        "週一",
+        "週二",
+        "週三",
+        "週四",
+        "週五",
+        "週六"
+    ],
+    "daysStandalone": [
+        "日",
+        "一",
+        "二",
+        "三",
+        "四",
+        "五",
+        "六"
+    ],
+    "months": [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月"
+    ],
+    "monthsShort": [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月"
+    ],
+    "formats": {
+        "E": "E",
+        "yMd": "d/M/y",
+        "yMEd": "d/M/y（E）",
+        "yMMMd": "y 年 M 月 d 日",
+        "yMMMEd": "y 年 M 月 d 日 (E)",
+        "hm": "ah:mm",
+        "Hm": "HH:mm",
+        "v": "v",
+        "Md": "M-d",
+        "Hmv": "HH:mm v",
+        "hmv": "ah:mm v",
+        "yMdHm": "d/M/yHH:mm",
+        "yMdHmv": "d/M/yHH:mm v",
+        "yMdhm": "d/M/yah:mm",
+        "yMdhmv": "d/M/yah:mm v",
+        "yMEdHm": "d/M/y（E）HH:mm",
+        "yMEdHmv": "d/M/y（E）HH:mm v",
+        "yMEdhm": "d/M/y（E）ah:mm",
+        "yMEdhmv": "d/M/y（E）ah:mm v"
+    },
+    "date": "y年M月d日",
+    "time": "ah:mm",
+    "dateTimeFormat": "%2$s%1$s",
+    "intervals": {
+        "fallback": "%1$s至%2$s",
+        "hm": {
+            "a": "ah:mm至ah:mm",
+            "h": "ah:mm至h:mm",
+            "m": "ah:mm至h:mm"
+        },
+        "Hm": {
+            "h": "HH:mm–HH:mm",
+            "m": "HH:mm至HH:mm"
+        },
+        "hmv": {
+            "a": "a h:mm 至a h:mm [v]",
+            "h": "a h:mm 至 h:mm [v]",
+            "m": "a h:mm 至 h:mm [v]"
+        },
+        "Hmv": {
+            "h": "HH:mm–HH:mm [v]",
+            "m": "HH:mm–HH:mm [v]"
+        },
+        "yMMMd": {
+            "d": "y年MM月d日至d日",
+            "m": "y年MM月d日至MM月d日",
+            "y": "y年MM月d日至y年MM月d日"
+        },
+        "yMMMEd": {
+            "d": "y年MM月d日E至d日E",
+            "m": "y年MM月d日E至MM月d日E",
+            "y": "y年MM月d日E至y年MM月d日E"
+        }
+    },
+    "dayPeriods": {
+        "afternoon": "下午",
+        "am": "上午",
+        "earlyMorning": "清晨",
+        "midDay": "中午",
+        "morning": "上午",
+        "night": "晚上",
+        "noon": "中午",
+        "pm": "下午",
+        "weeHours": "凌晨"
+    },
+    "eras": [
+        "公元前",
+        "公元"
+    ],
+    "dateTime": "y年M月d日ah:mm",
+    "h12": true
+}

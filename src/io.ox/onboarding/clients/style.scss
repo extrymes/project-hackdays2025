@@ -1,0 +1,430 @@
+@import '@/themes/imports.scss';
+
+/**
+* :MIXINS
+*/
+@mixin mixin-unstyled-list(){
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin mixin-expanded(){
+  .content { display: block; }
+  .config { display: flex; }
+  .fa-chevron-right { display: none; }
+  .fa-chevron-down { display: inline-block; }
+}
+
+@mixin mixin-premium(){
+  position: absolute;
+  font-weight: 700;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 4px 16px;
+  background: var(--accent);
+  border-radius: 12px;
+  color: white;
+  opacity: .8;
+  width: 90%;
+  .fa { padding-right: 4px; }
+}
+
+/**
+* :SPECIAL
+*/
+
+// reserve extra space for bars on ios
+.ios:not(.standalone) .client-onboarding.mobile .modal-content {
+  max-height: calc(100vh - 88px);
+}
+
+/**
+* :GENERAL
+*/
+
+.client-onboarding {
+
+  [data-action='link/mailappinstall'] .app-icon[data-detail='Google Play'] {
+    background-image: url($onboarding-mailapp-googleplay);
+  }
+  [data-action='link/mailappinstall'] .app-icon[data-detail='App Store'] {
+    background-image: url($onboarding-mailapp-appstore);
+  }
+  [data-action='link/driveappinstall'] .app-icon[data-detail='Google Play'] {
+    background-image: url($onboarding-driveapp-googleplay);
+  }
+  // selector works for App Store and Mac App Store data-detail attribute
+  [data-action='link/driveappinstall'] .app-icon[data-detail*='App Store'] {
+    background-image: url($onboarding-driveapp-appstore);
+  }
+
+  .app-icon {
+    width: 20vw;
+    height: 20vw;
+    margin-right: 16px;
+    background-size: cover;
+  }
+
+  // general
+  pre {
+    margin: 0;
+    &.config {
+      font-size: 14px;
+      display: none;
+      .title, .property, .value { padding: 4px 8px 0 0; }
+      .title {
+        font-style: italic;
+        &:not(:first-child) { padding-top: 24px; }
+      }
+      .value { font-weight: 700; }
+    }
+  }
+
+  // mobile
+  &.mobile.modal.flex {
+
+
+    .premium-container {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      background-color: rgba(0,0,0,.5);
+      margin: -8px 8px 8px -8px;
+      border: 1px lightgray dashed;
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    pre.config { display: flex; }
+
+    .premium {
+      @include mixin-premium();
+    }
+
+    $space: 16px;
+
+    .modal-dialog {
+      // scroll
+      max-height: 100%;
+      overflow: scroll;
+      // fixed transparent border
+      max-width: 100%;
+      padding: 16px;
+
+      .modal-header {
+        display: flex;
+
+        .modal-title {
+          margin-left: 32px;
+          width: 100%;
+          text-align: center;
+        }
+
+        .modal-action { margin-left: $space; }
+      }
+
+      .modal-body {
+
+        .title { margin-top: 0; }
+
+        .scenario {
+          .title { font-size: 16px; }
+          & > .description { padding-bottom: $space; }
+        }
+
+        .action {
+          padding-bottom: 16px;
+          position: relative;
+
+          .title { font-size: 14px; }
+
+          .toggle {
+            text-decoration: none;
+            padding-bottom: 12px;
+          }
+
+          .store-icon { max-height: 40px; }
+
+          .description {
+            font-weight: 300;
+            display: flex;
+          }
+
+          &:empty { display: none; }
+
+        }
+
+
+        hr.divider {
+          border-top-width: 2px;
+          max-width: 30vw;
+        }
+      }
+
+      .modal-footer { display: none; }
+    }
+  }
+
+  // desktop
+  .wizard-step {
+
+    @mixin transition($duration:0.2s, $ease:ease-out){
+      transition: all $duration $ease;
+    }
+
+    /**
+    * SIMPLE MODE
+    */
+
+    &[data-mode="simple"] {
+      fieldset.action {
+        display: none;
+      }
+      fieldset.action:nth-child(1) {
+        display: block;
+      }
+      .wizard-content .actions .toggle-link {
+        &[data-value="to-advanced"] { display: block; }
+        &[data-value="to-simple"] { display: none; }
+      }
+    }
+
+    &[data-type="scenario"] {
+      min-height: 400px;
+      // align option icons on same main axis
+      .link .title {  min-height: 32px; }
+    }
+
+    /**
+    * ADVANCED MODE
+    */
+
+    .wizard-content {
+
+      .teaser {
+        margin: 0;
+      }
+
+      .options {
+        @include mixin-unstyled-list();
+        display: flex;
+        white-space: nowrap;
+        // auto expand to full height
+        display: flex;
+        align-items: stretch;
+
+        .option {
+          margin: 0 16px 0 0;
+          display: inline-flex;
+          //max-width: 146px;
+          white-space: normal;
+
+          .premium-container {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+
+          .premium {
+            @include mixin-premium();
+          }
+
+          .link {
+            //max-width: 144px;
+            max-height: 200px;
+            border: 1px solid rgba(0, 0, 0, 0.10);
+            display: inline-block;
+            outline: 0;
+            text-decoration: none;
+            color: black;
+
+            &.disabled {
+              color: #ccc;
+              cursor: default;
+            }
+
+            &:hover {
+              border-color: rgba(0, 0, 0, 0.50);
+              &.disabled {
+                border-color: rgba(0, 0, 0, 0.10);
+              }
+            }
+
+            // https://turnkey-shop.com/animate-box-shadow-with-silky-smooth-performance
+            &.box {
+              position: relative;
+              display: inline-block;
+              background-color: #fff;
+              border-radius: 5px;
+              box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+              @include transition(0.6s cubic-bezier(0.165, 0.84, 0.44, 1));
+              &:hover, &:focus {
+                z-index:1000;
+                box-shadow: rgba(0, 0, 0, 0.3) 0 8px 8px 0;
+
+                &.disabled {
+                  box-shadow: none;
+                }
+              }
+            }
+
+            .icon-list {
+              margin: 8px 16px 0 16px;
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              .icon {
+                width: 48px;
+                font-size: 48px;
+                text-align: center;
+                margin: 8px;
+                text-decoration: none;
+              }
+            }
+
+            .title {
+              text-align: center;
+              line-height: 16px;
+              margin-bottom: 8px;
+              // overflow: hidden;
+              // text-overflow: ellipsis;
+              padding: 0 8px;
+              text-decoration: none;
+            }
+          }
+
+          // back button
+          //.icon-list { margin: 18px 24px 18px 24px; }
+          &.centered .icon-list{ margin: 0; }
+
+          // selection
+          &.selected>.link:not(.disabled) { border: 1px rgb(60, 115, 170) solid; }
+        }
+      }
+
+      .descriptions { @include mixin-unstyled-list(); }
+
+      .teaser, .descriptions>.description {
+        width: 100%;
+        padding: 16px 0;
+      }
+
+      .actions {
+
+        .toggle-link {
+          margin-top: 12px;
+          display: inline-block;
+          outline: 0;
+          &[data-value="to-advanced"] { display: none; }
+          &[data-value="to-simple"] { display: block; }
+        }
+
+        .action {
+          // accordeon: less space when collapsed
+          margin-bottom: 0;
+          margin-top: 4px;
+
+          .button-clicked {
+            font-size: 18px;
+            color: #79bb32;
+            padding-left: 8px;
+          }
+
+          .btn.disabled {
+            pointer-events: none;
+          }
+
+          .app .app-icon {
+            max-height: 80px;
+            max-width: 80px;
+          }
+          .store .store-icon { height: 40px; }
+
+          .section-title {
+            font-size: 14px;
+            height: 32px;
+            color: #333;
+            cursor: pointer;
+            margin-bottom: 5px;
+            outline: 0;
+            .fa {
+              font-size: 12px;
+              padding-right: 8px;
+            }
+            // collapsed
+            .fa-chevron-right { display: inline-block; }
+            .fa-chevron-down { display: none; }
+          }
+          // style: button to legend
+          // keyboard navigation on legend node (tabindex, role button) don't work
+          button.section-title {
+            padding-left: 0;
+            border: none;
+            background: none;
+            border-bottom: 1px #ddd solid;
+            width: 100%;
+            text-align: left;
+            font-weight: 700;
+          }
+
+          &[data-action="sms"] {
+            .content .interaction .field { width: 30%; min-width: 120px; }
+          }
+
+          .content {
+            padding: 2px 0;
+            display: none;
+
+            .description {
+              margin-bottom: 5px;
+            }
+
+            .interaction {
+              label, input, select { margin-right: 8px; }
+              .field {
+                min-width: 350px;
+                width: 50%;
+              }
+              .select { width: 30%; }
+              .row {
+                margin-right: -10px;
+                padding: 0 0 0 15px;
+              }
+              .form-inline>* { padding-right: 8px; }
+            }
+
+            .data .row { padding-bottom: 5px; }
+
+            .data .row label { padding-top: 0; }
+
+            .control-label {
+              margin-top: 4px;
+              margin-bottom: 4px;
+              .display-label { text-align: right; }
+            }
+
+          }
+
+          &.expanded {
+            @include mixin-expanded();
+          }
+        }
+
+        // when only one action is visible
+        .single-action .action {
+          @include mixin-expanded();
+          .section-title {
+            cursor: default;
+            .fa-chevron-right, .fa-chevron-down {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

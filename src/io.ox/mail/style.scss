@@ -1,0 +1,1971 @@
+@import '@/themes/imports.scss';
+// definitions
+$icon-size: 16px;
+$flag-color: #ffb300;
+$a-color-neutral:    #888888;
+$a-color-trusted:    #5c7f31;
+$a-color-fail:       #c50000;
+
+.preview-right {
+
+  .leftside  {
+    width: 320px;
+    border-radius: var(--main-gap-radius) var(--main-gap-radius) 0 0;
+    padding-top: 16px;
+  }
+
+  @media(max-width: 900px) {
+    .leftside  { width: 240px; }
+  }
+
+  .mail-item .list-item {
+    .drag-title, .person {
+      display: inline;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .drag-title {
+      width: 100%;
+    }
+
+    &.unread .drag-title {
+      width: calc(100% - 19px);
+    }
+  }
+
+  .thread-view-control {
+    position: relative;
+    flex: 1;
+  }
+
+  .thread-view-list {
+    padding: 0 24px 24px 24px;
+  }
+}
+// fix for truncated letters on windows 10, see Bug 68163
+html.windows {
+  .preview-right .mail-item .list-item {
+    margin-bottom: -2px;
+    .from {
+      padding-bottom: 2px;
+    }
+    .subject {
+      margin-top: -2px;
+      padding-bottom: 2px;
+    }
+    .list-item-row:last-child{
+      margin-top: -2px;
+      padding-bottom: 2px;
+    }
+  }
+  .detail-view-row {
+    .from {
+      margin-bottom: -1px;
+    }
+    .recipients {
+      padding-bottom: 2px;
+    }
+    .inline-toolbar-container {
+      margin-top: -2px;
+    }
+  }
+}
+
+.io-ox-mail-window {
+  .list-view-control .listview {
+    padding: 0 8px;
+  }
+  .vsplit .leftside .alert {
+    position: relative;
+    border-radius: var(--default-radius);
+    margin: 0 16px 16px 16px;
+    padding-left: 40px;
+    &:not(.hidden) + .alert {
+      margin-top: -8px;
+    }
+    a {
+      color: inherit;
+    }
+    .bi:not(.bi-x) {
+      position: absolute;
+      top: 10px;
+      left: 16px;
+    }
+    .btn-close {
+      color: inherit;
+      position:absolute;
+      right: 0;
+      top: 2px;
+    }
+  }
+}
+
+.preview-bottom {
+  &.vsplit {
+    flex-direction: column;
+  }
+  .leftside {
+    width: 100%;
+    overflow: visible;
+    border-radius: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .rightside {
+    flex: 1;
+    width: 100%;
+    overflow: visible;
+  }
+  #io-ox-core .io-ox-mail-window & .rightside {
+    border-radius: 0;
+  }
+  .generic-toolbar.bottom {
+    display: none !important;
+  }
+  // outer layer overflow visible inner layer overflow auto. This is to show scrollbars when needed while keeping the dropdown from hiding under the mail list. see Bug(43449)
+  #io-ox-core & .thread-view-control {
+    top: 0;
+    overflow: auto;
+  }
+  #io-ox-core:not(.smartphone) & .thread-view-list {
+    padding: 24px;
+  }
+  // horizontal resizebar
+  .list-view-control .resizebar {
+    display: none;
+    &.vertical {
+      width: 100%;
+      height: 5px;
+      cursor: s-resize;
+      cursor: ns-resize;
+      cursor: row-resize;
+      top: auto;
+      right: auto;
+      bottom: 0;
+      display: block;
+    }
+  }
+}
+
+.preview-bottom, .preview-none {
+  .list-view .list-item .list-item-checkmark:before {
+    top: 11px;
+  }
+  .mail-item .list-item-content .bi.seen-unseen-indicator {
+    top: 12px;
+  }
+}
+
+.preview-none {
+  &.vsplit {
+    display: block;
+  }
+  .leftside, .rightside {
+    position: absolute;
+    top:    0;
+    right:  0;
+    bottom: 0;
+    left:   0;
+  }
+  .leftside {
+    width: auto !important;
+    z-index: 1;
+    visibility: v
+  }
+  .rightside {
+    left: 0 !important;
+    width: auto;
+    display: none;
+    z-index: 2;
+  }
+  &.preview-visible {
+    .leftside { display: none; }
+    .rightside { display: block; }
+  }
+  .thread-view-list {
+    padding: 24px;
+  }
+}
+.list-item.small {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.list-item.small .list-item-content,
+.thread-view .list-item.small {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.mail-item {
+
+  .list-item {
+    padding-top: 11px;
+    padding-bottom: 13px;
+    border-bottom: 0;
+    .smartphone & {
+      padding-top: 16px;
+      padding-bottom: 15px;
+      .list-item-checkmark { top: 9px; }
+    }
+  }
+
+  .list-item-column {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0;
+    $icon-width: 24px;
+
+    &.column-1 { width: $icon-width; text-align: center; }
+    &.column-2 { width: $icon-width; text-align: center; }
+    &.column-3 { width: $icon-width; text-align: center; }
+    &.column-4 { width: 11rem; padding-right: 8px; }
+    &.column-5 { width: $icon-width; text-align: center; }
+    &.column-6 { width: 90%; padding-right: 8px; @include ellipsis; }
+    &.column-7 { width: 136px; text-align: right; }
+  }
+
+  &.list-view .list-item {
+
+    &.small {
+
+      .priority { float: none; }
+
+      .from span.person { font-weight: normal; }
+
+      .subject {
+        display: inline;
+        margin-right: 16px;
+      }
+
+      .drag-title { opacity: 1; }
+
+      .date {
+        display: block;
+        float: none;
+        @include ellipsis();
+      }
+
+      &.unread {
+        .from span.person, .subject, .date { font-weight: bold; }
+      }
+    }
+
+    &.unread {
+      .date {
+        opacity: 1;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// macos and ios specific styles
+html.macos .preview-right, html.ios {
+  .mail-item.list-view .list-item {
+    .from .person {
+      font-weight: 700;
+    }
+    &.unread {
+      .from .person, .date {
+        font-weight: 800;
+        color: var(--text-dark);
+      }
+    }
+  }
+  .mail-item.list-view.has-focus .list-item.selected.unread {
+    .from .person, .date {
+      color: var(--selected-focus);
+    }
+  }
+}
+
+.swipe-option-cell {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  z-index: -5;
+
+  .swipe-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 95px;
+    color:#fff;
+    font-size: 30px;
+    float: right;
+    transition: width .35s ease-in-out;
+    i { transition: opacity .3s; }
+    &.delete { background: #FF4105; }
+    &.more   {
+      background: rgb(255, 169, 8);
+      i { opacity: 1; }
+      .dropdown-toggle { padding: 0 }
+    }
+  }
+}
+
+.list-view.thread-view .list-item.small { padding: 7px 14px 7px 48px; }
+
+
+.skeleton {
+  display: block;
+  height: 1rem;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--skeleton-background);
+  border-radius: 4px;
+  width: 200px;
+  margin: 4px 0;
+  &.a { width: 240px; }
+  &.b { width: 360px; }
+  &.c { width: 180px; }
+  &.d { width: 240px; }
+  &.e { width: 160px; }
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(#fff, 0) 0,
+      rgba(#fff, 0.2) 20%,
+      rgba(#fff, 0.5) 60%,
+      rgba(#fff, 0)
+    );
+    animation: shimmer 2s infinite;
+    content: '';
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.mail-detail {
+
+  .content { display: none; }
+  &.expanded .content { display: block };
+
+  color: var(--text);
+  background-color: var(--background);
+  position: relative;
+  overflow-y: visible;
+  clear: both;
+  width: 100%;
+  @include user-select(text);
+
+  section.body {
+    margin: 0;
+    padding: 0;
+    display: none;
+    width: 100%;
+    cursor: default;
+    background: var(--background);
+    border-radius: 0 0 var(--default-radius) var(--default-radius);
+    &.loading {
+      min-height: 80px;
+    }
+  }
+
+  .ios.smartphone & {
+    section.body {
+      // special fix for ios iframe handling, keep this!
+      overflow-x: auto;
+      overflow-y: hidden; // added later, seems to prevent scroll bounce in mail detail frame
+    }
+  }
+
+  section.attachments,
+  section.notifications,
+  section.error { display: none; }
+
+  section.authenticity {
+    padding: 16px 40px;
+    border-bottom: 1px solid #ddd;
+  }
+  section.gpt{
+    display: flex;
+    flex-direction: column;
+    .gpt-output {
+      max-width: 560px;
+      white-space: pre-line;
+      word-break: break-word;
+      font-size: 14px;
+    }
+    .gpt-close {
+      position: absolute;
+      right: 0px;
+      width: 40px;
+      top: 10px;
+    }
+    .gpt-icon {
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      right: 16px;
+      color: var(--accent-500);
+    }
+    .gpt-debug {
+      font-size: 0.8rem;
+      margin-top: 16px;
+      align-self: flex-end
+    }
+    position: relative;
+    padding: 16px 0;
+    padding-inline-start: 80px;
+    padding-inline-end: 16px;
+    min-height: 72px;
+    background-color: var(--background-5);
+  }
+  &.expanded section {
+    &.attachments,
+    &.notifications,
+    &.error { display: block; }
+    // for proper overflow behavior (see bug 45248)
+    // 15.3.18: set to block. Works in Safari since iFrame. 45248 still fixed
+    &.body {
+      display: block;
+      &.complex-mail {
+        // yep, white! not --background; see below
+        background: white;
+      }
+      &.simple-mail {
+        // for simple mails we can apply the background
+        // so we get a dark mail in dark mode
+        background: var(--background);
+      }
+    }
+    &.attachments:empty { display: none;  }
+  }
+
+  section.error {
+    color: #767676;
+    position: relative;
+    font-size: 13px;
+    line-height: 16px;
+    padding: 16px 16px 16px 72px;
+    h4 {
+      margin: 3px 0 1px 0;
+      font-size: inherit;
+      line-height: inherit;
+      font-weight: bold;
+    }
+    p {
+      margin-bottom: 8px;
+    }
+    i.fa {
+      position: absolute;
+      left: 20px;
+      top: 19px;
+      font-size: 32px;
+    }
+  }
+
+  section.warnings {
+    background-color: #FFF176;
+  }
+
+  &.no-padding {
+    h1.subject,
+    section.body,
+    section.notifications,
+    section.attachments {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .flag-picker .dropdown-menu {
+    font: 14px/20 $normal-font-family;
+    top: 110%;
+  }
+
+  .contact-picture {
+    display: inline-block;
+  }
+
+  .from {
+    display: flex;
+
+    > a {
+      display: flex;
+      align-content: flex-start;
+      @include ellipsis();
+      &:first-child {
+        margin-inline-end: 16px;
+      }
+    }
+
+    .person-link {
+      @include ellipsis();
+      min-width: 0;
+      &.person-from {
+        font-weight: bold;
+        color: var(--text);
+      }
+    }
+
+    .address {
+      color: var(--text-gray);
+      &:before { content: "\00a0"; }
+      .smartphone & { @include ellipsis(); }
+    }
+
+    .authenticity {
+      margin-left: 8px;
+    }
+
+    .spacer {
+      flex: 1;
+      .smartphone & { display: none }
+    }
+  }
+
+  .sender {
+    margin-bottom: 8px;
+  }
+
+  $picture-width:  40px;
+  $picture-padding: $picture-width + $default-padding;
+
+  &.io-ox-busy {
+    min-height: 200px;
+    display: block;
+  }
+
+  .io-ox-center { height: 200px; }
+
+  .date {
+    display: block;
+    float: right;
+  }
+
+  .subject {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+
+    &.empty {
+      font-style: italic;
+      color: #aaa;
+    }
+
+    .icon-unread { display: none; }
+  }
+
+  &.unread .subject .icon-unread {
+    color: var(--unseen);
+    display: inline-block;
+    position: absolute;
+    top: 2px;
+    left: 0;
+  }
+
+  .thread-size {
+    float: right;
+    display: inline-block;
+    margin-left: 0.5em;
+  }
+
+  .priority {
+    float: right;
+    font-size: $icon-size;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 7px;
+    .high { color: var(--attention); }
+    .low  { color: var(--low); }
+  }
+
+  &.mail-item .avatar {
+    top: 20px;
+    left: 40px;
+    right: 40px; /* rtl */
+    margin: 0;
+    width: 32px;
+    height: 32px;
+  }
+
+  .detail-view-header > .presence {
+    position: absolute;
+    left: 60px;
+    right: 24px; /* rtl */
+    top: 40px;
+    width: 24px;
+    .icon {
+      border: 1px solid var(--background);
+      border-radius: 50%;
+      box-sizing: content-box;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &.no-padding .contact-picture { right: 0; }
+
+  .io-ox-label {
+    font-weight: bold;
+    white-space: nowrap;
+    display: inline-block; /* rtl */
+  }
+
+  .recipients .person-link {
+    color: var(--text);
+    @media(max-width: 900px) { white-space: normal; }
+    .presence .icon {
+      width: 8px;
+      height: 8px;
+      margin-right: 4px;
+    }
+  }
+
+  .detail-view-header {
+
+    position: relative;
+    line-height: 16px;
+    padding: 19px 0 13px 0;
+    padding-inline-start: 80px;
+    padding-inline-end: 8px;
+    min-height: 64px;
+
+    .bi.has-attachments {
+      display: none;
+      position: absolute;
+      top: 8px;
+      right: 0;
+      font-size: 24px;
+      width: 12px;
+      overflow: hidden;
+      color: #888;
+    }
+  }
+
+  .detail-view-row {
+    position: relative;
+
+    .recipients {
+      float: left;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .priority { font-size: 14px; }
+    .actions {
+      margin: 8px 8px 0 -8px;
+      // min height to avoid flicker
+      min-height: 32px;
+      & > li {
+        display: inline-block;
+        > a {
+          padding: 4px 8px;
+          display: inline-block;
+          &:focus {
+            color: var(--focus);
+            background: var(--focus-500);
+            outline: 0;
+            text-decoration: none;
+          }
+        }
+      }
+      .fa-bars {
+        font-size: 14px;
+      }
+    }
+
+    &.flex {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .subject-recipients {
+      flex: 1;
+      min-width: 100px;
+    }
+  }
+
+  .detail-view-row.row-1 {
+    display: flex;
+    margin-inline-end: 8px;
+    .from { flex: 1; }
+    & > *:not(:first-child) { margin-inline-start: 8px; }
+  }
+
+  .detail-view-row.row-3 .mail-header-actions {
+    margin-inline-start: 8px;
+
+    .inline-toolbar {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &:not(.expanded) {
+
+    .bi.has-attachments {
+      display: inline-block;
+      top: 56px;
+      left: 5px;
+      width: 18px;
+      color: var(--text);
+    }
+
+    .detail-view-row.row-5 { display: none; }
+    &.unread .unread-toggle { opacity: 1; }
+
+    .recipients {
+      max-height: 1.5rem;
+      @include ellipsis();
+      width: 100%;
+    }
+  }
+
+  &.expanded .detail-view-header { border-bottom: 1px solid var(--border); }
+
+  .notification-item,
+  .notification-item.disposition-notification {
+    display: flex;
+    align-items: flex-start;
+
+    padding: $default-padding;
+    padding-left: 40px;
+    border-bottom: 1px solid #ddd;
+
+    .btn { margin-right: $default-padding; }
+    .comment { flex: 1; align-self: center; }
+    .close {
+      height: 30px;
+      padding: 5px 0;
+      font-size: 16px;
+    }
+    .smartphone & { padding: 10px 15px; }
+  }
+
+  .notification-item + .notification-item { border-top: none; }
+
+  .notifications { cursor: default; }
+
+  &:not(.content-links) .disabled-links { display: none };
+
+  .alert, .well {
+    margin: 0;
+    border: 0;
+    padding: $default-padding 40px $default-padding $default-padding;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .alert + .alert { margin-top: 1px; }
+
+  .well + .well { border-top: 1px solid #ddd; }
+
+  article {
+    padding: 19px;
+    // to work with outline
+    border: 1px solid white;
+    display: table;
+    background-color: white;
+
+    &.text-html.horizontal-scrolling {
+      max-width: 100%;
+      overflow-x: auto;
+      // funky trick
+      margin-right: -10000px;
+    }
+  }
+}
+
+.mail-item {
+
+  $pictureSize: 32px;
+
+  .avatar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    margin-inline-end: $default-padding;
+    width: $pictureSize;
+    height: $pictureSize;
+  }
+
+  // explicit list for all combinations
+  $select-shift: 12px;
+  $select-shift-small: 8px;
+  $layout-checkboxes-unseen: 20px;
+  $layout-checkboxes-small-unseen: 12px;
+  $layout-simple-unseen: 13px;
+  $layout-simple-small-unseen: 12px;
+  // LAYOUT=checkboxes
+  .list-item {
+    .bi.seen-unseen-indicator {
+      top: $layout-checkboxes-unseen;
+    }
+  }
+  .list-item.small {
+    .list-item-content {
+      position: static;
+    }
+    .bi.seen-unseen-indicator {
+      top: $layout-checkboxes-small-unseen;
+    }
+  }
+  // LAYOUT=simple
+  &.hide-checkboxes {
+    .list-item {
+      .bi.seen-unseen-indicator {
+        top: $layout-simple-unseen;
+      }
+    }
+    .list-item.small {
+      .list-item-content {
+        position: static;
+      }
+      .bi.seen-unseen-indicator {
+        top: $layout-simple-small-unseen;
+      }
+    }
+  }
+  // LAYOUT=avatars
+  &.show-avatars {
+    .list-item-content {
+      position: relative;
+      padding-inline-start: $pictureSize + 32px;
+    }
+    .list-item {
+      .avatar {
+        top: 0;
+        left: 24px;
+        right: 24px; /* rtl */
+      }
+      .bi.seen-unseen-indicator {
+        top: 9px;
+      }
+    }
+    .list-item.small {
+      .list-item-content {
+        position: static;
+      }
+      .avatar {
+        top: 8px;
+        left: 32px;
+        right: 32px; /* rtl */
+        width: 24px;
+        height: 24px;
+      }
+      .bi.seen-unseen-indicator {
+        top: 12px;
+      }
+    }
+  }
+
+  // ALTERNATIVE SELECTION MODE avatars but no hide-checkboxes
+  &.show-avatars:not(.hide-checkboxes) {
+    .list-item-content {
+      position: initial;
+      padding-inline-start: $pictureSize + 32px;
+    }
+    .list-item {
+      .avatar {
+        top: 12px;
+        left: 64px;
+        right: 64px; /* rtl */
+      }
+      .bi.seen-unseen-indicator {
+        top: 18px;
+      }
+    }
+    .list-item.small {
+      .list-item-content {
+        position: static;
+      }
+      .avatar {
+        top: 8px;
+        left: 72px;
+        right: 72px; /* rtl */
+        width: 24px;
+        height: 24px;
+      }
+      .bi.seen-unseen-indicator {
+        top: 12px;
+      }
+    }
+  }
+
+  .selected:not(:focus) .avatar {
+    filter: saturate(0);
+  }
+
+  .from {
+    @include ellipsis();
+  }
+
+  .unread .from span.person { font-weight: bold; }
+
+  .date, .size {
+    color: var(--text-gray);
+    font-weight: normal;
+    margin-inline-start: 4px;
+  }
+
+  .list-item.small {
+    .size, .color-flag, .flag {
+      float: right;
+      margin: 0 0 0 8px;
+    }
+  }
+
+  &.visible-selection.has-focus .selected {
+    .list-item-content .drag-title,
+    .date { opacity: 1; }
+  }
+
+  .text-preview.multiline {
+    $lines: 2;
+    font-size: 13px;
+    line-height: 16px;
+    height: 1rem * $lines;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    display: none;
+  }
+
+  &.show-text-preview .text-preview.multiline {
+    display: block; /* Fallback for non-webkit */
+    display: -webkit-box;
+  }
+
+  .text-preview.inline { display: none }
+  &.show-text-preview .text-preview.inline { display: inline; }
+
+  $item-line-height: 16px;
+
+  .list-item-content {
+    // need explicit line-height to avoid flicker base on icon height + bold letters need 21px
+    line-height: $item-line-height;
+    padding-inline-start: 24px;
+    @include ellipsis();
+
+    .smartphone & { padding-left: 0; }
+
+    .bi {
+      width: $icon-size;
+      height: $icon-size;
+      display: inline-block;
+      line-height: $item-line-height;
+      &.seen-unseen-indicator {
+        color: var(--unseen);
+        position: absolute;
+        left: 8px;
+        right: 8px; /* rtl */
+        width: 11px;
+        display: none;
+        pointer-events: initial;
+      }
+      &.icon-answered, &.icon-forwarded {
+        margin-inline-end: 4px;
+      }
+    }
+
+    .subject {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .flags:not(:empty) {
+      margin-right: 4px;
+    }
+
+    .color-flag, .flag {
+      width: 16px;
+      height: 14px;
+      padding: 0;
+      margin-inline-start: 4px;
+    }
+
+    .color-flag + .color-flag {
+      margin-inline-start: 0;
+    }
+
+    // disable/reset some properties
+    .breadcrumb-view {
+      margin: 0;
+
+      i {
+        float: none;
+        line-height: 14px;
+      }
+    }
+  }
+
+  .unread .bi.seen-unseen-indicator {
+    display: initial;
+  }
+
+  &.visible-selection.has-focus .list-item.selected .bi.seen-unseen-indicator {
+    color: rgba(255, 255, 255, 0.50);
+  }
+
+  .bi.has-attachments, .bi.is-shared-attachment, i.fa.signed, i.fa.encrypted {
+    width: $icon-size;
+    height: $icon-size;
+    margin-inline-start: 4px;
+  }
+
+  .list-item.deleted {
+    text-decoration: line-through;
+    color: var(--text-gray);
+    .date, .drag-title { opacity: 1; }
+  }
+
+  &.visible-selection .list-item.selected.deleted {
+    color: var(--text-gray);
+  }
+
+  &.visible-selection.has-focus .list-item.selected {
+    .bi.has-attachments { opacity: 1; }
+    &.deleted { color: #f4f4f4; }
+  }
+
+  .priority {
+    .high { color: var(--attention); }
+    .low { color: var(--low); }
+  }
+
+  .account-name, .original-folder, .thread-size {
+    font-size: 12px;
+    color: var(--text-gray);
+    background-color: var(--background-50);
+    line-height: 16px;
+    padding: 0 4px;
+    margin-inline-start: 4px;
+    display: inline-block;
+    overflow: visible;
+    text-align: center;
+    font-weight: normal;
+    border-radius: $border-radius-small;
+  }
+
+  .original-folder {
+    // do not overlap subject/attachment icon
+    max-width: 50%;
+
+    .breadcrumb-link {
+      @include ellipsis();
+      width: 100%;
+    }
+  }
+
+  .thread-size {
+    min-width: 24px;
+  }
+
+  .selected {
+    .thread-size,
+    .account-name,
+    .original-folder,
+    .original-folder .breadcrumb-link {
+      color: var(--text);
+      background-color: rgba(0, 0, 0, 0.10);
+    }
+  }
+
+  &.visible-selection.has-focus .selected {
+    .thread-size,
+    .account-name,
+    .original-folder,
+    .original-folder .breadcrumb-link {
+      color: var(--background);
+      background-color: rgba(0, 0, 0, 0.10);
+    }
+  }
+
+  &.visible-selection.has-focus .selected:focus {
+    .thread-size,
+    .account-name,
+    .original-folder,
+    .original-folder .breadcrumb-link {
+      color: var(--background);
+      background-color: rgba(0, 0, 0, 0.20);
+    }
+  }
+
+  .attachments {
+    padding: 4px $default-padding 5px $default-padding;
+    border-bottom: 1px solid var(--border);
+
+    .inline-toolbar {
+      display: inline;
+      font-family: $normal-font-family;
+      font-size: 13px;
+      margin-left: $default-padding;
+      a:hover { text-decoration: underline; }
+    }
+
+    .bi-paperclip {
+      font-size: 18px;
+      color: var(--text);
+    }
+  }
+
+  .unread-toggle {
+    display: inline-flex;
+    position: absolute;
+    top: 30px;
+    left: $default-padding;
+    right: $default-padding; /* rtl */
+    width: 22px;
+    border-radius: 11px;
+    outline-offset: -2px;
+    font-size: 12px;
+    color: var(--text-gray);
+    padding: 5px;
+    margin: -5px;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+    &:hover { text-decoration: none; color: #aaa; }
+    .bi-circle { display: initial; }
+    .bi-circle-fill { display: none; }
+  }
+
+  &.unread .unread-toggle {
+    color: var(--unseen);
+    .bi-circle { display: none; }
+    .bi-circle-fill { display: initial; }
+  }
+}
+
+// smaller padding in floating window to maximize mail display size
+.floating-window thread-view-list{
+  padding: 8px;
+}
+
+// ios specific Setting this to overflow: blocks scrolling with pointer devices
+.ios .thread-view-list.scrollable { overflow: visible; }
+
+.thread-view-list {
+
+  padding: 0 32px 24px 32px;
+  background-color: transparent;
+
+  &.scrollable { overflow: auto; }
+
+  & > .thread-view-header {
+
+    padding: 0;
+
+    .subject {
+      font-size: 18px;
+      line-height: 24px;
+      padding: 6px 40px 18px 0;
+      margin: 0;
+      font-weight: 700;
+      word-wrap: break-word;
+    }
+
+    .toggle-all, .toggle-big-screen {
+      color: #767676;
+      float: right;
+      outline: 0;
+      &:hover { color: #595959; }
+      &:focus { color: var(--focus-500); }
+      padding: 0;
+      margin: 8px $default-padding 4px 0;
+      flex: 0 0 auto;
+      @include align-self(flex-start);
+    }
+  }
+}
+
+//
+// Flag
+//
+
+.list-item {
+  .flag {
+    .smartphone & {
+      display: none;
+    }
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+  &.flagged .flag {
+    .smartphone & {
+      pointer-events: none;
+      display: initial;
+    }
+    color: $flag-color;
+    display: initial;
+  }
+}
+
+//
+// Progress
+//
+
+.mail-progress {
+  flex-direction: column;
+  .progress {
+    height: 4px;
+    margin-bottom: 0;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .caption {
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 8px;
+    flex: 1;
+  }
+
+  a {
+    display: inline-block;
+    padding-right: 14px;
+  }
+}
+
+.thread-view-control {
+  $height: 40px;
+
+  .back-navigation {
+    display: none;
+    top: 0;
+
+    a {
+      outline: 0;
+
+      &:hover { text-decoration: none; }
+      &.disabled { color: #aaa; cursor: default; }
+    }
+
+    .button, .prev-next {
+      display: table-cell;
+      width: 40%;
+    }
+
+    .button {
+      padding-left: $default-padding;
+
+      i { margin-right: $default-padding; }
+    }
+
+    .position {
+      color: var(--text-gray);
+      display: table-cell;
+      text-align: center;
+      width: 20%;
+    }
+
+    .prev-next {
+      text-align: right;
+      padding-right: $default-padding;
+
+      i { margin-left: $default-padding; }
+    }
+
+    .fa {
+      color: inherit;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 18px;
+    }
+  }
+
+  .detail-view {
+    top: 0;
+    outline: 0;
+    overflow: auto;
+    z-index: 1;
+  }
+
+  &.back-navigation-visible {
+    .back-navigation { display: table; }
+    .detail-view, .thread-view-list { top: $height; }
+  }
+
+  &.thread-view-navigation-visible {
+    .thread-view-navigation { display: table; }
+    .detail-view { top: $height; }
+  }
+}
+
+.thread-view.list-view {
+  list-style-type: none;
+  padding: 0;
+  overflow: visible;
+  height: auto;
+
+  .list-item {
+    cursor: default;
+    background: var(--background);
+    clear: both;
+    padding: 0;
+    margin-bottom: 24px;
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+    .smartphone & {
+      border: inherit;
+      border-radius: none;
+      box-shadow: none;
+    }
+
+    &.placeholder {
+      min-height: 65px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.multiple-messages .list-item { cursor: pointer; }
+}
+
+// Detail view
+
+.rightside.mail-detail-pane {
+  z-index:1;
+  min-width: 320px;
+
+  .thread-view-control,
+  &.selection-one .multi-selection-message { display: none; }
+  &.selection-one .thread-view-control     { display: block; }
+  .scrollable-pane {
+    margin-bottom: 20px;
+    // allows hiding "Entire thread"
+    height: 110%;
+  }
+  .multi-selection-message {
+    color: var(--text-gray);
+    padding-bottom: 48px;
+    svg {
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.mail-source-dialog {
+  .modal-body {
+    height: 400px;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    .mail-source-view {
+      flex: 1;
+      width: 100%;
+    }
+    .mail-authenticity-view {
+      flex: 1;
+      max-height: 70px;
+    }
+    #mail-authenticity-headline {
+      font-size: 16px;
+    }
+  }
+}
+
+// CATEGORIES
+
+.io-ox-alert .category-toast {
+  .status { padding: 0 32px 0 0; }
+  p { margin-bottom: 16px; }
+}
+
+.mail-categories-dialog {
+  .description {
+    padding: 0 16px;
+    margin-top: 10px;
+    line-height: 24px;
+  }
+  .category-item {
+    position: relative;
+    padding-bottom: 6px;
+
+    .name { margin-top: 6px; }
+  }
+  .category-item div {
+    display: flex
+  }
+  .help-block { margin-left: 24px; }
+  .hint { padding-top: 16px; }
+}
+
+// categories: available
+.window-container.mail-categories-visible {
+  --main-gap: 1px;
+  --main-gap-radius: 0;
+  .categories-toolbar-container {
+    display: flex;
+  }
+
+  // inbox categories need to be scrollable so this min-width need to be set
+  .classic-toolbar-visible.window-body { min-width: 0; }
+}
+
+// drag and drop helper text
+.categories-toolbar-container {
+  button { line-height: 42px; }
+  .category-drop-helper { display: none; }
+}
+
+.categories-toolbar-container {
+  display: none;
+  padding: 16px;
+  border-radius: var(--gap-radius) 0 0 0;
+  margin-bottom: var(--main-gap);
+  background: var(--translucent-start);
+
+  .classic-toolbar {
+    position: static;
+    border-bottom: 0;
+    min-width: 0;
+    height: auto;
+    gap: 4px;
+    padding: 0;
+  }
+
+  .btn {
+    font-size: 14px;
+    color: var(--text-accent);
+    height: 38px;
+  }
+
+  .category {
+
+    flex: 0 1 fit-content;
+    min-width: 5em;
+    max-width: 20em;
+
+    .category-name, .category-counter { display: inline-block; }
+
+    .btn {
+      .category-counter .counter {
+        color: var(--accent-800);
+        background-color: var(--selected-background);
+        font-weight: bold;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+      &:hover:not(:focus-visible) {
+        background-color: var(--selected-background-hover);
+      }
+    }
+
+    &.selected {
+      .btn {
+        color: var(--text);
+        background-color: var(--selected-background);
+      }
+    }
+
+    html.dark & .category-counter .counter {
+      color: var(--accent-100);
+    }
+  }
+
+  // avoid too much margin in horizontal layout
+  #io-ox-core & + .classic-toolbar-container {
+    margin-top: 0;
+  }
+
+  body.dragging & {
+    .category {
+      border-radius: var(--default-radius);
+    }
+    .category button {
+      display: none;
+    }
+    .category:hover, .category:hover .btn {
+      color: var(--focus);
+      background-color: var(--focus-500);
+    }
+    .category-drop-helper {
+      display: block;
+      line-height: 16px;
+      border: 1px dashed var(--border);
+      border-radius: var(--default-radius);
+      height: 40px;
+      padding: 1px 16px;
+      font-size: 12px;
+    }
+  }
+}
+
+@media all and (max-width: 1680px), all and (max-device-width: 1680px) {
+  .categories-toolbar-container .classic-toolbar {
+    .category {
+      max-width: 15em;
+      .btn {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+    }
+  }
+}
+
+// checkmark icon next to sender address
+.authenticity-icon-trusted,
+.authenticity-icon-pass,
+.authenticity-icon-neutral,
+.authenticity-icon-suspicious,
+.authenticity-icon-fail {
+  font-size: 15px;
+}
+.authenticity-icon-trusted,
+.authenticity-icon-pass {
+  color: $a-color-trusted;
+}
+.authenticity-icon-neutral {
+  color: $a-color-neutral;
+}
+.authenticity-icon-suspicious,
+.authenticity-icon-fail {
+  color: $a-color-fail;
+}
+
+.mail-detail .from .authenticity-sender {
+  &.fail, &.suspicious {
+    color: $a-color-fail;
+  }
+  &.trusted {
+    color: $a-color-trusted;
+  }
+}
+
+// colored info box with message
+.mail-detail section.authenticity  {
+  padding: 0;
+  .message {
+    color: #fff;
+    padding: 16px 40px;
+    line-height: 16px;
+    .smartphone & { padding: 16px; }
+  }
+  .neutral { background-color: $a-color-neutral; }
+  .suspicious,
+  .fail { background-color: $a-color-fail; }
+  .trusted { background-color: $a-color-trusted; }
+}
+
+.touch {
+  &.ios, &.android {
+    .mail-detail .detail-view-header { overflow: hidden; }
+  }
+}
+
+@media (max-width: 768px) {
+  .thread-view-list { padding: 8px; }
+}
+
+
+@media (max-width: 700px) {
+
+  .io-ox-mail-window .vsplit {
+    width: 100%;
+
+    .rightside {
+      width: auto;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .mail-detail section.body {
+    padding: 16px;
+  }
+
+  .mail-detail .subject   { padding-right: 0; }
+}
+
+.smartphone {
+
+  @media print {
+    .mobile-navbar, .mobile-toolbar, .mail-detail.expanded .notifications { display: none; }
+    .window-content { padding: 0; }
+  }
+
+  // phone
+  $phone-font-size: 15px;
+  $phone-line-height: 20px;
+
+  // helper
+  @mixin fixed-width(){
+    width: 1.28571429em;
+    text-align: center;
+  }
+
+  // single mail: in a detail view or as list item (.thread-view-list)
+  .mail-detail {
+    $padding-h: 15px;
+    $padding-v: 10px;
+
+    list-style-type: none;
+    border-bottom: 0;
+
+    .avatar { display: none; }
+
+    &.unread .unread-toggle {
+      visibility: visible;
+    }
+
+    .unread-toggle {
+      visibility: hidden;
+      position: relative;
+      top: 0;
+      left: auto;
+      float: right;
+      bottom: auto;
+      margin: 0;
+      padding-top: ($padding-v + 7);
+      padding-right: ($padding-h);
+    }
+
+    .attachments .io-ox-inline-links {
+      font-size: $phone-font-size;
+      margin-left: 0;
+    }
+
+    .io-ox-label {
+      font-weight: 100;
+      color: #707070;
+    }
+
+    .detail-view-header {
+
+      padding: ($padding-v + 4) 0 ($padding-v + 5) 0;
+      font-size: $phone-font-size;
+      line-height: $phone-line-height;
+
+      .from, .recipients, .subject, time {
+        padding: 0 $padding-h;
+      }
+
+      .from {
+
+        flex-wrap: wrap;
+
+        .person-link.person-from {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        &.show-address {
+          flex-wrap: wrap;
+          .address {
+            @include ellipsis();
+            display: block;
+            padding-bottom: 4px;
+          }
+        }
+      }
+
+      .recipients {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: ($padding-v + 5);
+      }
+
+      .subject {
+        font-size: $phone-font-size + 5;
+        font-weight: bold;
+        line-height: $phone-line-height + 5;
+        margin: 0;
+        padding-top: ($padding-v + 4);
+        padding-bottom: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .sp { margin-right: 4px; }
+    }
+
+    section {
+      .attachments, .body { border-top: 1px solid var(--border); }
+      .attachments { margin-bottom: 0; }
+      .body { padding: 8px $default-padding; }
+    }
+
+    &.expanded {
+      section.attachments:empty { border: 0; }
+    }
+
+    .has-attachments { display: none; }
+
+    .mail-attachment-list {
+      padding: 10px 0 9px 0;
+      &.open { padding-bottom: 0; }
+      .header  { padding: 0 15px; }
+      ul.attachment-list {
+        margin: 0;
+        &:not(.preview) > li.attachment {
+          padding: 0 15px;
+        }
+        &.preview {
+          margin: 0 15px;
+          li.attachment .file { display: block; }
+        }
+      }
+      .links { display:none; }
+      .filesize {
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    &:not(.expanded) .recipients { opacity: 1; }
+
+    & > header {
+      &.mobile-detail-view-mail {
+        // use fa-fw for mobile
+        .fa {
+          @include fixed-width();
+          &.flag_0 {
+            display: none;
+          }
+        }
+        .date {
+          margin-left: 0;
+          display: inline-block;
+          float: none;
+          color: var(--text-gray);
+        }
+        .flags {
+          float: right;
+          font-size: 14px;
+          & > * {
+            margin: 0 16px 0 0;
+            float: none;
+          }
+        }
+        .priority {
+          margin-right: $default-padding;
+        }
+      }
+    }
+
+    section.authenticity {
+      padding: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .notification-item.external-images {
+      background-color: #eee;
+      .comment {
+        font-size: 12px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  // list view
+  .list-view.mail-item {
+
+    $checkboxShift: 40px;
+    padding: 0;
+    .list-item {
+      padding-top: 14px;
+      padding-bottom: 15px;
+      padding-inline-start: 25px + $checkboxShift;
+
+      border-right: 0;
+      border-radius: 0;
+      background-color: var(--background);
+
+      &.unread .date { font-weight: normal; }
+
+      .subject {
+        height: $phone-line-height;
+      }
+
+      &.complete > .list-item:last-child {
+        margin-bottom: $toolbar-height;
+        border-bottom: 0;
+      }
+
+      .from {
+        font-size: 16px;
+      }
+
+      .list-item-content {
+        font-size: $phone-font-size;
+        line-height: $phone-line-height;
+        i { line-height: $phone-line-height; }
+        .bi.seen-unseen-indicator, .bi.has-attachments {
+          position: absolute;
+          top: 18px;
+          left: 8px + $checkboxShift;
+          margin: 0;
+        }
+        .bi.has-attachments {
+          top: 35px;
+          color: var(--text-gray);
+          font-size: 16px;
+        }
+      }
+
+      .thread-size {
+        font-size: inherit;
+        line-height: inherit;
+        margin-top: 0;
+      }
+
+      .list-item-row > i {
+        margin-top: 2px;
+      }
+
+      &:hover { background-color: var(--background-100); }
+
+      .text-preview.multiline {
+        font-size: inherit;
+        line-height: inherit;
+        height: 40px;
+      }
+
+      .bi.has-attachments, .bi.is-shared-attachment, i.fa.signed, i.fa.encrypted {
+        font-size: 18px;
+        margin: 0;
+        margin-inline-start: 10px;
+      }
+    }
+
+    // compact view in contact preview without marked unread mails
+    &.compact.hide-checkboxes .list-item {
+      padding-left: 0;
+
+      .seen-unseen-indicator {
+        display: none;
+      }
+
+      &.unread {
+        .subject { font-weight: inherit; }
+        .from span.person { font-weight: bolder; }
+        .date { display: none; }
+      }
+    }
+
+    &.hide-checkboxes .list-item {
+
+      padding-inline-start: 25px;
+
+      .list-item-content {
+        .bi.seen-unseen-indicator, .bi.has-attachments {
+          left: 8px;
+        }
+      }
+    }
+
+    &.complete > .list-item:last-child { border-bottom: 0; }
+  }
+
+  // list of mails in a thread
+  .thread-view-list {
+
+    padding: 0;
+
+    a.unread-toggle {
+      left: 16px;
+      float: left;
+      top: -3px;
+    }
+
+    // thread header
+    .thread-view-header {
+
+      background-color: #eee;
+      color: #333;
+      border-bottom: 1px solid #ccc;
+
+      // currently actually just subject
+      & > * { font-size: $phone-font-size; }
+
+      .subject {
+        line-height: 20px;
+        padding: 14px 15px 15px 25px;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+
+    // list of mails in thread
+    .thread-view {
+
+      .list-item {
+
+        border-bottom: 0;
+        margin-bottom: 0;
+
+        .detail-view-header {
+          padding: 14px 15px 16px 25px;
+          border-bottom: 1px solid var(--border);
+
+          .detail-view-row {
+            margin: 0;
+          }
+
+          .unread-toggle {
+            left: 8px;
+            top: 15px;
+            padding: 0;
+            position: absolute;
+          }
+
+          // from, recipient
+          .from, .date {
+            @include ellipsis();
+            padding: 0;
+            white-space: normal;
+            font-size: $phone-font-size;
+            line-height: $phone-line-height;
+          }
+
+          .recipients {
+            padding: 0;
+            margin-bottom: -1px;
+            border-bottom: 0;
+            .person-link {
+              white-space: nowrap;
+            }
+          }
+          .person-from { flex: 1 }
+
+          .show-all-recipients {
+            display: none;
+          }
+        }
+        // do not show recipients
+        &:not(.expanded) .recipients { max-height: initial; }
+        // last element handling
+        &:last-child {
+          margin-bottom: $toolbar-height;
+        }
+      }
+
+      .list-item .unread-toggle { display: none; }
+      .list-item.unread .unread-toggle { display: inline-block; }
+
+      .row-2, .row-4, .row-5 { display: none; }
+    }
+  }
+}
+
+.folder-tree .tree-container { margin-bottom: 16px; }

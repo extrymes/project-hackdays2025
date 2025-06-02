@@ -1,0 +1,23 @@
+core-ui:
+  image:
+    tag: ${TAG_NAME}
+host: ${PREVIEW_APP_NAME}.dev.oxui.de
+
+appsuite:
+  core-ui-middleware:
+    podAnnotations:
+      commit-ref: "${CI_COMMIT_SHORT_SHA}"
+    deploymentAnnotations:
+      commit-ref: "${CI_COMMIT_SHORT_SHA}"
+    redis:
+      prefix: ${CI_COMMIT_REF_SLUG}-${OX_COMPONENT}
+  core-guidedtours:
+    podAnnotations:
+      commit-ref: "${CI_COMMIT_SHORT_SHA}"
+    deploymentAnnotations:
+      commit-ref: "${CI_COMMIT_SHORT_SHA}"
+  office-web:
+    podAnnotations:
+      commit-ref: "${CI_COMMIT_SHORT_SHA}"
+    deploymentAnnotations:
+      commit-ref: "${CI_COMMIT_SHORT_SHA}"

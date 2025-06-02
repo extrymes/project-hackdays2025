@@ -1,0 +1,57 @@
+@import "@/themes/imports.scss";
+
+$rect-size: 1.25rem;
+
+.color-picker-dropdown {
+  a.folder-default-color {
+    display: flex;
+    align-content: center;
+    // fake divider
+    padding: 3px 14px 8px 14px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+}
+
+.io-ox-calendar-color-picker-container {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.io-ox-calendar-color-picker {
+  max-width: 100%;
+  padding: 8px 16px;
+  white-space: nowrap;
+  text-align: left;
+
+  a {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-left: 4px solid transparent;
+    border-radius: var(--default-radius);
+    margin-right: 8px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
+
+@media(max-width: $smartphone-breakpoint) and (orientation: portrait), (max-height: $smartphone-breakpoint) and (orientation: landscape) {
+  .io-ox-calendar-color-picker {
+    display: grid;
+    justify-content: center;
+    row-gap: 8px;
+    column-gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  a.color-box-link {  width: 100%; }
+}
+
+@media(max-height: $smartphone-breakpoint) and (orientation: landscape) {
+  .io-ox-calendar-color-picker {
+    gap: 8px;
+    grid-template-columns: repeat(8, 1fr);
+  }
+}

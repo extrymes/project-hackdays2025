@@ -1,0 +1,48 @@
+.hotspot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  // one more than dropdown z-index
+  z-index: 100002;
+  background-color: $hotspot-color;
+  border-radius: 50%;
+
+  &:before {
+    content: '';
+    position: absolute;
+    background-color: $pulse-color;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid $pulse-border-color;
+    animation: hotspot-pulsar 2.0s infinite ease-out;
+    top: -56px;
+    left: -56px;
+    z-index: -1;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    background-color: $pulse-color;
+    width: 120px;
+    height: 120px;
+    top: -56px;
+    left: -56px;
+    border-radius: 50%;
+    border: 1px solid $pulse-border-color;
+    animation: hotspot-pulsar-inner 2.0s infinite ease-out;
+  }
+}
+
+@keyframes hotspot-pulsar {
+  0%   { opacity: 0.65; transform: scale(0.1); }
+  100% { opacity: 0.00; transform: scale(1.0); }
+}
+
+@keyframes hotspot-pulsar-inner {
+  0%   { opacity: 0.00; transform: scale(0.1); }
+  24%, 90% { opacity: 0.00 }
+  25%  { opacity: 0.65; transform: scale(0.1); }
+  100% { opacity: 0.00; transform: scale(1.0); }
+}

@@ -1,0 +1,818 @@
+@import '@/themes/imports.scss';
+
+$border-color: #ddd;
+
+/* approximate appsuite modal theming */
+.tox .tox-dialog-wrap{
+  .tox-dialog-wrap__backdrop {
+    opacity: 0.5;
+    background-color: #000;
+  }
+  .tox-dialog {
+    border-radius: 6px;
+  }
+  .tox-dialog__header{
+    padding: 16px;
+    border-bottom: 1px solid var(--border-bright);
+    .tox-dialog__title {
+      font-size: 18px;
+      line-height: 24px;
+      margin: -3px 0 2px 0;
+      font-weight: 500;
+    }
+  }
+
+  .tox-dialog,
+  .tox-dialog__header,
+  .tox-dialog__footer,
+  .tox-label {
+    background-color: var(--background);
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .tox-label {
+    color: var(--text-gray);
+    margin-bottom: 5px;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 700;
+  }
+  .tox-form input {
+    color: var(--text);
+    border-color: var(--border);
+
+    html.dark & {
+      background-color: var(--background-100);
+    }
+
+    &:focus {
+      color: var(--text);
+      box-shadow: 0 0 0 0.25rem var(--btn-primary-outline);
+    }
+  }
+  .tox-button {
+    color: var(--btn-primary);
+    border-color: var(--btn-primary-background);
+    background-color: var(--btn-primary-background);
+    font-weight: normal;
+    border-radius: var(--button-radius);
+  }
+  .tox-button--secondary {
+    color: var(--text);
+    border-color: var(--border);
+    background-color: var(--background);
+  }
+  .tox-button--naked {
+    background-color: var(--background);
+    color: var(--text);
+    border: none;
+  }
+}
+
+
+.io-ox-mail-compose-window {
+
+  .inline-yell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    float: right;
+    color: #437d00;
+    font-weight: 500;
+    margin: 0 8px;
+    padding-top: 6px;
+  }
+
+  &.no-toolbar .tox-toolbar {
+    display: none;
+  }
+
+  .window-content {
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .mail-compose-fields {
+    // fix upper hard-coded white to proper background in dialog header
+    background-color: var(--background);
+    .form-control { background-color: var(--background); }
+  }
+
+  .window-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .window-footer .container {
+    display: flex;
+
+    .discard {
+      display: none;
+    }
+
+    .composetoolbar {
+      display: flex;
+      flex: 1;
+      height: 2.286em;
+      padding-left: 32px;
+      margin-left: 0;
+
+    }
+    // elements
+    .composetoolbar > li {
+      margin: 0 6px;
+      padding: 0;
+      border: 1px transparent solid;
+
+      // style icons
+      & > a {
+        display: block;
+        font-size: 22px;
+        width: 28px;
+        text-align: center;
+        color: var(--text);
+        &:focus {
+          outline: thin dotted;
+          outline: 5px auto -webkit-focus-ring-color;
+        }
+      }
+    }
+
+    // toggle buttons
+    .composetoolbar > li.toggle {
+      padding: 0 1px;
+      border-radius: 3px;
+      &.checked {
+        background-color: var(--background-100);
+      }
+      &.disabled {
+        cursor: not-allowed;
+        background-color: initial;
+
+        svg.fa { color: #aaaaaa; }
+        a[role="button"] { cursor: not-allowed; }
+      }
+    }
+  }
+}
+
+.attachments-dropdown {
+  .dropdown-menu { min-width: 250px; }
+
+  .dropdown-menu > [role=group] {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .dropdown-menu > [role=group] > li > a.attachment {
+    text-align: unset;
+    justify-content: unset;
+    margin: 6px 20px;
+    padding: 0 6px;
+    gap: 8px;
+    border-radius: 4px;
+    min-width: 160px;
+
+    .preview, .preview svg {
+      min-width: 30px;
+      height: 30px;
+    }
+
+    .preview.generated {
+      border: 1px solid var(--background-5);
+    }
+
+    .preview {
+      background-size: cover;
+      background-position: center;
+      border-radius: 6px;
+    }
+
+    .skeleton {
+      width: 30px;
+    }
+
+    .title {
+      white-space: nowrap;
+      display: flex;
+      margin-inline-end: 4px;
+    }
+
+    .description { color: var(--text-gray); }
+
+    // overwrite wrong focus and hover styles for buttons in dropdown menu
+    &:focus:not(:hover) {
+      background-color: var(--focus-500);
+      .description { color: var(--selected-gray-focus); }
+      .preview svg { color: var(--selected-focus) }
+    }
+    &:focus:hover {
+      background-color: var(--focus-500);
+      .description { color: var(--selected-gray-focus); }
+      .title { color: var(--focus); }
+      .preview svg { color: var(--selected-focus) }
+    }
+    &:hover {
+      background-color: var(--selected-background-hover);
+    }
+  }
+}
+
+// general style of fields
+.io-ox-mail-compose {
+  .mail-compose-fields > *:not(.sr-only) {
+    padding: 0 16px;
+    border-bottom: 1px solid var(--border-bright);
+    position: relative;
+    // baseline adjustment
+    display: flex;
+    align-items: center;
+    min-height: 2.5rem;
+    .mail-input { flex: 1; }
+    // padding is applied via .recipient-actions
+    &.sender, &.recipient { padding-right: 0 };
+    &.sender .dropdown-caret {
+      top: 2px;
+      position: relative;
+    }
+
+    a.sender-dropdown-link {
+      display: flex;
+      background-color: transparent;
+      align-items: center;
+      .dropdown-label {
+        display: flex;
+        .name { color: var(--text); }
+        .address { color: var(--text-gray); }
+      }
+      .address {
+        flex: 1;
+      }
+      .bi.bi-chevron-down {
+        flex-basis: 40px;
+        margin-inline-end: 20px;
+      }
+    }
+  }
+
+  .mail-compose-fields {
+
+    // no placeholder, no focus style
+    .token-input,
+    .tokenfield,.tokenfield.focus,
+    .subject input, .subject input:focus {
+      @include placeholder(transparent);
+      @include box-shadow(none);
+      border-color: transparent;
+      padding-left: 0;
+      outline: 0;
+    }
+
+    .tokenfield {
+      min-height: 1.875rem;
+      background-color: transparent;
+    }
+
+    // focus line instead
+    .line-focus:focus-within {
+      // tokenfield-focus mixin
+      $color: $input-focus-border-color;
+      $color-rgba: rgba(red($color), green($color), blue($color), .25);
+      outline: 0;
+      @include box-shadow(#{"inset 1px 1px 1px rgba(0, 0, 0, .075), inset 0 0 4px 1px $color-rgba"});
+      @include box-shadow(inset 0 0 0px 0.2rem  $color-rgba);
+    }
+
+    // mail label
+    $maillabel: $hc-gray;
+    label.maillabel {
+      padding-right: 16px;
+      margin-bottom: 0;
+      color: $maillabel;
+    }
+    div.maillabel {
+      padding-right: 16px;
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      line-height: 20px;
+      font-weight: bold;
+      min-width: 48px;
+      a { color: $maillabel; }
+    }
+
+    .sender {
+      .name { color: var(--text); }
+      .address { color: var(--text-gray); }
+    }
+
+    // toggle sender-realname/sender-onbehalfof hint
+    .sender-realname, .sender-onbehalfof {
+      display: none;
+      color: #767676;
+    }
+    &.no-realname .sender-realname,
+    &.onbehalfof .sender-onbehalfof {
+        display: flex;
+    }
+
+    .info-line {
+      i.fa {
+        padding-right: 16px;
+        font-size: 18px;
+      }
+      // mixin: stripesgenerator.com
+      @mixin stripes($pri, $sec, $text){
+        background-image: linear-gradient(45deg, $pri 41.67%, $sec 41.67%, $sec 50%, $pri 50%, $pri 91.67%, $sec 91.67%, $sec 100%);
+        background-size: 7.07px 7.07px;
+        i.fa, .text { color: $text}
+      }
+
+      &.stripes-green { @include stripes(#eaffe5, #dcf0d7, #4E7321) }
+    }
+
+    .attachments {
+      $width: 120px;
+      $height: 80px;
+      display: block;
+      overflow: auto;
+
+      &.empty {
+        border-bottom: 0;
+        min-height: 1px;
+        padding: 0;
+      };
+      .inplace-dropzone { margin: 16px; }
+
+      // toggle text-align
+      &:not(.guard-encrypted) .sharing .mail-size { text-align: right; }
+
+      .mail-attachment-list {
+        padding: 16px 0 0 0;
+
+        .header { display: none; };
+        .list-container { margin: 0; }
+        .preview-container {
+          .scroll-left, .scroll-right {
+            top: 5px;
+            height: $height;
+            background-color: var(--btn-primary-background);
+            color: var(--btn-primary);
+
+            &:disabled { background-color: var(--background-5); }
+          }
+          ul.attachment-list.preview {
+            padding: 0 5px;
+            height: calc($height + 10px); // add some breathing room for a visible focus outline
+            li.attachment {
+              margin-top: 5px;
+              height: $height;
+              width: $width;
+            }
+          }
+          li.attachment .fallback { line-height: $height; }
+        }
+
+        footer {
+          padding: 6px 0 10px 0;
+          align-items: center;
+
+          // drive mail
+          .share-attachments {
+            label {
+              color: var(--text);
+            }
+            .checkbox.custom { margin: 0; }
+            button {
+              text-decoration: none;
+              margin: 0;
+              padding: 0 0 0 8px;
+            }
+            padding: 0 32px 0 0;
+            display: flex;
+          }
+
+          // pull right
+          .mail-size { flex-grow: 1; }
+
+          // image resize
+          .resize-options {
+            &.dropdown { margin-bottom: 0; }
+            display: flex;
+            justify-content: flex-end;
+            margin-left: 16px;
+          }
+          .toggle-mode { top: 0; }
+        }
+      }
+    }
+  }
+
+  .editor {
+
+    &:focus,
+    .plain-text:focus {
+      outline: 0;
+      @include box-shadow(#{"none"});
+    }
+    .inplace-dropzone {
+      // TODO: adjust inline style within oxdrop plugin
+      margin: 16px 32px 16px 16px !important;
+    }
+
+    .plain-text {
+      background-color: var(--background);
+      width: 100%;
+      border: none;
+      padding: 18px 21px;
+      -webkit-font-feature-settings: "liga" 0;
+      font-feature-settings: "liga" 0;
+      text-rendering: optimizeLegibility;
+      outline: none;
+      &.monospace { font-family: monospace; }
+    }
+  }
+
+  .recipient-actions {
+    @include flex-center(row);
+    // handle growing field
+    .fa { font-size: 18px; }
+    button, a {
+      line-height: 22px;
+      padding: 6px 8px;
+      color: $hc-gray;
+      text-decoration: none;
+    }
+    button[data-type] {
+      font-size: 12px;
+      padding-inline: 6px;
+      padding-block: 4px;
+    }
+    &:empty { margin-left: 16px; }
+    & > :last-child { margin-right: 10px; }
+    & > :first-child { margin-left: 8px; }
+  }
+
+  .mce-tinymce > .mce-stack-layout {
+    .mce-panel.mce-edit-area {
+      border-color: transparent !important;
+    }
+  }
+
+  .hidden-file-picker {
+    // same as .dropdown-menu > li > a
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: $line-height-base;
+    color: $dropdown-link-color;
+    white-space: nowrap;
+
+    // behave like a link
+    cursor: pointer;
+
+    // support for absolute input[file]
+    position: relative;
+    overflow: hidden;
+
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $dropdown-link-hover-color;
+      background-color: $dropdown-link-hover-bg;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: #F00;
+      cursor: inherit;
+      display: block;
+      outline: 0;
+    }
+  }
+}
+
+// addressbook picker can not be clicked on iOS devices
+// iOS does not support the :focus-within pseudo class properly
+.smartphone.ios .io-ox-mail-compose .open-addressbook-popup { opacity: 0;  visibility: visible; }
+.smartphone.ios .io-ox-mail-compose .mail-input:focus-within .open-addressbook-popup { opacity: 1; }
+
+.smartphone {
+  $font-size-mobile: 1rem;
+
+  .io-ox-mail-compose {
+
+    .open-addressbook-popup { visibility: hidden; }
+    .mail-input:focus-within .open-addressbook-popup { visibility: visible; }
+
+    .mail-compose-fields {
+      .composetoolbar-mobile {
+        border: none;
+        margin-right: 14px;
+
+        .title {
+          @include ellipsis();
+          font-size: 1.4rem;
+        }
+
+        .dropdown-toggle, .ai-integration {
+          height: 40px;
+          width: 40px;
+          color: var(--toolbar);
+        }
+      }
+
+      > *:not(.sr-only) {
+        padding: 4px 0 4px 24px;
+        border: none;
+
+        &.attachments.empty {
+          padding: 0;
+        }
+      }
+
+      .recipient, .subject, .sender, .sender-realname, .attachments:not(.empty) {
+        border-bottom: 1px solid var(--border-bright);
+      }
+
+      .maillabel {
+        margin-right: 4px;
+      }
+
+      .mail-input {
+        padding-right: 14px;
+
+        .token {
+          border: none;
+        }
+      }
+
+      .maillabel {
+        font-size: $font-size-mobile;
+        font-weight: unset;
+        min-height: inherit;
+      }
+
+      .sender .mail-input .dropdown {
+        width: 100%; // for sender chevron with small names
+
+        .sender-dropdown-link {
+          justify-content: space-between; // for sender chevron with small names
+          min-height: 40px;
+
+          .bi.bi-chevron-down {
+            flex-basis: unset;
+            margin-inline-end: 0;
+            width: 40px;
+            color: var(--text-gray);
+          }
+        }
+      }
+
+      div.maillabel a, label.maillabel, div.mail-input {
+        display: flex;
+        align-items: center;
+        min-height: inherit;
+      }
+
+      .subject input {
+        @include placeholder(var(--text-gray));
+        font-size: $font-size-mobile;
+        font-weight: 300;
+      }
+
+      .recipient-actions {
+        gap: 6px;
+
+        button {
+          height: 40px;
+          width: 40px;
+          margin: 0;
+          padding: 14px;
+        }
+
+        .open-addressbook-popup {
+          color: var(--toolbar);
+        }
+      }
+    }
+
+    .attachments .mail-attachment-list {
+      padding-right: 10px;
+
+      .preview-container {
+        padding-right: 14px;
+
+        .scroll-left, .scroll-right {
+          display: none;
+        }
+
+        .attachment-list {
+          padding: 0;
+          margin: 0;
+          overflow-x: auto;
+        }
+      }
+
+      .attachment {
+        align-items: center;
+
+        .remove-attachment {
+          width: 40px;
+          height: 40px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      .toggle-mode {
+        width: 40px;
+        height: 40px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+    }
+
+    .tox-tinymce {
+      border: none;
+
+      .tox-editor-header {
+        display: none;
+
+        .tox-toolbar-overlord .tox-toolbar {
+          padding-left: 9px;
+        }
+      }
+    }
+  }
+
+  // For medium zoom level on mobile devices
+  @media (max-width: 20em) {
+    .io-ox-mail-compose {
+      .mail-compose-fields {
+        .composetoolbar-mobile {
+          margin-right: 0;
+
+          .dropdown-toggle {
+            margin-right: 0px;
+            height: 32px;
+            width: 32px;
+          }
+
+          .sender {
+            padding-right: 0;
+          }
+        }
+
+        .composetoolbar-mobile, .sender, .recipient, .subject {
+          padding: 0 0 0 12px;
+          min-height: unset;
+
+          button[aria-label="Mail compose actions"] {
+            margin-right: 6px;
+          };
+        }
+
+        div.mail-input, .maillabel {
+          padding-right: 0;
+          min-height: unset;
+        }
+
+        .recipient-actions button {
+          margin-left: 0;
+          height: 32px;
+          width: 32px;
+        }
+      }
+    }
+  }
+
+  // For high zoom level on mobile devices
+  @media (max-width: 15em) {
+    .io-ox-mail-compose {
+      .mail-compose-fields {
+        .composetoolbar-mobile .dropdown-toggle {
+          height: 24px;
+          width: 28px;
+        }
+
+        .composetoolbar-mobile, .sender, .recipient, .subject {
+          padding: 0 0 0 6px;
+
+          button[aria-label="Mail compose actions"] {
+            margin-right: 0;
+          };
+        }
+
+        .sender {
+          padding-right: 2px;
+        }
+
+        .recipient-actions button {
+          height: 24px;
+          width: 24px;
+        }
+      }
+    }
+  }
+}
+
+.share-attachments-view-dialog {
+  .password-wrapper {
+    margin-top: 24px;
+  }
+
+  .password-container {
+    &.has-error {
+      border-color: $error-text-color;
+    }
+
+    &.has-focus {
+      border-color: var(--focus-500);
+      box-shadow: 0 0 0 4px var(--btn-primary-outline);
+      background-color: var(--background);
+    }
+
+    .form-control:focus, .btn-default:focus {
+      box-shadow: none;
+    }
+
+  }
+
+}
+
+.name-overwrite-view {
+  .checkbox.custom {
+    line-height: 1.42857143;
+    margin: 0;
+    .toggle {
+      top: 0.125rem;
+    }
+  }
+}
+
+ul.dropdown-menu {
+  .template-wrapper {
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  [data-name="edit-templates"] {
+    font-weight: 500;
+  }
+
+  li > a.template-item{
+    display: block;
+    min-width: 300px;
+    margin-bottom: 16px;
+
+    &:focus .text-gray {
+      color: var(--focus);
+    }
+
+    .title {
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+  }
+  li:last-child a.template-item{
+    margin-bottom: 0px;
+  }
+}
+// fix some mobile styles that don't work well with dropdown groups
+@media (max-width: 540px) and (orientation: portrait), (max-height: 540px) and (orientation: landscape) {
+  .custom-dropdown.dropdown-menu .template-wrapper {
+    li > a.template-item{
+      margin-bottom: 0px;
+
+      .title {
+        font-weight: 300;
+        margin-bottom: 0px;
+      }
+    }
+
+    li:last-child {
+      margin-top: 0;
+      border-radius: 0;
+    }
+
+    li:nth-last-child(2) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+  }
+}

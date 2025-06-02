@@ -1,0 +1,66 @@
+@import '@/themes/imports.scss';
+
+.io-ox-snippet-edit {
+  @include user-select(text);
+  background: white;
+  border: 1px solid #ccc;
+  padding: 13px;
+
+  &:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  }
+
+  .mce-content-body.editable {
+    outline: 0;
+    border-radius: $border-radius-base;
+  }
+}
+
+input.error { border-color: $error-text-color; }
+
+.io-ox-snippet-dialog {
+
+  .contenteditable-editor {
+    margin-bottom: 0;
+  }
+
+  .mce-top-part {
+    border: 1px solid #ccc;
+    border-top: 0;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .tox-edit-area {
+    border: 1px solid #ccc!important;
+  }
+
+  .tox .tox-toolbar-overlord {
+      border: 1px solid #ccc!important;
+      border-top: 0;;
+  }
+
+  .tox-tinymce:not(.tox-tinymce-inline) .tox-editor-header:not(:first-child) .tox-toolbar:first-child {
+      border-top: 0;
+      background: none;
+
+  }
+
+  // same style as compose
+  .mce-toolbar .mce-btn-group {
+    border-left: 0;
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .mce-btn-group-visible-xs:not(:last-of-type) {
+    border-right: 1px solid #d9d9d9;
+    padding-right: 8px;
+    margin-right: 7px;
+  }
+}

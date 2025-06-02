@@ -1,0 +1,55 @@
+@import '@/themes/imports.scss';
+
+.capture-media.modal.flex {
+
+    .io-ox-busy {
+        z-index: 1;
+    }
+
+    .modal-body {
+        min-height: 500px;
+        .smartphone & {
+            min-height: initial;
+        }
+    }
+
+    .modal-body > * {
+        margin-bottom: 8px;
+    }
+
+    .stream-container {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        //min-width: 100%;
+        min-height: 466px;
+        .smartphone & {
+            min-height: initial;
+        }
+
+        background-color: $gray-400;
+        border: solid 1px $gray-400;
+        margin-bottom: 0;
+    }
+
+    .switchcamera {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        font-size: 24px;
+    }
+
+    .hint {
+        text-align: center;
+    }
+
+    &.blank {
+        .modal-body { @include flex-center(); };
+        .stream-container, .devices { display: none; }
+    }
+    &:not(.blank) {
+        .hint { display: none; }
+    }
+
+}
+

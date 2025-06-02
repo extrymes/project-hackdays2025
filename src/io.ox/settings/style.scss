@@ -1,0 +1,1045 @@
+@import '@/themes/imports.scss';
+
+.io-ox-settings-main.modal.flex {
+
+  .modal-dialog {
+    // set modal width to between 850px and 1024px, depending on screensize (or 100% for narrow screens)
+    max-width: min(1200px, 100%);
+    width: max(850px, 90%);
+  }
+
+  @media (max-width: $smartphone-breakpoint),
+  (max-device-width: $smartphone-breakpoint) {
+
+    // top padding to see a bit of the background
+    padding-top: 32px;
+    top: 100%;
+    transition: top 0.2s ease-out;
+    &.in {
+      top: var(--offset-top);
+      bottom: var(--offset-bottom);
+    }
+
+    .modal-content {
+      // smartphone
+      width: 100%;
+    }
+
+    .search-container.search-view {
+      background-color: var(--background-100);
+    }
+
+    .search-results {
+      padding: 8px 0;
+      border-radius: var(--default-radius);
+      background-color: var(--background);
+    }
+
+    .navbar-action button {
+      color: var(--toolbar);
+      background-color: var(--shade-a10);
+      border-radius: 50%;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+    }
+
+    .mobile-navbar .navbar-action.left {
+      top: 18px;
+    }
+
+    .mobile-navbar .navbar-title {
+      margin-top: 18px;
+    }
+  }
+
+  .modal-body {
+    display: flex;
+    padding-bottom: 0;
+    padding-right: 0;
+    overflow: hidden;
+
+    @media (max-width: $smartphone-breakpoint),
+    (max-device-width: $smartphone-breakpoint) {
+      // smartphone
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .io-ox-context-help {
+      float: right;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .modal-content {
+    height: calc(100vh - 64px);
+
+    @media (max-width: $smartphone-breakpoint),
+    (max-device-width: $smartphone-breakpoint) {
+      // smartphone
+      height: 100%;
+      max-height: 100%;
+      border-radius: 20px 20px 0 0;
+      background-color: var(--background-10);
+      box-shadow: 0 0 70px 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .folder-tree {
+    width: min(300px, 25%);
+    padding: 16px 24px;
+
+    @media (max-width: $smartphone-breakpoint),
+    (max-device-width: $smartphone-breakpoint) {
+      // smartphone
+      width: 100%;
+      border: none;
+      margin: 0;
+    }
+
+    .folder-arrow {
+      width: 16px;
+    }
+
+    .folder-icon {
+      margin-inline-end: 8px;
+    }
+  }
+
+  .modal-header {
+    display: flex;
+    border: none;
+    padding-bottom: 18px;
+    padding-top: 30px;
+
+    @media (max-width: $smartphone-breakpoint),
+    (max-device-width: $smartphone-breakpoint) {
+      // smartphone
+      display: none;
+    }
+
+    .io-ox-context-help {
+      margin-left: auto;
+    }
+
+    .modal-title {
+      margin-right: 0;
+      font-size: 24px;
+      font-weight: bold;
+      padding-left: 8px;
+      align-self: center;
+      width: min(300px, 25%);
+    }
+  }
+
+  .search-view {
+    text-align: left;
+    background: var(--background-5); // override search-view's --topbar-search-background which is sometimes white when the topbar has a non-white background
+
+    @media (max-width: $smartphone-breakpoint),
+    (max-device-width: $smartphone-breakpoint) {
+      // smartphone
+      width: 100%;
+      max-width: initial;
+      margin-left: 0;
+    }
+
+    .submit-button {
+      width: 44px;
+      margin-inline-end: 0;
+      flex-shrink: 0;
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    .autocomplete {
+      max-height: calc(100vh - 240px);
+    }
+  }
+
+  // the following rules are used to make the page-controller work within the modal
+  .window-body {
+    bottom: 0;
+
+    .mobile-navbar {
+      position: unset;
+      height: 56px;
+      padding: 0 16px;
+    }
+
+    .window-content {
+      top: 56px;
+      background-color: var(--background-10);
+    }
+
+    .folder-tree {
+      padding: 0 16px;
+    }
+
+    .io-ox-pagecontroller.page {
+      box-shadow: none;
+      height: calc(100% - 48px);
+      background-color: transparent;
+
+      h1 {
+        font-size: 20px;
+        margin: 8px 0 16px 0;
+      }
+      .settings-detail-pane h1 {
+        margin: 0;
+      }
+    }
+
+    .tree-container {
+      background-color: var(--background);
+      border-radius: var(--double-radius);
+      padding: 16px 0;
+    }
+
+    .scrollable-pane {
+      width: calc(100% - 32px);
+      @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) { // smartphone
+        width: auto
+      }
+    }
+  }
+
+  // A11y: TODO This will be removed after the default for links include text-decoration underline
+  @media (min-width: ($smartphone-breakpoint + 1)),
+  (min-device-width: ($smartphone-breakpoint + 1)) {
+
+    // PLEASE let's just put a class like "underline" on those
+    // few links in settings that actually should have a line instead of maintaining a negative list
+    // a:not(.action):not(.btn-default):not([data-detail-popup]):not([role="tab"]):not(.dropdown-toggle):not([data-toggle="dropdown"]),
+    // a[target="_blank"] {
+    //   text-decoration: underline;
+    // }
+
+    li>a,
+    .dropdown a {
+      text-decoration: none;
+    }
+
+    .dropdown>a:focus,
+    .dropdown>a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .settings-list-view {
+
+    .settings-list-item {
+      flex-wrap: wrap;
+
+      .account-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 6px;
+        margin-top: 1px;
+        background-size: 1.625rem;
+        -webkit-mask-size: 1.625em;
+        mask-size: 1.625;
+        background-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        background-position: center;
+        -webkit-mask-position: center;
+        mask-position: center;
+        width: 2.5rem;
+      }
+
+      // fix ellipsis
+      .account-button {
+        display: inline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .remove-placeholder {
+        width: calc(1rem + 8px);
+        margin: 13px 14px;
+      }
+
+      @media (max-width: $smartphone-breakpoint),
+      (max-device-width: $smartphone-breakpoint) {
+        .remove-placeholder {
+          width: 14px;
+        }
+      }
+    }
+  }
+
+  .fontnameSelectbox {
+    display: inline-block;
+    padding-right: 24px;
+    vertical-align: text-bottom;
+  }
+
+  .fontsizeSelectbox {
+    display: inline-block;
+    padding-right: 24px;
+    vertical-align: text-bottom;
+  }
+
+  .fontcolorButton {
+    display: inline-block;
+    vertical-align: text-bottom;
+
+    .colorpicker-button {
+      width: 100%;
+    }
+  }
+
+  .example-text {
+    margin: 8px 0;
+    border: 1px solid var(--border);
+    background-color: var(--background);
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  .io-ox-accounts-settings {
+
+    .widget-settings-view .widget-title {
+      font-weight: normal;
+    }
+
+    .dropdown-menu {
+      right: 15px;
+      left: auto;
+    }
+  }
+
+  .widget-list {
+    margin: 0;
+    list-style-type: none;
+  }
+
+  .widget-settings-view {
+    background-color: #f5f5f5;
+    padding: 13px;
+    margin: 0 0 7px 0;
+    text-align: right;
+    position: relative;
+
+    &.draggable {
+      padding-left: 60px;
+      padding-right: 40px;
+    }
+
+    .drag-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 45px;
+      cursor: pointer;
+
+      i {
+        height: 9px;
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -5px 0 0 -6px;
+        color: #aaa;
+      }
+
+      &:hover {
+        text-decoration: none;
+        background-color: rgba(0, 0, 0, 0.05);
+
+        i {
+          color: #888;
+        }
+      }
+
+      &:focus {
+        color: var(--focus);
+        background-color: var(--focus-500);
+        outline: 0;
+
+        svg {
+          color: #FFF;
+        }
+      }
+    }
+
+    .widget-controls {
+      display: inline-block;
+
+      a[data-action="remove"],
+      a[data-action="delete"] {
+        &:hover {
+          i.fa-trash-o {
+            color: $trash-icon-hover-color;
+            text-decoration: none;
+          }
+        }
+
+        i.fa-trash-o {
+          color: #aaa;
+        }
+      }
+    }
+
+    .widget-icon {
+      line-height: 20px;
+      margin-right: 13px;
+      float: left;
+    }
+
+    .widget-title {
+      font-weight: bold;
+      margin-top: 1px;
+      margin-right: 2em;
+      white-space: nowrap;
+      text-align: left;
+      max-width: 100%;
+      @include ellipsis;
+    }
+
+    .action {
+      padding: 0;
+      margin-top: 1px;
+      margin-right: 2em;
+    }
+
+    a[data-action="toggle"] {
+      margin-right: 1.4em;
+      min-width: 100px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    a[data-action="remove"],
+    a[data-action="delete"] {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 45px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $trash-icon-hover-background;
+      }
+
+      i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -7px 0 0 -6px;
+        color: #aaa;
+      }
+    }
+
+    @media (max-width: $smartphone-breakpoint),
+    (max-device-width: $smartphone-breakpoint) {
+      a[data-action="toggle"] {
+        color: #000000;
+        text-shadow: 0 1px 0 #ffffff;
+        opacity: 0.2;
+        margin-right: 2em;
+
+        &:hover {
+          opacity: 0.4;
+          text-decoration: none;
+        }
+      }
+
+      a[data-toggle="dropdown"]:hover {
+        text-decoration: none;
+      }
+    }
+
+    &.disabled {
+      .widget-title {
+        font-weight: normal;
+        color: var(--text-gray);
+      }
+    }
+  }
+
+  .io-ox-accounts-settings li.widget-settings-view {
+    padding-right: 40px;
+  }
+
+  .no-padding {
+    padding: 0
+  }
+
+  .vgrid-cell.settings {
+    height: 3.5em;
+    padding: 0.75em 13px 0.75em 13px;
+  }
+
+  .vgrid-cell.vgrid-label.settings-label {
+    font-size: 9pt;
+    font-weight: normal;
+    line-height: 1.2em;
+    height: 1.2em;
+    color: #555;
+  }
+
+  .borderradius .vgrid-cell.settings .shown_as {
+    top: 5px;
+    bottom: 5px;
+    left: 3px;
+    border-right: 0 none;
+    border-radius: $border-radius-base;
+  }
+
+  .sectiondelimiter {
+    clear: both;
+    text-align: right;
+    padding: 0;
+    padding-bottom: 7px;
+    margin: 0;
+    margin-top: 8px;
+    border-top: 1px solid $inline-link-border-color;
+    height: 8px;
+  }
+
+  .settings-detail-pane {
+    flex: 1;
+
+    $vertical-margin: 40px;
+    $horizontal-margin: 32px;
+    position: relative;
+    border-bottom-right-radius: 6px;
+    background-color: var(--background-10);
+
+    @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) { // smartphone
+      margin-right: auto;
+    }
+
+    .highlight-search-result {
+      animation-name: highlightSearchResult;
+      animation-duration: 2s;
+
+      &.standalone {
+        position: absolute;
+        border-radius: 8px;
+      }
+
+      @keyframes highlightSearchResult {
+        0% {
+          color: var(--btn-primary);
+          background-color: var(--accent-700);
+        }
+
+        100% {
+          color: inherit;
+          background-color: transparent;
+        }
+      }
+    }
+
+    &.default-content-padding {
+      padding: 0 $horizontal-margin;
+    }
+
+    fieldset {
+      padding: 32px 0 0 32px;
+      min-width: 0;
+
+      &.compact {
+        margin: 16px 0 0 0;
+        padding: 16px 0 0 0;
+
+        legend.sectiontitle h2 {
+          color: var(--text-gray);
+          font-weight: 500;
+        }
+      }
+      .section-description {
+        color: var(--text-gray);
+        font-weight: 400;
+      }
+    }
+
+    fieldset:last-child {
+      margin-bottom: 0;
+    }
+
+    fieldset[role="presentation"] {
+      padding: 0;
+      margin: 0 0 32px 0;
+    }
+
+    fieldset .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      color: var(--text);
+      font-weight: 500;
+      &.mb-0 { margin-bottom: 0; }
+    }
+
+    .radio label,
+    .checkbox label {
+      font-weight: normal;
+      font-size: 14px;
+    }
+
+    .section {
+      max-width: 100%;
+      width: 50rem;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 32px;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 16px;
+      line-height: 24px;
+      margin-top: $vertical-margin;
+      margin-bottom: $vertical-margin * 0.5;
+      &.no-margin { margin: 0; }
+    }
+
+    h3 {
+      font-size: 14px;
+      line-height: 20px;
+      margin-top: $vertical-margin;
+      margin-bottom: $vertical-margin * 0.5;
+      &.no-margin { margin: 0; }
+    }
+
+    legend.sectiontitle {
+      display: block;
+      width: 100%;
+      font-size: 13px;
+      line-height: 24px;
+      font-weight: 700;
+      color: var(--text);
+      border: 0;
+      padding: 0;
+      margin-bottom: -24px;
+      h3 {
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: 700;
+        margin: 0;
+      }
+    }
+
+    .mini-toggle {
+      color: var(--accent);
+    }
+
+    .io-ox-accounts-settings {
+
+      .controls {
+        padding: 13px;
+        height: 30px;
+        margin-bottom: 13px;
+      }
+
+      .list-item-controls > a.action {
+        min-width: 80px;
+        text-align: center;
+        @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+          min-width: 46px;
+          padding: 0;
+        }
+      }
+
+      .hint {
+        .btn {
+          margin-top: 8px;
+        }
+      }
+    }
+
+    .io-ox-certificate-settings {
+
+      .settings-list-view>li .list-item-controls .remove {
+        padding: 27px 16px;
+      }
+    }
+
+    // singular, no joke, happy debugging it was
+    .io-ox-account-settings {
+
+      .folderselect.enabled {
+        input[disabled] {
+          background-color: inherit;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .settings-list {
+      margin: 0;
+      list-style-type: none;
+
+      li {
+        background-color: #f5f5f5;
+        padding: 13px;
+        margin: 0 0 7px 0;
+        text-align: left;
+
+        &.default .list-title {
+          font-weight: bold;
+        }
+
+        .list-title {
+          margin-right: 2em;
+        }
+
+        a {
+          cursor: pointer;
+
+          &.action {
+            margin-right: 2em;
+          }
+        }
+      }
+    }
+
+    .buttons {
+      margin-bottom: 32px;
+
+      .btn {
+        margin-bottom: 0.5rem;
+      }
+
+      .btn-link {
+        padding: 0;
+        margin-right: 16px;
+      }
+
+      .btn-default {
+        margin-right: 8px;
+      }
+
+      .btn .fa:first-child {
+        margin-right: 8px;
+      }
+    }
+
+    .expandable-section {
+      background-color: var(--background);
+      border-radius: var(--double-radius);
+      padding: 0;
+      margin-bottom: 16px;
+      &:focus-within {
+        outline: 1px solid var(--focus-500);
+      }
+      &:last-child {
+        margin-bottom: 24px;
+      }
+
+      // Safari fix to hide the arrow (doesn't support list-style-type)
+      summary::-webkit-details-marker { display: none; }
+      // Safari fix to hide the content when closed to prevent tabbing to/focussing on hidden elements
+      // unfortunately, this also disables expand-on-find-in-page in chromium (see https://html.spec.whatwg.org/multipage/interaction.html#interaction-with-details-and-hidden=until-found)
+      &:not([open]) > section { visibility: none; }
+
+      summary {
+        list-style-type: none;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 20px 8px 20px 0;
+        svg {
+          margin-inline-end: 16px;
+          transition: transform 0.2s ease-in-out;
+        }
+        h2 {
+          font-size: 15px;
+          margin: 0;
+          line-height: 21px;
+        }
+      }
+
+      &[open] {
+         summary {
+          border-radius: var(--double-radius) var(--double-radius) 0 0;
+          border-bottom: 1px solid var(--border-bright);
+
+          > svg {
+            transform: rotate(90deg);
+          }
+        }
+      }
+
+      section {
+        display: flex;
+        flex-direction: column;
+        padding: 24px 0 16px 0;
+        &.p-24 {
+          padding: 24px;
+        }
+        &.mb-0, .form-group:last-child {
+          margin-bottom: 0;
+        }
+
+        & > .form-group:last-child {
+          margin-bottom: 8px;
+        }
+      }
+    }
+
+    .settings-section section {
+      padding: 24px;
+      fieldset {
+        padding: 24px;
+        margin: 0 -24px 0 -24px;
+        border-bottom: 1px solid var(--border-bright);
+        legend {
+          width: calc(100% - 24px - 24px);
+        }
+        &:not(:first-child) legend {
+          padding-top: 24px;
+        }
+      }
+
+      fieldset:last-child, fieldset.last {
+        padding-bottom: 8px;
+        border-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      .pseudo-fieldset {
+        padding: 0 24px 32px 24px;
+        margin: 0 -24px 0 -24px;
+        border-bottom: 1px solid var(--border-bright);
+      }
+
+      .pseudo-fieldset:last-child, .pseudo-fieldset.last {
+        padding-bottom: 8px;
+        border-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      .legendary-label label {
+        font-size: 14px;
+        font-weight: bold;
+        color: var(--text);
+      }
+    }
+  }
+
+  .settings-header {
+    // the second number is off the grid to vertically align
+    // all icons on the right side (close X, section toggle, help icons)
+    padding: 32px 34px 20px 32px;
+
+    @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+      padding: 16px;
+    }
+  }
+
+  .settings-body {
+    padding: 8px 24px 24px 24px;
+    overflow-y: auto;
+    min-height: 0;
+    flex: 1;
+
+    @media (max-width: $smartphone-breakpoint), (max-device-width: $smartphone-breakpoint) {
+      padding: 8px 16px 16px 16px;
+      h1 {
+        margin: 12px 0 0 0;
+      }
+    }
+  }
+
+  .settings-section:not(.expandable-section) {
+    background-color: var(--background);
+    border-radius: var(--double-radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    > h2 {
+      margin: 0 0 24px 0;
+      font-weight: bold;
+    }
+    &.mb-0, .form-group:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .settings-hint {
+    background-color: var(--background-10);
+    border: 1px solid var(--border);
+    border-radius: var(--double-radius);
+    padding: 16px;
+  }
+
+  .settings-explanation button {
+    color: var(--accent-500);
+    margin-inline-end: -12px;
+  }
+
+  .settings-search-result {
+    display: block;
+    padding: 8px 16px 8px 16px;
+    border-radius: var(--default-radius);
+    outline: 0;
+    &:focus {
+      box-shadow: inset 0 0 1px 1px var(--accent);
+    }
+    &:hover, &:focus {
+      background-color: var(--background-5);
+    }
+  }
+
+  .settings-search-highlight {
+    transition: background-color .1s linear;
+  }
+
+  label, legend, h2, h3, .supports-highlight {
+    &.settings-search-highlight {
+      h3 { color: #000; }
+      // hard-coded; also black in dark mode!
+      color: #000;
+      background-color: #fc0;
+      // 3px keeps 1px space between lines
+      box-shadow: 0 0 0px 3px #fc0;
+      border-radius: 4px;
+    }
+  }
+
+  input, select, button, textarea, .expandable-section, .settings-section {
+    &.settings-search-highlight {
+      border-color: #fc0;
+      box-shadow: 0 0 2px 2px #fc0;
+    }
+  }
+
+  .min-h-40 { min-height: 40px; }
+
+  .io-ox-dialog-popup {
+
+    input.input-large {
+      width: 360px;
+    }
+
+    .busynotice {
+      text-align: center;
+    }
+
+    .add-mail-account-address,
+    .add-mail-account-password {
+      display: block;
+      max-width: 355px;
+    }
+  }
+
+  @media (max-width: $smartphone-breakpoint),
+  (max-device-width: $smartphone-breakpoint) {
+
+    $font-size: 16px;
+    $line-height: 20px;
+
+    .io-ox-settings-window .vgrid-cell {
+      font-size: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .settings-detail-pane {
+      height: 100%;
+
+      &.default-content-padding {
+        padding: 16px;
+      }
+
+      h1:first-child {
+        margin: 0 0 32px 0;
+      }
+
+      fieldset {
+        margin-bottom: 32px;
+        legend.sectiontitle {
+          h2 {
+            font-size: $font-size;
+            line-height: $line-height;
+          }
+        }
+      }
+
+      label {
+        font-size: 14px;
+        line-height: $line-height;
+      }
+
+      .form-control {
+        font-size: $font-size;
+      }
+
+      .buttons {
+        .btn {
+          margin-bottom: 8px;
+          width: 100%;
+        }
+
+        margin-bottom: 32px;
+      }
+
+      .checkbox.custom,
+      .radio.custom {
+        label {
+          font-size: $font-size;
+          line-height: $line-height;
+        }
+
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
+
+.smartphone .io-ox-accounts-settings {
+  padding-bottom: 8px;
+  .btn { width: 100%; }
+}
+
+// use outline insted of border. Looks less jagged on lower resolutions
+.card {
+  outline: 1px solid var(--border-bootstrap);
+  border: none;
+}
+
+.radio-card-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  li {
+    margin: 16px 0 0 0;
+    margin-inline-end: 16px;
+  }
+  input[type=radio]{
+    &:checked + label {
+      text-decoration-color: var(--accent);
+      .card {
+        outline: 1px solid var(--accent);
+        border-color: var(--accent);
+      }
+    }
+    &:focus + label .card {
+      border-color: var(--focus-500);
+      box-shadow: 0 0 0 6px var(--btn-primary-outline);
+    }
+  }
+  .card {
+    box-sizing: content-box;
+    border-radius: var(--double-radius);
+  }
+  .card-caption {
+    line-height: 1.5rem;
+    font-size: 13px;
+    padding: 0;
+  }
+}

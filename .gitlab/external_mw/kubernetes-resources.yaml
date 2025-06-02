@@ -1,0 +1,180 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mw-http-api
+spec:
+  type: ExternalName
+  externalName: 10.50.3.238
+  ports:
+    - port: 80
+      name: http
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: preview-app
+spec:
+  gateways:
+    - istio-system/sre-default-gateway
+  hosts:
+    - "appsuite-8.k3s.os2.oxui.de"
+  http:
+    - match:
+        - uri:
+            prefix: /appsuite/help-documents
+      name: office-user-guide
+      rewrite:
+        uri: /help-documents
+      route:
+        - destination:
+            host: preview-app-office-user-guide
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /appsuite/help
+      name: user-guide
+      rewrite:
+        uri: /help
+      route:
+        - destination:
+            host: preview-app-core-user-guide
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /api/oxguard/
+      name: guard-routes
+      rewrite:
+        uri: /oxguard/
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /pks/
+      name: guard-pgp-routes
+      rewrite:
+        uri: /oxguard/pgp/
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /appsuite/api/
+      name: appsuite-api
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /api
+      name: api-routes
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /ajax/
+      name: ajax-routes
+      rewrite:
+        uri: /appsuite/api/
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /servlet/
+      name: servlet-routes
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /realtime/
+      name: realtime-routes
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /infostore/
+      name: infostore-routes
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /socket.io/
+      name: socket-io-routes
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /rt2/
+      name: rt2-routes
+      rewrite:
+        uri: /rt2/
+      route:
+        - destination:
+            host: mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /webservices/
+      name: soap-routes
+      route:
+        - destination:
+            host: mw-http-api
+    - match:
+        - uri:
+            prefix: /office
+      name: office-service
+      rewrite:
+        uri: /appsuite/
+      route:
+        - destination:
+            host: preview-app-core-ui-middleware
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /appsuite/
+      name: ui-middleware
+      route:
+        - destination:
+            host: preview-app-core-ui-middleware
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /
+      name: ui-middleware-root
+      rewrite:
+        uri: /appsuite
+      route:
+        - destination:
+            host: preview-app-core-ui-middleware
+            port:
+              number: 80

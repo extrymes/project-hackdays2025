@@ -1,0 +1,8 @@
+@import '@/themes/imports.scss';
+
+@media (min-width: ($smartphone-breakpoint + 1)), (min-device-width: ($smartphone-breakpoint + 1)) {
+  .io-ox-calendar-settings #settings-autoProcessIMip {
+    //#settings-autoProcessIMip
+    width: 50%;
+  }
+}

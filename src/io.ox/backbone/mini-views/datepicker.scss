@@ -1,0 +1,56 @@
+@import '@/themes/imports.scss';
+
+.dateinput {
+    input {
+        text-align: center;
+    }
+
+    .time-field {
+        border-left: none;
+    }
+
+    .combobox {
+        display: inline;
+    }
+
+    .typeahead.calendaredit {
+        height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-width: 85px;
+        a {
+            text-align: right;
+            padding: 3px 15px 3px 3px;
+        }
+    }
+
+    &.dateonly .datepicker-day-field {
+        border-radius: $border-radius-base;
+    }
+
+    // in mobile mode only May be enabled on tablets as well, so separate from media query
+    &.mobile-mode .datepicker-day-field {
+        width: 100%;
+        border-radius: $border-radius-base;
+    }
+
+    .timezone {
+        width: auto;
+        font-size: 12px;
+        &.btn {
+            cursor: pointer;
+            line-height: 1.25rem;
+        }
+    }
+}
+
+/* Mobile */
+@media all and (max-width: $smartphone-breakpoint), all and (max-device-width: $smartphone-breakpoint) {
+    .dateinput {
+        .timezone.btn,
+        .datepicker-day-field {
+            padding: 4px 6px;
+        }
+    }
+}
+

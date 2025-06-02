@@ -1,0 +1,36 @@
+.statistics {
+  position: static; /* Bug 31425 */
+  @include overflow(auto);
+  $distance: 28px;
+
+  &.modal-body { padding: 28px 28px 0 28px; }
+
+  h1.folder-name {
+    font-size: 24px;
+    text-transform: uppercase;
+    margin: 0 0 24px 0;
+  }
+
+  header, section {
+    margin: 0 0 $distance 0;
+    &:last-child { margin-bottom: 0; }
+  }
+
+  .folder-summary { color: #888; }
+
+  .folder-actions { margin-top: 14px; }
+
+  h2 {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 300;
+    margin: 0 0 14px 0;
+  }
+
+  ul.compact {
+    li a.disabled,
+    li.divider { display: none; }
+  }
+
+  canvas { margin-bottom: 10px; }
+}

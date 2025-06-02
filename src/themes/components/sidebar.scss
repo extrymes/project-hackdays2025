@@ -1,0 +1,97 @@
+.generic-sidebar-container {
+
+  flex: 1;
+  gap: var(--gap);
+  $default-width: 320px;
+
+  .generic-sidebar-content {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0; // also flexbox-grow-ellipsis problem
+    border-radius: var(--gap-radius) var(--gap-radius) 0 0;
+  }
+
+  .generic-sidebar {
+    position: static;
+    display: none;
+    z-index: 0;
+    border-radius: var(--gap-radius) 0 0 0;
+  }
+
+  &.visible > .generic-sidebar {
+    display: block;
+    width: $default-width;
+  }
+}
+
+.primary-action {
+  padding: 16px var(--inner-gap);
+  & > .btn-group, & > .btn, & > .dropdown > .btn {
+    width: 100%;
+    display: flex;
+  }
+  .btn:first-child {
+    flex: 1;
+  }
+  .btn.btn-primary {
+    height: 38px;
+  }
+  .dropdown-toggle {
+    width: 32px;
+  }
+  .dropdown-menu {
+    min-width: 100%;
+    li a.disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.btn.btn-translucent-white {
+  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.20);
+}
+
+.window-sidebar {
+  .btn.btn-default {
+    border-color: transparent;
+  }
+  .btn:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+//
+// Don't show on smartphones
+//
+@media all and (max-width: 540px) {
+  .generic-sidebar-container .generic-sidebar {
+    display: none;
+  }
+}
+
+//
+// More width on large screens (> 1280px)
+//
+
+@media all and (min-width: 1281px) {
+
+  .generic-sidebar-container {
+
+    $default-width: 320px;
+
+    &.visible.has-left > .generic-sidebar-content {
+      left: $default-width;
+    }
+
+    &.visible.has-right > .generic-sidebar-content {
+      right: $default-width;
+    }
+
+    &.visible > .generic-sidebar {
+      width: $default-width;
+    }
+  }
+}

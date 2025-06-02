@@ -1,0 +1,169 @@
+@import '@/themes/imports.scss';
+
+.chronos-item {
+
+  .search-view .list-item-content.calendar .date { display: block; }
+
+  .vgrid.editable .vgrid-cell { padding-left: 48px; }
+
+  &.visible-selection.has-focus .list-item.selected * { color: var(--selected-focus)!important; }
+
+  .notification.empty {
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .list-item {
+    padding-bottom: 2px;
+    padding-top: 0px;
+    border: none;
+  }
+
+  .tail {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    .load-more-appointments {
+      padding: 10px; // increase click target size
+    }
+  }
+
+  .busy-indicator {
+    padding: 0;
+    height: 46px;
+  }
+
+  .list-item.list-item-label {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: bold;
+    color: var(--text);
+    padding: 0.25rem 16px 0.75rem 8px;
+  }
+
+  .list-item + .list-item.list-item-label {
+    padding-top: 1.5rem;
+  }
+
+  .list-item-checkmark { margin-top: 10px; }
+
+  .list-item-content {
+
+    .location {
+      display: inline-block;
+      width: 100%;
+      margin-top: -4px;
+    }
+
+    &.calendar {
+      height: 4rem;
+      font-size: 14px;
+      padding: 0.5rem 0px;
+      color: var(--text);
+
+      * {
+        @include ellipsis();
+      }
+
+      .contentContainer { padding-left: 10px; }
+
+      .private {
+        color: var(--text-gray);
+        float: right;
+        display: inline-block;
+      }
+
+      .shown_as.label-info {
+        width: 1em;
+        height: 1em;
+        float: right;
+        margin-left: 1em;
+        border-radius: $border-radius-base;
+      }
+
+      &.declined .title,
+      &.declined .location { text-decoration: line-through; }
+
+      .private-flag {
+        color: #AAA;
+        float: left;
+        font-size: 14px;
+        margin-right: 4px;
+      }
+
+      .title {
+        font-weight: 700;
+        white-space: pre;
+      }
+
+      .time {
+        position: relative;
+        // must also work for am/pm times
+        width: calc(6rem + 16px);
+        height: 100%;
+        float: left;
+        padding-left: 24px;
+
+        .fragment {
+          text-overflow: clip;
+          margin-right: 4px;
+        }
+      }
+
+      .time > .color-label {
+        content: "";
+        width: 8px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 4px;
+      }
+
+      .date { display: none; }
+
+      &.reserved .custom_shown_as > .color-label { background-color: $appointment-reserved; }
+      &.free     .custom_shown_as > .color-label { background-color: $appointment-free; }
+      &.declined .custom_shown_as > .color-label { background-color: $appointment-declined; }
+    }
+  }
+}
+
+.calendar-list-view {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border-radius: var(--default-radius) 0 0 0;
+  .leftside {
+    padding-top: 16px;
+    height: calc(100% - 16px)
+  }
+  .vsplit {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex: 1;
+  }
+  .folder-info {
+    text-align: center;
+    margin: 0 30px;
+    @include ellipsis();
+  }
+  .folder-count {
+    font-size: 13px;
+    color: var(--text-gray);
+  }
+  .calendar-detail-pane {
+    padding: 0 2rem;
+  }
+}
+
+.calendar-list-view .list-item-content.free .custom_shown_as.white > .color-label {
+  $bg-light: rgba(255, 255, 255, 0.2);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 25px, $bg-light 25px, $bg-light 50px);
+}
+
+.calendar-list-view .list-item-content.free .custom_shown_as.black > .color-label {
+  $bg-dark: rgba(0, 0, 0, 0.1);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 25px, $bg-dark 25px, $bg-dark 50px);
+}

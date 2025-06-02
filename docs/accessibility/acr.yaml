@@ -1,0 +1,784 @@
+title: Accessibility Conformance Report
+report_date: ""
+last_modified_date: ""
+product:
+  name: Open-Xchange App Suite UI
+  version: ''
+  description: OX App Suite is an easy-to-use email, communication, and collaboration platform, and provides access to a wide range of white-labeled applications.
+author:
+  email: info@open-xchange.com
+vendor:
+  company_name: Open-Xchange AG
+  email: info@open-xchange.com
+notes: "This report describes the core components of App Suite's web user interface: Login, Mail, Portal, Address Book, Chat, Calendar, Tasks, Drive and Settings. Documents and any user content (e.g. HTML mails) is not covered by this report, as we cannot modify user content. App Suite is available as a wide-label application, and supports customer customizations and plugins that can alter appearance, content and functionality; these customizations and plugins are not covered by this document. App Suite supports a range of end-user configurable themes and accent colors, however, this document only covers the default theme and accent color, unless stated otherwise. We use the term 'App Suite UI' to describe the parts of App Suite that are covered by this report, with the aforementioned exceptions."
+evaluation_methods_used: Use of automated tools like WAVE and Accessibility Insights. Manual keyboard only testing. Some testing with JAWS, NVDA and VoiceOver.
+legal_disclaimer: The information herein is provided in good faith based on the analysis of the web application at the time of the review and does not represent a legally-binding claim. Please contact us to report any accessibility errors or conformance claim errors for re-evaluation and correction, if necessary.
+chapters:
+  success_criteria_level_a:
+    criteria:
+      - num: 1.1.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'All non-text controls have a label that describe their purpose. App Suite does not contain time-base media, tests, sensory content, or captchas. Decorative non-text content is implemented so that it can be ignored by assistive technology.'
+      - num: 1.2.1
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain audio or video content, outside of user content (e.g. media embedded in HTML mails, or mail-attached media).'
+      - num: 1.2.2
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain audio or video content, outside of user content (e.g. media embedded in HTML mails, or mail-attached media).'
+      - num: 1.2.3
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain audio or video content, outside of user content (e.g. media embedded in HTML mails, or mail-attached media)'
+      - num: 1.3.1
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'Information, structure and relationships conveyed through presentation can be programmatically determined or are available in text. However, understanding and operating calendar in week or day view might be challenging for non-sighted users.'
+      - num: 1.3.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Content in App Suite UI is in a meaningful sequence.'
+      - num: 1.3.3
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Instructions to understand and operate App Suite UI content does not contain rely on sensory characteristics such as shape, color, size, visual location, orientation, or sound.'
+      - num: 1.4.1
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'App Suite UI generally does not use color as the only visual means of conveying information; however, calendar appointments can be user-configured to a specific color without additional non-color based differentiation.'
+      - num: 1.4.2
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain audio that plays longer than 3 seconds. '
+      - num: 2.1.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'All functionality of App Suite UI is operable through a keyboard interface.'
+      - num: 2.1.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suites UI only traps the keyboard for modal dialogs that have clear methods of returning to the main content, eg. the escape key and dismiss/accept buttons.'
+      - num: 2.1.4
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Shortcuts specific to App Suite UI are user-configurable and can be disabled.'
+      - num: 2.2.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not contain time-based limit, except for an optional, user-configurable, session timeout.'
+      - num: 2.2.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not contain elements that automatically move, blink, or scroll. Notifications and email list views do however auto-update, which is essential for the proper and expected function of App Suite.'
+      - num: 2.3.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not contain flashing elements.'
+      - num: 2.4.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI contains both skip links and landmarks to assist in keyboard navigation.'
+      - num: 2.4.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI provides descriptive page titles.'
+      - num: 2.4.3
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI manages focus or tab order of elements in a consistent, logical order. Focus is trapped in dialogs and modals, and should return to the element that opened the dialog or modal, when appropriate.'
+      - num: 2.4.4
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Links are labeled and meaningful.'
+      - num: 2.5.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not contain functionality that relies solely on multipoint or path-based gestures.'
+      - num: 2.5.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'All drag-and-drop actions in App Suite UI can be aborted by returning the item to its initial position or moving outside the target area.'
+      - num: 2.5.3
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'User interface components that include text will mostly start with the same accessible name as the label, except in rare cases where more context is provided to the accessible label.'
+      - num: 2.5.4
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain functions triggered by motion.'
+      - num: 3.1.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI sets the (user configurable) page language as an attribute on the HTML element.'
+      - num: 3.2.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not contain elements that change context on focus.'
+      - num: 3.2.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not contain elements that change context on input.'
+      - num: 3.3.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Form errors mostly identified; however, sometimes errors are indicated with alerts, or not at all. Additionally, not all errors are explicitly associated with the respective fields or are not phrased explicit enough.'
+      - num: 3.3.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'All form controls in App Suite UI are labeled, and contain additional instructions for screen reader users where appropriate. However, required form field might not always be labeled sufficiently.'
+      - num: 4.1.1
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI might contain elements that are not nested according to their specification.'
+      - num: 4.1.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'All form controls are labeled, either with an explicit label element or an aria-label property, where appropriate.'
+  success_criteria_level_aa:
+    notes: ''
+    disabled: false
+    criteria:
+      - num: 1.2.4
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain media to be captioned.'
+      - num: 1.2.5
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain Audio.'
+      - num: 1.3.4
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not restrict to a particular display orientation.'
+      - num: 1.3.5
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'App Suite UI does not contain Audio.'
+      - num: 1.4.3
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Elements in App Suite UI have sufficient color contrast in both the default and dark theme.'
+      - num: 1.4.4
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI scales up to 200% without loss of functionality or information, both full as well as text-only zoom.'
+      - num: 1.4.5
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not use images of text.'
+      - num: 1.4.10
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'App Suite UI cannot reflow to 320 by 256px.'
+      - num: 1.4.11
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'User Interface Components and Graphical Objects have a contrast of at least 3:1 in the default theme.'
+      - num: 1.4.12
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'Setting line height to 1.5 times the font size can lead to loss of content or functionality.'
+      - num: 1.4.13
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Content that is only visible on hover or focus does not obscure or replace other content, is hoverable, and is persistent.'
+      - num: 2.4.5
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'There are multiple ways to locate content in App Suite UI. '
+      - num: 2.4.6
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI uses descriptive Headings and Labels.'
+      - num: 2.4.7
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Elements in App Suite UI have a visible keyboard focus indicator.'
+      - num: 3.1.2
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'User content in App Suite UI can contain any human language, which cannot be programmatically determine.'
+      - num: 3.2.3
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Navigation mechanisms in App Suite UI are consistent throughout the application.'
+      - num: 3.2.4
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Components that have the same functionality are identified consistently in App Suite UI.'
+      - num: 3.3.3
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'App Suite UI automatically detect input errors and suggests corrections where feasible; however, not all suggestions are phrased clearly, and some autocomplete helpers might be inaccessible to some users.'
+      - num: 3.3.4
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Since App Suite UI includes Email and Chat functionality it is entirely feasible to cause legal commitments outside the control of App Suite. Due to the technical limitations of email, these actions cannot be reversed, checked, nor confirmed through App Suite UI. However, sending emails can be undone in a user-configurable time interval.'
+      - num: 4.1.3
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI implements accessible status messages which can be presented by assistive technologies without receiving focus.'
+  success_criteria_level_aaa:
+    notes: ''
+    disabled: false
+    criteria:
+      - num: 1.2.6
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain prerecorded media.'
+      - num: 1.2.7
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain prerecorded media.'
+      - num: 1.2.8
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain prerecorded media.'
+      - num: 1.2.9
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain live media.'
+      - num: 1.3.6
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'In App Suite UI, the purpose of User Interface Components, icons and regions can be programmatically determined.'
+      - num: 1.4.6
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'Most if not all text has an contrast ratio of 7:1 (or 4.5:1) in the default and dark theme.'
+      - num: 1.4.7
+        components:
+          - name: web
+            adherence:
+              level: not-applicable
+              notes: 'App Suite UI does not contain prerecorded audio.'
+      - num: 1.4.8
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'While content can be resized up to 200 percent without horizontal scrolling, Text is not justified, the width might be more that 80 characters, and line spacing might be less than space-and-a-half. Also, while Theming is available, foreground and background colors cannot be freely selected by the user.'
+      - num: 1.4.9
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI only uses Images of text for pure presentation, or where a particular presentation is essential.'
+      - num: 2.1.3
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'All functionality in App Suite is operable through a keyboard interface without requiring specific timings for individual keystrokes.'
+      - num: 2.2.3
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite does not use timing, except for a user configurable logout timer, that is not active by default.'
+      - num: 2.2.4
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'Interruptions (Notifications) can be postponed and automatic display of notifications is user-configurable. However, some content (eg. lists of new emails) will auto-update.'
+      - num: 2.2.5
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'When users are automatically logged out, some data is preserved (eg. Mails are saved as Drafts) while other data is lost (unsaved appointments are lost).'
+      - num: 2.2.6
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'Automatic log-out is user configurable, and most data is auto-saved. However, users are not additionally warned.'
+      - num: 2.3.2
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not flash.'
+      - num: 2.3.3
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Motion animations in App Suite UI are disabled or reduced for users that prefer reduced motion.'
+      - num: 2.4.8
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'App Suite UI does not provide any mechanism that resembles a breadcrumb trail.'
+      - num: 2.4.9
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'The purpose of links in App Suite is identified from link text alone.'
+      - num: 2.4.10
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'Section headings are used to organize the content.'
+      - num: 2.5.5
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'Some targets are smaller than 44 by 44 CSS pixels.'
+      - num: 2.5.6
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not restrict the input method.'
+      - num: 3.1.3
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'App Suite UI does not provide a mechanism to identify specific definitions of words or phrases.'
+      - num: 3.1.4
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'App Suite UI does not provide a mechanism to link to definitions of abbreviations, nor does it provide a glossary.'
+      - num: 3.1.5
+        components:
+          - name: web
+            adherence:
+              level: supports
+              notes: 'App Suite UI should not require a reading ability more advanced then the lower secondary education level. This excludes user-content, which may require any reading level.'
+      - num: 3.1.6
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'App Suite UI does not provide a mechanism to identify pronunciation.'
+      - num: 3.2.5
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'App Suite UI does not change context without user request; however, some elements, such as email lists, may auto-update without a method of deactivating this behavior.'
+      - num: 3.3.5
+        components:
+          - name: web
+            adherence:
+              level: does-not-support
+              notes: 'While App Suite provides a comprehensive help system, form-level help is currently not available.'
+      - num: 3.3.6
+        components:
+          - name: web
+            adherence:
+              level: partially-supports
+              notes: 'In App Suite UI, some actions a reversible, such as setting an appointment in calendar, while other actions, such as sending an email, are irreversible by nature. App Suite UI tries to check input data as far as possible, and requests user confirmation where appropriate.'
+  functional_performance_criteria:
+    notes: ''
+    disabled: false
+    criteria:
+      - num: '302.1'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI can be operated without vision with assistive technologies.'
+      - num: '302.2'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI can scale up to 200% both '
+      - num: '302.3'
+        components:
+          - name: none
+            adherence:
+              level: partially-supports
+              notes: 'App Suite can be operated without perception of color, as color is not used alone to indicate selection or focus. However, links are identified by color alone. Also, Calendars are identified by color alone, but the colors are configurable.'
+      - num: '302.4'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not use sound.'
+      - num: '302.5'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not use sound.'
+      - num: '302.6'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not use vocal input.'
+      - num: '302.7'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI can be operated with limited manipulation by using a keyboard interface'
+      - num: '302.8'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI is operable with limited reach and strength.'
+      - num: '302.9'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI uses text descriptions and icons where appropriate and uses the clearest, simplest language available.'
+  hardware:
+    notes: not-applicable
+    disabled: true
+  software:
+    notes: 'App Suite UI does not have access to platform accessibility services and does not include components that have access to platform accessibility services and conforms to WCAG Level A and WCAG Level AA. App Suite UI is therefore exempt from conforming to 502 or 503. Since App Suite UI is not an authoring tool, 504 is not applicable.'
+    disabled: false
+  support_documentation_and_services:
+    notes: ''
+    disabled: false
+    criteria:
+      - num: '602.2'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: 'Both Chapters 4 and 5 are not-applicable'
+      - num: '602.3'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'See WCAG 2.x section'
+      - num: '602.4'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: 'Documentation is only available in electronic format.'
+      - num: '603.2'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: 'See 602.2'
+      - num: '603.3'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'Support is available via web and email.'
+
+# EN 301 549
+  # Chapter 4
+  en_301_549_functional_performance:
+    notes: ''
+    criteria:
+      - num: '4.2.1'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI is fully usable without vision through text-to-speech assistive technology and keyboard interfaces.'
+      - num: '4.2.2'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI can scale at least 200% both full and text-only zoom to help users with limited vision.'
+      - num: '4.2.3'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not rely on color alone or colors are user-configurable.'
+      - num: '4.2.4'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not rely on hearing.'
+      - num: '4.2.5'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not rely on hearing.'
+      - num: '4.2.6'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI does not rely on vocal capability.'
+      - num: '4.2.7'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: 'App Suite UI is operable with limited manipulation or strength through touch, pointer or keyboard interfaces.'
+      - num: '4.2.8'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: App Suite UI is operable with limited reach through touch, pointer or keyboard interfaces.
+      - num: '4.2.9'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: App Suite UI does not flash or contain elements that are likely to trigger photosensitive seizures.
+      - num: '4.2.10'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: App Suite UI uses text descriptions and icons where appropriate and uses the clearest, simplest language available.
+      - num: '4.2.11'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: Features provided for accessibility do not compromise privacy.
+
+  # Chapter 5
+  en_301_549_generic_requirements:
+    criteria:
+      - num: '5.1'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: 5.1.2.2-5.1.6.2 are not applicable for this App Suite UI.
+      - num: '5.2'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: All accessibility features in App Suite UI are activated by default and do not need to be activated.
+      - num: '5.3'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: App Suite UI does not use biological characteristics.
+      - num: '5.4'
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: Content created and processed in App Suite UI preserves information provided for accessibility.
+      - num: '5.5'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: App Suite UI does not have operable parts.
+      - num: '5.6'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: App Suite UI does not have locking or toggle controls.
+      - num: '5.7'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: App Suite UI relies on platform software to supply key repeat functionality.
+      - num: '5.8'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: App Suite UI does not provide a keyboard or keypad.
+      - num: '5.9'
+        components:
+          - name: none
+            adherence:
+              level: not-applicable
+              notes: App Suite UI does not require simultaneous user actions.
+
+  # Chapter 6
+  en_301_549_ICT_with_2way_voice:
+    notes: Not applicable.
+
+  # Chapter 7
+  en_301_549_ICT_with_Video:
+    notes: Not applicable.
+
+  # Chapter 8
+  en_301_549_hardware:
+    notes: Not applicable.
+
+  # Chapter 9
+  en_301_549_web:
+    notes: 'see WCAG 2.x section'
+
+  # Chapter 10
+  en_301_549_non-web-documents:
+    notes: Not applicable.
+
+  # Chapter 11
+  en_301_549_software:
+    notes: Not applicable.
+
+  # Chapter 12
+  en_301_549_documentation_and_support_services:
+    criteria:
+      - num: 12.1.1
+        components:
+          - name: none
+            adherence:
+              level: does-not-support
+              notes: App Suite UI supports established accessibility features used by the users assistive technology and is therefor not further documented.
+      - num: 12.1.2
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: See information in WCAG 2.x section
+      - num: 12.2.2
+        components:
+          - name: none
+            adherence:
+              level: not-evaluated
+              notes: Open-Xchange and its partners offer free or paid support that is able to offer information or support regarding accessibility and compatibility features.
+      - num: 12.2.3
+        components:
+          - name: none
+            adherence:
+              level: not-evaluated
+              notes: Open-XChange and its partners offer free or paid support over multiple channels (mail, chat, phone)
+      - num: 12.2.4
+        components:
+          - name: none
+            adherence:
+              level: supports
+              notes: See information in WCAG 2.x section
+
+  # Chapter 13
+  en_301_549_ICT_providing_relay_or_emergency_service_access:
+    notes: Not applicable.

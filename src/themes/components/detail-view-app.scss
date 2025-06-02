@@ -1,0 +1,60 @@
+.detail-view-app {
+  background-color: var(--background-50);
+  @include overflow();
+
+  .thread-view-control, .detail-view-container {
+    max-width: 100%;
+    min-width: 100%;
+    .mail-detail-content.simple-mail {
+      max-width: 100%;
+    }
+    margin: 0 auto;
+  }
+
+  .detail-view-container {
+    overflow: visible;
+    outline: 0;
+    flex: 1;
+    padding: 24px;
+
+    & > div {
+      background-color: var(--background);
+      padding: 20px;
+      border: 1px solid var(--border-bright);
+      border-radius: 10px;
+      box-shadow: 0 8px 16px -2px rgb(0 0 0 / 12%);
+    }
+  }
+
+  .inline-toolbar {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .thread-view-control, .thread-view-list {
+    position: static;
+    min-height: 100%;
+    padding-top: 24px;
+  }
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 1rem;
+
+  .icon, .detail-row-icon {
+    color: var(--text-gray);
+    width: 40px;
+    .bi {
+      width: 16px;
+      height: 16px;
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  .content, .detail-row-content {
+    width: calc(100% - 40px);
+    flex: 1;
+  }
+}

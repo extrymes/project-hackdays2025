@@ -1,0 +1,30 @@
+.io-ox-quota-view {
+
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 300;
+  margin-top: 8px;
+
+  .quota-description {
+    // use display: table (or float: left) to avoid inner margin issues
+    display: table;
+    width: 100%;
+    margin: 4px 0;
+  }
+
+  .numbers {
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .progress {
+    clear: both;
+    margin: 0;
+    height: 8px;
+    background-color: var(--background-100);
+    position: relative;
+    .progress-bar {
+      position: absolute; // rtl
+    }
+  }
+}

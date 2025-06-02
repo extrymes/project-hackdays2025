@@ -1,0 +1,8 @@
+{
+  "path": "io.ox/calendar/countdown/main",
+  "namespace": "core",
+  "requires": "calendar",
+  "device": "!smartphone",
+  "feature": "countdown",
+  "delay": 1000
+}

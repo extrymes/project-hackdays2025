@@ -1,0 +1,374 @@
+@import '@/themes/imports.scss';
+
+#platform, #setup, #app {
+  $border-color: #e5e5e5;
+  border-radius: 10px;
+  height: 704px;
+  max-height: calc(100% - 32px);
+  width: 600px;
+  max-width: 800px;
+
+
+  .connect-wizard{
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    user-select: text;
+    -webkit-user-select: text;
+
+    .wizard-header{
+      flex: 0 1 auto;
+      padding: 40px 32px 16px 32px;
+      .wizard-title {
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0;
+      }
+      .close {
+        display: none;
+      }
+    }
+
+    .wizard-content {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 32px;
+      overflow-y: auto;
+
+      .progress-container {
+        flex: 0 1 auto;
+        width: 100%;
+
+        .progress-steps{
+          position: relative;
+          list-style: none;
+          display: flex;
+          justify-content: space-between;
+          padding: 0 16px 24px 16px;
+          margin: 0;
+
+          &:after {
+            content: "";
+            height: 1px;
+            width: calc(100% - 99px);
+            background-color: var(--background-200);
+            position: absolute;
+            top: 24px;
+            left: 48px;
+            z-index: -1;
+          }
+
+          li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .progress-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 0;
+              border: 2px solid transparent;
+              background-color: var(--background-100);
+              height: 48px;
+              width: 48px;
+              border-radius: 100%;
+              color: var(--text-gray);
+              font-size: 24px;
+              font-weight: 700;
+
+              &:focus {
+                outline: 0;
+                border-color: var(--focus-500);
+              }
+
+              &:disabled {
+                cursor: default;
+                opacity: inherit;
+              }
+            }
+
+            &.active {
+
+              .progress-btn {
+                color: var(--focus);
+                background-color: var(--focus-500);
+              }
+
+              span.progress-description {
+                font-weight: 700;
+              }
+            }
+
+            span.progress-description {
+              text-align: center;
+              line-height: initial;
+              font-size: 16px;
+              color: var(--text);
+              margin-top: 8px;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+
+      .content-container {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+
+        h4 {
+          font-weight: 700;
+        }
+
+        .divider {
+          height: 1px;
+          margin: 5% 0;
+          overflow: hidden;
+          background-color: var(--border-bright);
+        }
+
+        .download-container {
+          display: flex;
+
+          .image-container {
+            text-align: center;
+
+            .qrcode {
+              width: 140px;
+              min-height: 140px;
+            }
+
+            .store-icon {
+              width: 120px;
+            }
+
+            .driveapp.macappstore {
+              background-image: url($onboarding-driveapp-appstore);
+            }
+          }
+          .description-container {
+            padding: 32px 16px 24px 0;
+            word-break: break-word;
+            width: 60%;
+
+            .prompt {
+              font-weight: 400;
+            }
+          }
+        }
+
+        .description {
+          margin: 8px 0 16px;
+
+          p {
+            margin-bottom: 12px;
+          }
+
+          .prompt {
+            font-weight: 700;
+          }
+        }
+
+        .configuration-container{
+          .manual-container {
+            margin-top: 0px;
+          }
+          .description{
+            margin: 0px;
+          }
+        }
+
+        .content-list {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid var(--border-bright);
+          border-radius: var(--default-radius);
+
+          li {
+            min-height: 64px;
+            text-align: center;
+            line-height: 64px;
+            border-bottom: 2px solid var(--border-bright);
+
+            .list-btn {
+              &.disabled {
+                color: #ccc;
+                cursor: default;
+
+                .premium-container {
+                  background-color: var(--accent-400);
+                  color: white;
+                  border-radius: 12px;
+                  line-height: 32px;
+                  padding: 0 16px;
+                }
+              }
+              &:focus {
+                color: var(--focus);
+                background-color: var(--focus-500);
+                outline: 0;
+              }
+              background-color: var(--background);
+              border: none;
+              font-size: 16px;
+              display: flex;
+              width: 100%;
+              align-items: center;
+              padding: 0 16px;
+
+              .icon-next {
+                margin-left: auto;
+              }
+              .icon-btn {
+                font-size: 20px;
+                margin-right: 20px;
+              }
+
+              // use light gray for operating system icons
+              &[data-platform]:not([data-app]) {
+                .icon-btn { color: var(--gray-500); }
+                &:focus .icon-btn { color: var(--focus); }
+              }
+            }
+          }
+
+          :first-child .list-btn {
+            border-radius: var(--default-radius) var(--default-radius) 0 0;
+          }
+
+          :last-child {
+            border: none;
+            .list-btn {
+              border-radius: 0 0 var(--default-radius) var(--default-radius);
+            }
+          }
+        }
+        .manual-container {
+          margin-top: 16px;
+        }
+
+        //MailSyncView
+        .manual-description {
+          font-weight: 700;
+          margin-bottom: 8px;
+        }
+
+        pre {
+          display: flex;
+          margin: 0 0 16px 0;
+          font-size: 14px;
+          .title {
+            margin: 0 16px 0 0 ;
+            font-weight: 700;
+          }
+        }
+
+        //DownloadQRView
+        .qrcode {
+          align-self: center;
+          margin: auto;
+          min-height: 212px;
+        }
+          .link-info {
+          margin: auto 0 16px 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        //DownloadView
+        .download {
+          align-self: center;
+          font-size: 18px;
+          margin: 5% 0 5% 0;
+          padding: 16px;
+          .bi-download {
+            margin-left: 8px;
+          }
+        }
+
+        //MobileDownloadView
+        &.mobile {
+          justify-content: space-between;
+        }
+
+        .mobile-download {
+          text-align: center;
+
+          .app-icon {
+            width: 50vw;
+            height: 50vw;
+            max-width: 120px;
+            max-height: 120px;
+            background-size: cover;
+            margin: 0 auto;
+
+            &.mailapp.playstore {
+              background-image: url($onboarding-mailapp-googleplay);
+            }
+            &.driveapp.playstore {
+              background-image: url($onboarding-driveapp-googleplay);
+            }
+            &.mailapp.appstore {
+              background-image: url($onboarding-mailapp-appstore);
+            }
+            &.driveapp.appstore {
+              background-image: url($onboarding-driveapp-appstore);
+            }
+          }
+          .store-icon {
+            max-height: 45px;
+          }
+          .app-info {
+            margin: 16px 0 16px 0;
+            font-size: 24px;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    .wizard-footer {
+      /* position: absolute;
+      bottom: 0;
+      min-height: 64px; */
+      flex: 0 1 auto;
+      padding: 16px 32px 8px;
+      width: 100%;
+      border-top: 1px solid var(--border-bright);
+
+      .btn {
+        float: right;
+        padding: 8px 40px;
+        margin: 0 0 8px 8px;
+        background-color: var(--background);
+        .smartphone & { width: 100%; }
+      }
+    }
+  }
+}
+
+@media (max-width: $smartphone-breakpoint) {
+  #app, #setup {
+    max-height: 100%;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    text-align: left;
+    background-color: $white;
+    font-size: 14px;
+    padding-top: 0;
+
+    #dialog-title {
+      text-align: left;
+    }
+
+  }
+  .wizard-backdrop {
+    z-index: 999;
+  }
+}

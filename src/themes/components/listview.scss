@@ -1,0 +1,470 @@
+.list-view-control {
+
+  $height-default: 48px;
+  $height-small: 35px;
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  @mixin top-toolbar(){
+    display: none;
+  }
+
+  @mixin bottom-toolbar(){
+    display: none;
+    .dropdown-menu {
+      top: auto;
+      bottom: 100%;
+      right: 0;
+      left: auto;
+    }
+  }
+
+  .toolbar {
+
+    @include user-select(none);
+
+    &.top {
+      @include top-toolbar();
+    }
+    &.bottom {
+      @include bottom-toolbar();
+      height: 48px;
+    }
+
+    .grid-options { padding: 0; }
+
+    .grid-options > a {
+      color: var(--text-gray);
+      display: block;
+      padding-left: 8px;
+      padding-right: 8px;
+
+      @media (max-width: 900px) {
+        padding-left: 0;
+        padding-right: 8px;
+      }
+    }
+
+    a:not(.breadcrumb-link) {
+      &:focus, &:focus i {
+        color: var(--selected-focus);
+        background-color: var(--selected-background-focus);
+        border-radius: var(--default-radius);
+        outline: 0;
+      }
+    }
+
+    .select-all {
+      color: #767676;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 4px 14px;
+      i {
+        color: #767676;
+        margin-right: 1rem;
+        width: 16px;
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .dropdown-menu {
+      font-size: 14px;
+    }
+  }
+
+  &.upside-down .toolbar {
+
+    &.top {
+      @include bottom-toolbar();
+      top: auto;
+      border-bottom: 0;
+    }
+
+    &.bottom {
+      @include top-toolbar();
+      bottom: auto;
+      border-top: 0;
+      .dropdown-menu {
+        top: 90%;
+        bottom: auto;
+      }
+    }
+  }
+
+  .status-bar {
+    flex: 1 !important;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  &.toolbar-top-visible .toolbar.top,
+  &.toolbar-bottom-visible .toolbar.bottom { display: flex; }
+
+  .list-view {
+    flex: 1 0 0;
+    z-index: 1;
+    padding: 0 var(--inner-gap);
+  }
+
+  .resizebar {
+    &.vertical {
+      display: none;
+    }
+  }
+}
+
+.ios .list-view.scrollpane { overflow-x: hidden; }
+
+.smartphone .list-view-control .toolbar a:not(.breadcrumb-link) {
+  &:focus, &:focus i {
+    color: inherit;
+    outline: inherit;
+    background-color: inherit;
+  }
+}
+
+.list-view {
+
+  $swipe-position: 80px;
+
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  @include user-select(none);
+
+  &:focus { box-shadow: 0 0 1px #aaa inset; }
+
+  &.scrollpane {
+    @include overflow-y(auto);
+    // optimize repaint behavior; see bug 39931
+    // http://stackoverflow.com/questions/20671729/chrome-repaints-div-on-scroll-differently-on-low-and-high-dpi-displays
+    transform: translateZ(0);
+  }
+
+  .list-item, .list-header {
+    position: relative;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 6px 0 5px 0;
+    padding-inline-start: 40px;
+    padding-inline-end: 16px;
+    cursor: pointer;
+  }
+
+  .list-item {
+
+    border-radius: var(--default-radius) var(--default-radius) 0 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    outline: 0;
+
+    &.selected + .selected {
+      border-radius: 0
+    }
+
+    &.selected.last-selected {
+      border-bottom-left-radius: var(--default-radius);
+      border-bottom-right-radius: var(--default-radius);
+    }
+
+    .list-item-checkmark {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      left: 24px;
+      right: 24px; /* rtl */
+      width: 40px;
+      color: white;
+    }
+
+    .list-item-checkmark:before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 8px;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+
+    &.selected .list-item-checkmark:before {
+      background: var(--checkbox-svg-inverted);
+      background-color: var(--background);
+      background-size: 16px;
+      border-color: transparent;
+
+      .smartphone & {
+        background: var(--checkbox-svg);
+        background-color: var(--selected-background-shade);
+      }
+    }
+
+    &.selected.no-checkbox .list-item-checkmark:before {
+      background-image: none;
+    }
+
+    &:not(:last-child):after {
+      content: '';
+      position: absolute;
+      border-bottom: 1px solid var(--shade-a10);
+      bottom: 0;
+      width: calc(100% - 2 * var(--default-radius));
+      left: var(--default-radius);
+    }
+  }
+
+  .notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--text-gray);
+    svg {
+      margin-bottom: 8px;
+    }
+  }
+
+  &.hide-checkboxes .list-item {
+    padding-inline-start: 0;
+    .list-item-checkmark { display: none; }
+  }
+
+  &.compact .list-item {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+  }
+
+  .list-item {
+    .bold { font-weight: bold; }
+    &:hover {
+      background-color: var(--selected-background-hover);
+      z-index:9999;
+    }
+  }
+
+  &.visible-selection .list-item.selected {
+    color: var(--selected);
+    background-color: var(--selected-background);
+    -webkit-font-smoothing: antialiased;
+    &:hover { background-color: var(--selected-background-shade); }
+    &:after { content: none; }
+    // Safari needs explicit selector to update background color when window in background
+    &:not(:focus) { background-color: var(--selected-background); }
+    &:not(:focus):hover { background-color: var(--selected-background-hover); }
+  }
+
+  &.visible-selection:focus-within .list-item.selected {
+    color: var(--selected-focus);
+    background-color: var(--selected-background-focus);
+    .gray { color: var(--selected-gray-focus); }
+    i:not(.color-stable) { color: var(--selected-focus); }
+    &:hover { background-color: var(--selected-background-focus-hover); }
+    &:focus { background-color: var(--selected-background-focus-shade); }
+    &:focus:hover { background-color: var(--selected-background-focus-hover); }
+    .list-item-checkmark:before {
+      background: var(--checkbox-svg-dark);
+      background-color: white;
+    }
+    &.no-checkbox .list-item-checkmark:before {
+      background-image: none;
+    }
+  }
+
+  .list-item-row {
+    clear: right;
+  }
+
+  & > .list-item:last-child { margin-bottom: 100px; }
+
+  &.complete > .list-item:last-child { margin-bottom: 0; }
+
+  .busy-indicator {
+    // has been used as a mixin in less. That just copied every .list-item values inside here
+    // former code .list-item()
+    // that does not work with sass anymore. Therefore, the next block is just copied
+    // additionally, duplicates are commented out
+    position: relative;
+    // font-size: 13px;
+    // line-height: 20px;
+    // padding: 6px ($list-view-padding - 1px) 5px ($list-view-padding + 32px);
+    cursor: pointer;
+    left: 0;
+    @include transition(unquote('left 0.40s cubic-bezier(0.1, 0.7, 0.1, 1)'));
+    &.swipe-left {
+      left: -$swipe-position;
+    }
+    z-index: 2;
+    outline: 0;
+    color: var(--text-disabled);
+    background-color: var(--background-5);
+    border-radius: var(--default-radius);
+    font-size: 20px;
+    line-height: 20px;
+    height: 96px;
+    text-align: center;
+    padding: 40px 0;
+    margin-bottom: 0;
+  }
+
+  .busy-indicator.io-ox-busy {
+    text-align: left;
+  }
+
+  // use this for empty list
+  .busy-indicator:nth-child(2) {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: transparent;
+    svg { display: none; }
+  }
+
+  // swipe animation
+
+  .list-item {
+    left: 0;
+    @include transition(unquote('left 0.40s cubic-bezier(0.1, 0.7, 0.1, 1)'));
+    &.swipe-left {
+      left: -$swipe-position;
+    }
+    z-index: 2;
+  }
+
+  &.no-transition .list-item {
+    @include transition(none);
+  }
+
+  .swipe-left-content {
+    background-color: #FF4105; /* quite red */
+    position: absolute;
+    top: 0;
+    right: -$swipe-position;
+    bottom: 0;
+    width: $swipe-position;
+    i {
+      font-size: 20px;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -10px 0 0 -7px;
+    }
+    z-index: 1;
+  }
+
+  .pull-to-refresh {
+    position: absolute;
+    top: 8px;
+    z-index: 10001;
+    width: 100%;
+    .spinner {
+      width: 50px;
+      height: 50px;
+      background-color: #c80000;
+      border-radius: 25px;
+      text-align: center;
+      line-height: 50px;
+      color: #fff;
+      font-size: 24px;
+      margin: 0 auto;
+      @include elevation-1();
+    }
+  }
+  .spin {
+    animation: spin 2s infinite linear;
+  }
+  .scale-down {
+    animation: scaleDown 120ms;
+  }
+
+  @keyframes scaleDown {
+    from { transform: scale(1); }
+    to { transform: scale(0); }
+  }
+  @keyframes spin {
+    0%    { transform: rotate(0deg);          }
+    100%  { transform: rotate(360deg);        }
+  }
+
+}
+
+.leftside .list-view .list-item { outline: 0; }
+
+/* New list view */
+.megalist {
+  position: absolute;
+  z-index: 1000000;
+  background-color: #fff;
+  border: 24px solid rgba(0, 0, 0, 0.20);
+  background-clip: padding-box;
+  top: 0;
+  left: 0;
+  width: 320px;
+  bottom: 0;
+  margin: 0;
+
+  padding: 0;
+  outline: 0;
+  overflow-y: auto;
+
+  > li {
+    position: relative;
+    height: 54px;
+    padding: 8px 16px 8px 40px;
+    border: 1px solid transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+    list-style-type: none;
+    outline: 0;
+  }
+
+  > li[aria-selected="true"] {
+    background-color: #ddd;
+  }
+
+  > li .fa:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    -webkit-font-smoothing: antialiased;
+    content: '\f096';
+    color: #767676;
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    font-size: 14px;
+  }
+
+  > li[aria-checked="true"] .fa:before {
+    content: '\f14a';
+  }
+
+  &.has-focus {
+
+    > li:focus {
+      border-color: var(--focus-500);
+    }
+
+    > li[aria-selected="true"] {
+      color: white;
+      background-color: var(--selected-background);
+    }
+
+    > li[aria-selected="true"] .fa:before {
+      color: white;
+    }
+
+    > li[aria-selected="true"]:focus {
+      border-color: transparent;
+      background-color: var(--selected-background-focus);
+    }
+  }
+
+  .page-divider {
+    display: none;
+  }
+}

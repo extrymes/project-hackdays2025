@@ -1,0 +1,44 @@
+// also defined in src/themes/components/launcher.scss
+$appcontrol-height-smartphone:          50px;
+
+.breadcrumb-view {
+  @include ellipsis();
+  @include user-select(text);
+  .toolbar & { margin: 0; }
+}
+
+.generic-toolbar .breadcrumb-view.toolbar-item {
+  margin: 0 16px;
+  padding: 0;
+}
+
+.breadcrumb-label,
+.breadcrumb-item,
+.breadcrumb-ellipsis,
+.breadcrumb-divider,
+.breadcrumb-tail { color: var(--text-gray); }
+
+.breadcrumb-ellipsis,
+.breadcrumb-label { margin-right: 8px; }
+
+.breadcrumb-tail {
+  color: var(--text);
+  font-weight: bold;
+}
+
+.breadcrumb-divider {
+  margin: 0 8px;
+  width: 8px;
+  text-align: center;
+
+  &.bi {
+    width: 13px; // icons set to a fixed (pixel) width to not zoom on text-only-zoom
+    height: 14px;
+    min-width: 13px; // prevent smaller icons at small width
+  }
+}
+
+.breadcrumb-link,
+.breadcrumb-divider {
+  display: inline-block;
+}

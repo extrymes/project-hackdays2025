@@ -1,0 +1,12 @@
+[
+  {
+    "path": "io.ox/mail/accounts/keychain",
+    "namespace": "core",
+    "requires": ["webmail"]
+  },
+  {
+    "path": "io.ox/mail/accounts/settings",
+    "namespace": "io.ox/settings",
+    "requires": ["webmail"]
+  }
+]

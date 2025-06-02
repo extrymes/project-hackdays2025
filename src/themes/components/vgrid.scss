@@ -1,0 +1,253 @@
+.vgrid {
+  outline: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  @include user-select(none);
+
+  .vgrid-scrollpane {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 1;
+
+    &.has-focus {
+      .vgrid-cell.selected {
+        background-color: var(--selected-background-focus);
+        & > *:not(.badge, .avatar) { color: var(--selected-focus); }
+        i { color: var(--selected-focus); }
+        &:hover { background-color: var(--selected-background-focus-hover); }
+        &:focus { background-color: var(--selected-background-focus-shade); }
+        &:focus:hover { background-color: var(--selected-background-focus-hover); }
+
+    &:not(:focus):hover { background-color: var(--selected-background-focus-hover); }
+      }
+    }
+  }
+
+  .resizebar {
+    position: relative;
+    float: right;
+  }
+
+  $toolbar-height: 2.5rem;
+
+  .vgrid-toolbar {
+    position: absolute;
+    display: none;
+    right: 0;
+    left: 0;
+    z-index: 2;
+
+    a {
+      text-decoration: none;
+
+      i { color: black; display: inline-block; }
+    }
+
+    &.top {
+      top: 0;
+      &.generic-toolbar { height: 2.5rem; }
+      & .dropdown-menu {
+        top: 110%;
+        bottom: auto;
+        right: 0;
+        left: auto;
+      }
+    }
+
+    &.bottom {
+      bottom: 0;
+
+      & .dropdown-menu {
+        top: auto;
+        bottom: 110%;
+        right: 0;
+        left: auto;
+      }
+    }
+
+    .grid-info {
+      flex: 1;
+      text-align: left;
+      line-height: 38px;
+      margin-right: 16px;
+      padding-left: 8px;
+      @include ellipsis();
+      .folder-name {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .folder-count {
+        font-size: 13px;
+        color: var(--text-gray);
+      }
+    }
+
+    // careful here: [data-toggle="dropdown"] is important or the style is applied to all options inside the dropdown menu as well not only the toggle button. This can lead to cut of texts.
+    .grid-options.dropdown a[data-toggle="dropdown"]{
+      display: block;
+      padding-right: 8px;
+      padding-left: 8px;
+      border-radius: var(--default-radius);
+      &:focus {
+        color: var(--selected-focus);
+        background-color: var(--selected-background-focus);
+        outline: 0;
+      }
+    }
+
+    .select-all {
+      display: inline-block;
+      i {
+        color: var(--text-gray);
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+        left: 3px;
+        padding-right: 5px;
+        &.fa-check-square-o { padding-right: 2px; }
+      }
+      &:focus, &:focus i {
+        color: var(--focus);
+        background: var(--focus-500);
+        outline: 0;
+      }
+    }
+
+    .select-all-toggle {
+      float: left;
+      padding: 0 8px;
+    }
+  }
+
+  &.editable .select-all { display: inline-block; }
+
+  &.top-toolbar .vgrid-toolbar.top,
+  &.bottom-toolbar .vgrid-toolbar.bottom { display: flex; }
+
+  &:not(.bottom-toolbar) .vgrid-toolbar.bottom { display: none; }
+
+  &.top-toolbar .vgrid-scrollpane { top: $toolbar-height + 1.5rem; }
+
+  &.bottom-toolbar .vgrid-scrollpane { bottom: $toolbar-height; }
+
+  &.editable {
+    .vgrid-cell-checkbox { display: block; }
+    .vgrid-cell {
+      padding-left: 48px; /* width + padding of .vgrid-cell-checkbox */
+    }
+  }
+}
+
+.vgrid-cell {
+  outline: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 8px;
+  left: 8px;
+  font-size: $vgrid-font-size;
+  padding: 10px 18px 14px 18px;
+  color: var(--text);
+  /* resolves hw accel anti-aliasing */
+  /* background-color: $background; */
+  border-radius: 6px;
+  * {
+    @include ellipsis();
+    -webkit-font-smoothing: antialiased;
+  }
+
+  &.selectable { cursor: pointer; }
+
+  &.vgrid-label {
+    font-weight: bold;
+    text-align: center;
+    line-height: 1em;
+    padding: 5px 16px 4px 16px;
+    cursor: pointer;
+    &.left { text-align: left; }
+  }
+
+  &:hover { background: var(--selected-background-hover); }
+
+  &.selected {
+    border-radius: var(--default-radius) var(--default-radius) 0 0;
+    background-color: var(--selected-background);
+    &:hover { background-color: var(--selected-background-focus-hover); }
+    &:not(:focus) { background-color: var(--selected-background); }
+    &:not(:focus):hover { background-color: var(--selected-background-hover); }
+  }
+
+  &.selected + .selected {
+    border-radius: 0
+  }
+
+  &.selected.last-selected {
+    border-bottom-left-radius: var(--default-radius);
+    border-bottom-right-radius: var(--default-radius);
+  }
+
+  &.relative { position: relative; }
+
+  &.no-border { border-bottom: 0 none; }
+
+  &.tail {
+    border-bottom: 0 none;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    * {
+      white-space: normal;
+      line-height: 1.1em;
+    }
+  }
+
+  //show whitespace to visually match backend sort order
+  .title { white-space: pre; }
+
+  .vgrid-cell-checkbox {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    display: none;
+    cursor: pointer;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+  }
+
+  &.selected .vgrid-cell-checkbox:before {
+    background: var(--checkbox-svg-inverted);
+    background-color: var(--background);
+    background-size: 16px;
+    border-color: transparent;
+  }
+
+  .swipeDelete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 10px 0 10px;
+    line-height: 61px;
+    height: 100%;
+    background-color: #FF4105;
+    color: #fff;
+    font-size: 22px;
+    width: 100px;
+    text-align: center;
+
+    &:active { background-color: darken(#DA4F49, 10%); };
+  }
+
+}

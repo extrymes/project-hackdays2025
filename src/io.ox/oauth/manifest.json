@@ -1,0 +1,15 @@
+[
+    {
+        "path": "io.ox/oauth/keychain",
+        "namespace": "io.ox/keychain/api"
+    },
+    {
+        "path": "io.ox/oauth/settings",
+        "namespace": "io.ox/settings"
+    },
+    {
+        "path": "io.ox/oauth/reauth_handler",
+        "namespace": "io.ox/core/main",
+        "requires": "oauth"
+    }
+]

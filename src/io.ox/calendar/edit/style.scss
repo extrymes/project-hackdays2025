@@ -1,0 +1,192 @@
+@import '@/themes/imports.scss';
+
+.io-ox-calendar-edit {
+
+  .row:last-child {
+    padding-bottom: 8px;
+  }
+
+  // baseline adjustment
+  padding-top: $default-padding;
+  padding-bottom: $default-padding;
+
+  // align dropdown buttons left
+  .btn.btn-link.dropdown-toggle { padding-left: 0; }
+
+  // prevent underline in picked color when hovering button
+  .color-picker-dropdown {
+    .btn.btn-link {
+      text-decoration: none;
+      &:hover, &:focus{
+        .text-decoration-underline { text-decoration: underline; }
+      }
+    }
+  }
+
+  .actionToggle {
+    display: none;
+    margin: 10px 0;
+  }
+
+  .recurrenceview div.checkbox { margin-top: 0; }
+  .recurrenceview .summary a span:after { content: '\00a0'; }
+
+  input[name="title"] { font-weight: bold; }
+
+  textarea.note {
+    resize: vertical;
+    padding: 10px;
+    min-height: 120px;
+  }
+
+  .find-free-time {
+    margin-top: 8px;
+    .btn {
+      white-space: normal;
+      text-align: left;
+    }
+  }
+
+  .hard-conflict { margin: 1em 0 0 0; }
+
+  .disabled, .disabled label {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+  }
+
+  button.disabled {
+    opacity: 1;
+
+    span {
+      color: var(--text-disabled);
+      text-decoration: none !important;
+    }
+
+    .picked-color { opacity: 0.65; }
+  }
+
+  .color-picker-dropdown {
+    display: inline-block;
+  }
+
+  .visibility-container {
+    padding-top: 21px;
+
+    .attendee-change-checkbox {
+      margin-top: 8px;
+    }
+  }
+
+  .picked-color {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-left: 12px;
+    border-left: 4px solid;
+    text-align: center;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .folder-color {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 3px;
+    background-color: rgb(255, 255, 255);
+    display: inline-block;
+    margin-left: 12px;
+
+    &:before {
+      content: '\00a0';
+      width: 1.25rem;
+      height: 1.25rem;
+      display: inline-block;
+      border-radius: 3px;
+    }
+  }
+
+  .folder-selection {
+    margin-bottom: 5px;
+  }
+
+  .add-participant.tt-hint, .add-participant.tt-input {
+    /* was height: 2.14285714em; which becomes 30px which is too low */
+    height: 2rem;
+  };
+
+  .attachment-list .file {
+    background-color: var(--background);
+  }
+
+  /* Mobile */
+  @media all and (max-width: $smartphone-breakpoint), all and (max-device-width: $smartphone-breakpoint) {
+    .actionToggle { display: block; }
+
+    // Safari needs full with here as parent element has margin auto
+    &.container { width: 100%; }
+
+    .collapsed { display: none; }
+
+    textarea.note { min-height: 50px; }
+
+    .custom-color .color-label {
+      width: 40px;
+      height: 40px;
+      margin: 4px;
+      font-size: 30px;
+
+      &.no-color { margin-right: 52px; }
+
+      &.active .fa { line-height: 40px; }
+    }
+
+    [data-extension-id="folder-selection"] {
+      padding-top: 10px;
+    }
+  }
+
+  .visibility-select {
+    margin-top: 8px;
+  }
+
+  .btn.btn-link.visibility-helper-button {
+    font-size: 16px;
+    padding: 0;
+    margin: 0 0 0 8px;
+    position: absolute;
+    top: 6px;
+  }
+
+}
+
+.calendar-popover {
+  padding: 0 8px 8px 8px;
+
+  .ox-popover-title {
+    font-weight: bold;
+    margin: 8px 0;
+  }
+}
+
+.io-ox-calendar-edit-window.header-top .window-header .header-right,
+.io-ox-calendar-edit-window.header-bottom .window-footer .header-right {
+  float: right;
+  line-height: 32px;
+
+  a { margin-left: 0.2em; }
+}
+
+.smartphone {
+  .io-ox-calendar-edit {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .gray-background {
+    .window-body .io-ox-calendar-edit, .window-content {
+      background: var(--background)
+    }
+  }
+}

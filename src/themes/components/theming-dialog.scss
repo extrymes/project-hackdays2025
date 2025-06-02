@@ -1,0 +1,119 @@
+.theming-form {
+  fieldset legend {
+    border: none;
+    margin-top: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+
+    width: 40px;
+    height: 40px;
+
+  }
+
+  input[type=radio]{
+    position: absolute;
+    height: 100%; // this helps to make sure the element is scrolled to and (more-or-less) fully visible when focussed
+    opacity: 0;
+  }
+
+  &.theming-form-accent-colors {
+    input[type=radio]{
+      + label span {
+        position: relative;
+
+        &::after {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transition: 0.2s opacity;
+          opacity: 0;
+          content: ".";
+          width: 1em;
+          height: 1em;
+          margin-top: -.5em;
+          margin-left: -.5em;
+          border-radius: 50%;
+          background: #fff;
+          text-indent: -999em;
+        }
+      }
+
+      &:checked + label span::after {
+        opacity: 1;
+      }
+
+      &:focus + label span {
+        border-color: var(--focus-500);
+        box-shadow: 0 0 0 0.25rem var(--btn-primary-outline);
+      }
+    }
+  }
+
+  &.theming-form-themes {
+    li {
+      width: 100px;
+      height: 100px;
+
+      input[type=radio]{
+        &:checked + label {
+          text-decoration: underline;
+          text-decoration-color: var(--accent);
+
+          span.card {
+            outline: 2px solid var(--accent);
+            border: 1px solid var(--accent);
+            text-decoration: underline;
+          }
+        }
+        &:focus + label span.card {
+          border-color: var(--focus-500);
+          box-shadow: 0 0 0 0.5rem var(--btn-primary-outline);
+        }
+      }
+    }
+  }
+}
+
+.io-ox-settings-main.modal.flex .settings-detail-pane .settings-section .theme-dialog {
+  // some quick fixes for the inplace theme dialog
+  h3 {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    &.first-header {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+  }
+  fieldset {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    legend {
+      font-size: 14px;
+      font-weight: 600;
+      left: 0;
+    }
+    // currently limit to 700px so that background wrap in a balanced way
+    // (see e.g. unicolor backgrounds without max-width on a larger screen)
+    ul {
+      max-width: 700px;
+    }
+  }
+  legend {
+    position: relative;
+    left: 0;
+    margin-bottom: 8px;
+  }
+
+}

@@ -1,0 +1,10 @@
+@import '@/themes/imports.scss';
+
+.preview-plaintext {
+    font-family: monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    cursor: auto;
+    word-break: break-all;
+    @include user-select(text);
+}

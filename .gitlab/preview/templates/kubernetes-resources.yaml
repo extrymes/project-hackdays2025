@@ -1,0 +1,191 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: main-core-mw-http-api
+spec:
+  type: ExternalName
+  externalName: main-core-mw-http-api.main-e2e-stack.svc.cluster.local
+  ports:
+    - port: 80
+      name: http
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: preview-app
+spec:
+  gateways:
+    - mesh
+    - istio-system/default-gateway
+  hosts:
+    - "{{ .Values.host }}"
+  http:
+    - match:
+        - uri:
+            prefix: /help-documents
+      name: office-user-guide
+      route:
+        - destination:
+            host: preview-app-office-user-guide
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /help
+      name: user-guide
+      route:
+        - destination:
+            host: preview-app-core-user-guide
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /api/oxguard/
+      name: guard-routes
+      rewrite:
+        uri: /oxguard/
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /pks/
+      name: guard-pgp-routes
+      rewrite:
+        uri: /oxguard/pgp/
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /appsuite/api/
+      name: appsuite-api
+      rewrite:
+        uri: /api/
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /api
+      name: api-routes
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /ajax/
+      name: ajax-routes
+      rewrite:
+        uri: /api/
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /servlet/
+      name: servlet-routes
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /realtime/
+      name: realtime-routes
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /infostore/
+      name: infostore-routes
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /socket.io/
+      name: socket-io-routes
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /rt2/
+      name: rt2-routes
+      rewrite:
+        uri: /rt2/
+      route:
+        - destination:
+            host: main-core-mw-http-api
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /webservices/
+      name: soap-routes
+      route:
+        - destination:
+            host: main-core-mw-http-api
+    - match:
+        - uri:
+            prefix: /office
+      name: office-service
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: preview-app-core-ui-middleware
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /
+      name: ui-middleware
+      route:
+        - destination:
+            host: preview-app-core-ui-middleware
+            port:
+              number: 80
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: preview-core-ui-middleware
+data:
+  config.yaml: |
+    baseUrls:
+      - http://preview-app-core-ui
+      - http://preview-app-office-web
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ui-middleware
+  labels:
+    release: kube-prom
+spec:
+  endpoints:
+    - path: /metrics
+      port: monitoring
+  selector:
+    matchLabels:
+      grafana.ox.io/service-monitor-implementation: default

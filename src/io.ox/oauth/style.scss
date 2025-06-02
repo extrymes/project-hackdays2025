@@ -1,0 +1,178 @@
+.services-list-view {
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  // mail account dialog is a bit different
+  .mail-account-dialog & {
+    flex-direction: column;
+    .service-item {
+      display: flex;
+      align-items: center;
+
+      .service-label {
+        margin-left: 8px;
+        line-height: initial;
+      }
+
+      .service-icon {
+        font-size: 32px;
+        line-height: 60px;
+      }
+      > button {
+        width: 4rem;
+        height: 4rem;
+      }
+    }
+  }
+
+
+  .service-item {
+    display: inline-block;
+    padding: 0;
+    line-height: 28px;
+    margin: 0 4px 8px 4px;
+
+    .service-label {
+      color: var(--text);
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    > button {
+      /* we use fixed colors since logos are not made for dark mode, for example */
+      background-color: white;
+      &:focus, &:active { background-color: white; }
+      &:hover { background-color: #f5f5f5; }
+      height: 115px;
+      width: 128px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    // used for background logos (png for example)
+    .service-icon {
+      margin: 8px 16px;
+      width: 64px;
+      flex: 0 0 64px;
+    }
+
+    // used for background svg icons
+    .service-icon.svg {
+      width: 40px;
+      flex: 0 0 40px;
+    }
+  }
+}
+
+.modal.oauth-account {
+  .modal-header {
+    .modal-title { display: inline-block; }
+    .account-identity {
+      font-size: 14px;
+    }
+
+    .service-icon {
+      float: right;
+      height: 32px;
+      width: 32px;
+    }
+  }
+
+  .account-icon.service-icon {
+    margin-left: 6px;
+  }
+
+  .account-icon {
+    margin-left: 6px;
+    margin-top: 1px;
+    background-size: 26px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+  }
+
+  .list-item-title {
+    flex: 1;
+
+    .btn {
+      width: 100%;
+      justify-content: left;
+      padding-left: 0;
+      padding-right: 0;
+
+      span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+
+.service-icon, .account-icon {
+  background-size: cover;
+
+  // fallback "logo"
+  &.logo-fallback { background-image: url(public/themes/default/icons/bi/circle.svg); }
+
+  &.logo-mail, &.logo-mailwizard {
+    background-color: var(--text);
+    -webkit-mask-size: 2.5rem;
+    mask-size: 2.5rem;
+    -webkit-mask-image: url(public/themes/default/icons/bi/envelope.svg);
+    mask-image: url(public/themes/default/icons/bi/envelope.svg);
+  }
+  &.logo-oxmf {
+    background-color: var(--text);
+    -webkit-mask-image: url(public/themes/default/icons/bi/person-lines-fill.svg);
+    mask-image: url(public/themes/default/icons/bi/person-lines-fill.svg);
+  }
+  &.logo-fileaccount, &.logo-fileAccount {
+    background-color: var(--text);
+    -webkit-mask-image: url(public/themes/default/icons/bi/cloud.svg);
+    mask-image: url(public/themes/default/icons/bi/cloud.svg);
+  }
+  &.logo-filestorage {
+    background-color: var(--text);
+    -webkit-mask-image: url(public/themes/default/icons/bi/folder-fill.svg);
+    mask-image: url(public/themes/default/icons/bi/folder-fill.svg);
+  }
+  &.logo-ical {
+    background-color: var(--text);
+    -webkit-mask-image: url(public/themes/default/icons/bi/calendar3.svg);
+    mask-image: url(public/themes/default/icons/bi/calendar3.svg);
+  }
+  &.logo-import {
+    background-color: var(--text);
+    -webkit-mask-image: url(public/themes/default/icons/bi/upload.svg);
+    mask-image: url(public/themes/default/icons/bi/upload.svg);
+  }
+
+  // special logos
+  &.logo-google { background-image: url(public/themes/default/assets/google_logo128.png); }
+  &.mail.logo-google { background-image: url(public/themes/default/assets/gmail_logo128.png); }
+  &.filestorage.logo-google { background-image: url(public/themes/default/assets/googledrive_logo128.png); }
+  &.infostore.logo-google { background-image: url(public/themes/default/assets/googledrive_logo128.png); }
+  &.calendar.logo-google { background-image: url(public/themes/default/assets/google_calendar_logo128.png); }
+  &.contacts.logo-google { background-image: url(public/themes/default/assets/google_contacts_logo128.png); }
+  &.logo-boxcom { background-image: url(public/themes/default/assets/box_logo128.png); }
+  &.logo-graph { background-image: url(public/themes/default/assets/onedrive_logo128.png); }
+  &.logo-dropbox { background-image: url(public/themes/default/assets/dropbox_logo128.png); }
+  &.logo-owncloud { background-image: url(public/themes/default/assets/owncloud_logo128.png); }
+  &.logo-nextcloud { background-image: url(public/themes/default/assets/nextcloud_logo128.png); }
+  &.logo-webdav { background-image: url(public/themes/default/assets/webdav_logo128.png); }
+  // &.logo-linkedin { background-image: url(public/themes/default/assets/linkedin_logo128.png); }
+  &.logo-mslive { background-image: url(public/themes/default/assets/onedrive_logo128.png); }
+  &.logo-graph.contacts { background-image: url(public/themes/default/assets/outlook_128.png); }
+  &.logo-xing { background-image: url(public/themes/default/assets/xing_logo128.png); }
+  &.logo-yahoo { background-image: url(public/themes/default/assets/yahoo_logo128.png); }
+  &.logo-gmx { background-image: url(public/themes/default/assets/gmx_logo128.png); }
+  &.logo-webde { background-image: url(public/themes/default/assets/webde_logo128.png); }
+}
+
+.services-list-view .service-item .service-icon.logo-oxmf {
+  font-size: 40px;
+  line-height: 60px;
+}

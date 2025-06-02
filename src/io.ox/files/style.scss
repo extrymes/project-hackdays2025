@@ -1,0 +1,784 @@
+@use "sass:math";
+@import '@/themes/imports.scss';
+
+.window-content-top {
+  display: none;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+/* ===============
+   file list view
+   =============== */
+.io-ox-files-main .generic-sidebar-content {
+  width: 0; // flex quirk: limit container to screen width
+  min-width: 380px;
+}
+
+.dark .file-list-view {
+  &.visible-selection .list-item.selected .file-type-icon { color: var(--selected-focus); }
+  &.visible-selection.has-focus .list-item.selected .file-type-icon { color: var(--selected-focus); }
+}
+
+.file-list-view {
+
+  .notification {
+    min-width: 100%;
+  }
+
+  // ==============
+  // Column layout
+  // ==============
+  &.column-layout .list-item {
+    line-height: 24px;
+    padding: 3px 16px 4px 2.625rem; // -1px at top to balance the 1px bottom separator line inside this column
+    border-bottom: 0;
+    white-space: nowrap;
+    overflow:hidden;
+  }
+
+  &.column-layout.hide-checkboxes .list-item { padding-left: 16px; }
+
+  &.column-layout .list-item-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .list-item-column {
+    padding: 0;
+    flex: 0 0 auto;
+    min-width: 0%;
+    &.column-s { flex: 0 0 24px; width: 24px; }
+    &.column-xl { flex: 0 0 120px; width: 120px; }
+    &.column-grow-1 { flex: 1 1 auto; }
+    // make sure this looks aligned, see OXUIB-1489
+    &.column-mw-30p { flex: 0 0 30%; }
+    &.column-mw-120 { min-width: 120px; }
+  }
+
+  .list-item-content.attachment-view {
+    .list-item-column {
+      &.column-2 { width: 40%; padding-right: 10px; }
+      &.column-5 { width: 30%; padding-right: 10px; text-align: left; }
+    }
+  }
+
+  &.visible-selection.has-focus .list-item.selected i { color: rgba(255, 255, 255, 0.50); }
+
+  &.column-layout .list-item .list-item-checkmark {
+    left: 0;
+    &:before {
+      top: calc(50% - 9px)
+    }
+  }
+
+  &.column-layout .subject, .from { @include ellipsis(); }
+
+  .extension { opacity: 0.8; }
+  .encrypted { color: var(--encrypted); }
+  .public-link:not(.selected) { color: var(--text); } // needs higher contrast, because the icon is very thin
+
+  .favorite {
+    width: 13px;
+    height: 13px;
+    color: var(--favorite);
+  }
+
+  &.grid-layout .favorite { height: 14px  } // looks better in grid layout this way
+
+  @media all and (max-width: $smartphone-breakpoint), all and (max-device-width: $smartphone-breakpoint) {
+    &.column-layout .list-item { line-height: 40px; }
+    &.column-layout, &.grid-layout, &.icon-layout {
+      .list-item { font-size: 15px; }
+    }
+
+  }
+}
+
+.file-list-view {
+
+  &.grid-layout {
+
+    padding: 0 8px 0 8px;
+    > li.list-item {
+      padding: 8px;
+      display: block;
+      float: left;
+      // no seperator lines
+      border-bottom: none;
+      &:after { display:none; }
+    }
+
+    .list-item.file-type-folder + .list-item:not(.file-type-folder) {
+      clear: both;
+    }
+
+    &.grid-1  > li { width: #{"calc(100% / 1)"}; }
+    &.grid-2  > li { width: #{"calc(100% / 2)"}; }
+    &.grid-3  > li { width: #{"calc(100% / 3)"}; }
+    &.grid-4  > li { width: #{"calc(100% / 4)"}; }
+    &.grid-5  > li { width: #{"calc(100% / 5)"}; }
+    &.grid-6  > li { width: #{"calc(100% / 6)"}; }
+    &.grid-7  > li { width: #{"calc(100% / 7)"}; }
+    &.grid-8  > li { width: #{"calc(100% / 8)"}; }
+    &.grid-9  > li { width: #{"calc(100% / 9)"}; }
+    &.grid-10 > li { width: #{"calc(100% / 10)"}; }
+    &.grid-11 > li { width: #{"calc(100% / 11)"}; }
+    &.grid-12 > li { width: #{"calc(100% / 12)"}; }
+  }
+
+    @mixin busy-indicator($height, $float: none){
+      .busy-indicator {
+        padding-top: 40px;
+        height: $height;
+        border-bottom: 0;
+        float: $float;
+      }
+    }
+
+    // ===============
+    // ICON AND TILES
+    // ===============
+    $grid-padding: 8px;
+    $selection-shadow-border: 6px;
+    $_1rem: 16px;
+
+    // Icon View: set these values to control the icon item layout
+    $icon_thumbnail-min-width: 185px; // important: must be same value as set in the js calculation
+    $icon_thumbnail-min-ratio: math.div(4, 3);
+    $icon_footer-total-hight: 45px;
+    // calculations
+    $icon_item-adaptive-rem-hight: 4 * $_1rem;
+    $icon_thumbnail-height: round(math.div($icon_thumbnail-min-width, $icon_thumbnail-min-ratio));
+    $icon_footer-hight: $icon_footer-total-hight - $selection-shadow-border;
+    $icon-item-base-height: $icon_thumbnail-height + $icon_footer-hight - $icon_item-adaptive-rem-hight + (2 * $grid-padding);
+
+    // Tiles View: set these values to control the icon item layout
+    $tiles_thumbnail-min-width: 240px; // important: must be same value as set in the js calculation
+    $tiles_thumbnail-min-ratio: math.div(4, 3);
+    // calculations
+    $tiles_thumbnail-height: round(math.div($tiles_thumbnail-min-width, $tiles_thumbnail-min-ratio));
+    $tiles_item-base-height: $tiles_thumbnail-height + (2 * $grid-padding);
+
+    @mixin base-list-item-content {
+          height: 100%;
+          border-radius: var(--default-radius);
+          overflow: hidden;
+          display: flex;
+          flex-flow: row wrap;
+          align-content: start;
+    }
+
+    @mixin base-thumbnail {
+            width: 100%;
+            display: inherit;
+            border-radius: var(--default-radius);
+            background-size: contain;
+
+            background-repeat: no-repeat;
+            background-position: center;
+            background-origin: padding-box;
+            background-color: var(--shade-a5);
+
+            &.default-icon {
+              justify-content: center;
+              align-items: center;
+              .file-icon {
+                .file-type-icon{
+                  width: 42px;
+                  height: 42px;
+                }
+              }
+            }
+    }
+
+    @mixin base-item-icon {
+      flex: 0;
+      margin-inline-start: 8px;
+    }
+
+    @mixin base-item-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-inline-start: 4px;
+      padding-inline-end: 4px;
+    }
+
+    @mixin align-self-fixed-baseline {
+      // similar to align-self, but keeps line height at center with text-zoom and line breaks
+      padding-top: 1rem;
+      line-height: 1rem;
+    }
+
+    @mixin thumbnail-type-image {
+      &.file-type-image {
+        .list-item-content {
+          .icon-thumbnail{
+            background-size: cover;
+            background-position: top center;
+            //box-shadow: inset 0 0px 0px 1px var(--shade-a5); // keep as option - only visible on white content for seperation
+            &:empty {
+              padding: 37.5% 0;
+              border: 0px;
+            }
+          }
+        }
+      }
+    }
+
+    // ==========
+    // ICON ITEM
+    // ==========
+        &.icon-layout {
+          > li.list-item {
+
+            @include thumbnail-type-image;
+
+            .list-item-checkmark {
+              top: -2px;
+              height: 40px;
+              right: -6px;
+              left: auto;
+              width: 46px;
+              z-index: 5; // chrome bug: checkmark can't be clicked, it's below the thumbnail when the thumb has opacity due to selection
+            }
+
+            .list-item-content {
+              @include base-list-item-content;
+            }
+         }
+         @include busy-indicator($icon_thumbnail-height, left);
+      }
+
+    // ============
+    // FOLDER ITEM
+    // ============
+      &.grid-layout {
+
+        .icon-thumbnail {
+          // padding of 75% equals a ratio of 4:3
+          // 37.5% is half of that minus half of line-height
+          padding: calc(37.5% - 32px) 0;
+
+          &:empty {
+            // compensate border to get equal height
+            padding: calc(37.5% - 4px) 0;
+            border: 4px solid transparent;
+           }
+
+          line-height: 48px;
+          @include base-thumbnail;
+          .file-icon {
+            display: flex;
+            align-items: center;
+            height: 64px;
+          }
+          img {
+            height: 64px;
+            visibility: hidden;
+          }
+          .bi { display: block; }
+        }
+
+        // adapt layout when checkbox is displayed
+        &:not(.hide-checkboxes) > li.list-item.file-type-folder .list-item-content .filename { padding-right: 16px; }
+        &:not(.hide-checkboxes) > li.list-item.file-type-folder .list-item-content .favorite {
+          transform: translate(-1.5px, 11px); // checkbox is 16px, icon is 13px, at least on hiDPI it will center perfectly with -1.5px
+        }
+
+        > li.list-item.file-type-folder {
+
+          height: calc(3rem + 16px);
+
+          .list-item-checkmark {
+            top: -2px;
+            height: 40px;
+            right: 0px;
+            left: auto;
+            width: 40px;
+            z-index: 5; // chrome bug: checkmark can't be clicked, it's below the thumbnail when the thumb has opacity due to selection
+          }
+
+          .list-item-content {
+            background: var(--shade-a5);
+            @include base-list-item-content;
+
+            .filename-file-icon {
+              margin-inline-start: 2px;
+            }
+
+            .filename {
+              line-height: 2rem;
+            }
+          }
+        }
+      }
+
+    // ==================
+    // TILES ITEM
+    // ==================
+    &.tile-layout {
+
+      > li.list-item {
+
+        @include thumbnail-type-image;
+
+        .list-item-checkmark {
+          top: -2px;
+          height: 40px;
+          right: 0px;
+          left: auto;
+        }
+
+        .list-item-content {
+          @include base-list-item-content;
+
+          .icon-thumbnail {
+            height: 100%;
+          }
+        }
+      }
+
+      @include busy-indicator($tiles_thumbnail-height, left);
+
+    }
+
+    // ==================
+    // Selection handling
+    // ==================
+
+    &:not(.visible-selection) .list-item:hover {
+      background-color: transparent;
+    }
+
+    &.visible-selection.has-focus .list-item.selected .public-link { color: var(--selected-focus); } // needs higher contrast, because the icon is very thin
+
+    &.column-layout.visible-selection .list-item.selectable.dnd-over { // workaround for missing :hover support in safari during drag & drop
+      background-color: var(--selected-background-hover);
+    }
+
+    &.grid-layout {
+
+      @mixin hover-grid {
+        background-color: var(--selected-background-hover);
+        box-shadow: 0 0 0 3px var(--selected-background-hover);
+      }
+      @mixin hover-grid-folder {
+        background-color: var(--selected-background-hover);
+        box-shadow: none;
+      }
+      &.visible-selection .list-item {
+        border-radius: var(--default-radius);
+        background-color: transparent !important;
+        /* TODO: I think this is not needed, clarify */
+        .icon-thumbnail { background-color: var(--shade-a5); }
+        &:hover .list-item-content {
+          @include hover-grid;
+        }
+        &.selectable.dnd-over:not(.selected) .list-item-content { // workaround for missing :hover support in safari during drag & drop
+          @include hover-grid;
+        }
+        &.file-type-folder:hover .list-item-content {
+          @include hover-grid-folder;
+        }
+        &.file-type-folder.selectable.dnd-over .list-item-content { // workaround for missing :hover support in safari during drag & drop
+          @include hover-grid-folder;
+        }
+
+      }
+
+      &.visible-selection .list-item.selected {
+        .list-item-content {
+          color: var(--selected);
+          background-color: var(--selected-background);
+        }
+        .icon-thumbnail { background-color: var(--selected-background-shade); }
+        &:not(.file-type-folder) .list-item-content {
+          box-shadow: 0 0 0 3px var(--selected-background);
+        }
+      }
+
+      &.visible-selection:focus-within .list-item.selected {
+        &:hover{
+          .list-item-content{
+            background-color: var(--selected-background-focus-hover);
+          }
+        }
+        .list-item-content {
+          color: var(--selected-focus);
+          background-color: var(--selected-background-focus);
+          .file-type-icon { color: var(--selected-focus); }
+        }
+        .icon-thumbnail { background-color: var(--selected-background-focus); }
+        &:not(.file-type-folder) .list-item-content {
+          box-shadow: 0 0 0 3px var(--selected-background-focus);
+        }
+        &:focus {
+          .list-item-content { background-color: var(--selected-background-focus-shade); }
+          .icon-thumbnail { background-color: var(--shade-a30); }
+          &:not(.file-type-folder) .list-item-content {
+            box-shadow: 0 0 0 3px var(--selected-background-focus-shade);
+          }
+        }
+      }
+
+      // checkmark needs a border in this case
+      &.visible-selection:focus-within .list-item.selected .list-item-checkmark:before { border-color: #aaa;}
+    }
+
+    // some small adjustments for tiles
+    &.tile-layout {
+      @mixin hover-tile {
+        background-color: transparent;
+        box-shadow: 0 0 0 3px var(--shade-a10);
+      }
+      &.visible-selection .list-item:hover .list-item-content {
+        @include hover-tile;
+      }
+      &.visible-selection .list-item.selectable.dnd-over:not(.selected):not(.file-type-folder) .list-item-content { // workaround for missing :hover support in safari during drag & drop
+        @include hover-tile;
+      }
+    }
+
+    // ==================
+    // file lock
+    // ==================
+    .locked { color: rgb(204, 0, 0); }
+    &.has-focus .selected .locked { color: #fff; }
+  }
+
+  .file-type-icon {
+    text-align: center;
+    color: var(--text-gray);
+    &.file-type-image  { color: #9c27b0; }
+    &.file-type-doc    { color: var(--app-color-text); }
+    &.file-type-xls    { color: var(--app-color-spreadsheet); }
+    &.file-type-ppt    { color: var(--app-color-presentation); }
+    &.file-type-pdf    { color: #C01E07; }
+    &.file-type-zip    { color: #FF940A; }
+    &.file-type-svg    { color: #F4502A; }
+  }
+
+  // ==================
+  //   GENERAL
+  // ==================
+
+  .list-item-content svg.file-type-icon {
+    vertical-align: -3px; // icons set to a fixed (pixel) width to not zoom on text-only-zoom
+    width: 16px;
+    height: 16px;
+    font-size: 16px; // keeps icons better centered in file with ff text-zoom
+  }
+
+  .margin-bottom { bottom: 68px; }
+
+  .upload-wrapper {
+    border-top: var(--border-bright) 1px solid;;
+    background-color: var(--background);
+    left: 0px;
+    margin: 0;
+    padding: 10px 40px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    line-height: 1.42857143;
+
+    .upload-title {
+      margin-bottom: 8px;
+      overflow: hidden;
+
+      .file-name {
+        white-space: nowrap;
+        font-weight: 300;
+        @include ellipsis();
+      }
+
+      .time-container {
+        display: flex;
+
+        .estimated-time {
+          font-style: italic;
+          white-space: nowrap;
+          font-weight: 300;
+        }
+
+        .items-left {
+          padding-left: 15px;
+          white-space: nowrap;
+          font-weight: 300;
+          font-style: italic;
+          margin-left: auto;
+          order: 2;
+          @include ellipsis();
+        }
+      }
+    }
+
+    .upload-details,
+    .upload-cancel {
+      float: right;
+      margin-left: 10px;
+    }
+
+    .progress { margin: 0; }
+  }
+
+  .has-publications {
+    width: 27px;
+    height: 17px;
+    float: left;
+    padding-top: 7px;
+    margin-right: 0.5em;
+  }
+
+  .mobile-detail-view-wrap {
+    margin: 10px 10px 55px 10px;
+  }
+
+  .dndinfo { margin-top: 10px; }
+
+  .vgrid-cell.file {
+    display: table-row;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    .vgrid-cell-checkbox { padding-top: 9px; }
+
+    .name {
+      display: table-cell;
+      vertical-align: middle;
+      white-space: normal;
+      height: 3em;
+      line-height: 1em;
+
+      word-wrap: break-word;  // Note: - check back with David Bauer for any possible breaking effects
+      word-break: break-all;  //         changing the invalid line above to this block.
+    }
+  }
+
+  ul.breadcrumb li.prefix { white-space: nowrap; }
+
+  .smartphone {
+    .list-view-control.toolbar-top-visible .toolbar.top { display: block; }
+    .toolbar .folder-up {
+      margin-left: 14px;
+      height: 18px;
+      width: 18px;
+      vertical-align: middle;
+    }
+
+    .file-list-view .list-item-column.column-2 { width: 100%; padding-right: 0; }
+
+    #window-content-top #inline-actions-ms {
+      margin: 0 30px 0 30px;
+
+      .summary { font-size: 12pt; }
+    }
+
+    .margin-bottom { bottom: 116px; }
+
+    .upload-wrapper {
+      margin-bottom: 45px;
+
+      .upload-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .estimated-time { display: none; }
+    }
+
+    body > .io-ox-dialog-wrapper .io-ox-dialog-popup {
+      top: 40px;
+      margin-top: 0;
+      width: auto;
+      overflow-y: auto;
+      bottom: 40px;
+      height: 100%;
+      max-height: 100%;
+
+      .modal-body {
+        // Note: - approach David Bauer for why there is an invalid property values used.
+        //       - are there any breaking effects if it will be changed to a valid 'none' or 'initial' value.
+        max-height: auto;
+        .row textarea.col-lg-12 { max-height: 100px; }
+        .fileupload .uneditable-input { width: 130px; }
+      }
+      .modal-footer {
+        bottom: 0;
+        position: fixed;
+        left: 0;
+        right: 0;
+        padding: 0;
+
+        .row {
+          [class*="col-"] {
+            margin-left: 0;
+            float: left;
+          }
+
+          .btn {
+            border: 0;
+            border-radius: 0;
+            margin: 0;
+            height: 40px;
+            width: 100%;
+            padding: 0;
+            line-height: 40px;
+          }
+
+          & > div { padding: 0; }
+        }
+      }
+    }
+  }
+
+  .guidance {
+    .files-sizes{
+      .breadcrumb{
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        display: inline;
+      }
+    }
+  }
+
+  .io-ox-files-main .io-ox-dialog-popup .modal-body { overflow-x: hidden; }
+
+  //io.ox/files/listview, io.ox/files/common-extensions
+  .file-item {
+
+    .filename {
+      @include ellipsis();
+      font-weight: 500;
+    }
+
+    .date {
+      font-weight: 300;
+      display: block;
+      margin-left: 0.5em;
+      float: right;
+      opacity: 0.50;
+    }
+
+    .locked {
+      float: right;
+      color: rgb(204, 0, 0);
+    }
+
+    .size { color: rgb(119, 119, 119); }
+  }
+
+  .io-ox-files-main {
+
+    .leftside {
+      width: auto;
+      right: 0;
+    }
+
+    .has-rightside .leftside { right: 320px; }
+
+    .rightside {
+      width: 320px;
+      right: 0;
+      left: auto;
+    }
+
+    .list-view-control {
+      flex: 1;
+      position: relative;
+      padding-top: 0;
+      .secondary-toolbar {
+        line-height: inherit;
+        .breadcrumb-view {
+          flex: 1;
+          height: 100%;
+        }
+      }
+      // prevent second menuitem from getting moved to a new line
+      .dropdown-container {
+        display: flex;
+        height: 100%;
+        .dropdown-caret {
+          position: relative;
+          top: 2px;
+        }
+      }
+    }
+
+    .classic-toolbar-container {
+      margin: 14px 0 2px 0;
+    }
+
+    // overrides for generic sidebar styling (io.ox/core/viewer/views/sidebarview.scss)
+    .viewer-sidebar {
+      padding: 0;
+
+      .viewer-sidebar-pane {
+        height: 100%;
+
+        &.thumbnail-pane { display: none; }
+
+        .empty-selection button {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+        }
+
+        svg.file-type-icon {
+          width: 16px;
+          height: 16px;
+          font-size: 16px; // keeps icons better centered in file with ff text-zoom
+        }
+
+      }
+
+      .wrapper { padding: 0 16px; }
+
+      .sidebar-panel-body {
+
+        .copy-link {
+          float: right;
+          padding: 0;
+          border: 0;
+          color: var(--link);
+        }
+      }
+
+      .sidebar-panel .sidebar-panel-heading { border-bottom: none; }
+
+      .sidebar-panel-thumbnail {
+
+        padding: 8px 0;
+        height: 176px;
+
+        .icon-thumbnail {
+          margin: 0 auto;
+          width: 100%;
+          height: 160px;
+          background-color: #eee;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-origin: border-box;
+        }
+      }
+    }
+  }
+  // filestorage conflicts dialog
+  .filestorage-conflict-container {
+    padding-top: 16px;
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  .filestorage-conflict-warning { padding-top: 8px; }

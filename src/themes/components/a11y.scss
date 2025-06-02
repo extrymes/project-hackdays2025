@@ -1,0 +1,87 @@
+.skip-links.sr-only.sr-only-focusable {
+  color: var(--topbar-icon);
+  background-color: transparent;
+  outline: 0;
+  padding: 8px;
+  margin: 16px 0;
+  margin-inline-start: 8px;
+}
+
+.sr-only {
+  // make a11y plugin contrast warning happy
+  color: var(--text);
+  background-color: var(--background);
+  // avoid selection/copy of sr-only elements
+  @include user-select(none);
+}
+
+// inline elements that can contain additional text or punctuations for sr
+// because chrome has issues with display: absolute and scrollIntoView
+.sr-only-text {
+  color: var(--background);
+  background-color: var(--background);
+  // avoid selection/copy of sr-only elements
+  @include user-select(none);
+}
+
+// Imported from Bootstrap 4.3.1
+.sr-only-focusable {
+  &:active,
+  &:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+#accessible-tooltip-container {
+  height: 0;
+  overflow: hidden;
+}
+
+.accessible-tooltip {
+  display: none;
+  color: var(--tooltip-text);
+  background-color: var(--tooltip-background);
+  border-radius: var(--default-radius);
+  padding: 0.25rem 0.5rem;
+  /* 12px/16px */
+  font-size: 0.75rem;
+  line-height: 1rem;
+  max-width: 240px;
+  &.active {
+    display: block;
+    position: fixed;
+    z-index: 10000;
+  }
+  .tooltip-arrow {
+    position: absolute;
+    display: block;
+    width: 12px;
+    height: 6px;
+    left: calc(50% - 8px);
+    &::before {
+      position: absolute;
+      content: "";
+      border-color: transparent;
+      border-style: solid;
+    }
+  }
+  &.top .tooltip-arrow {
+    bottom: -4px;
+    &::before {
+      border-width: 6px 6px 0;
+      border-top-color: var(--tooltip-background);
+    }
+  }
+  &.bottom .tooltip-arrow {
+    top: -6px;
+    &::before {
+      border-width: 0 6px 6px;
+      border-bottom-color: var(--tooltip-background);
+    }
+  }
+}

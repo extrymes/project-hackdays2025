@@ -1,0 +1,225 @@
+include:
+  - project: 'sre/ci-building-blocks'
+    file: '/nodejs.yml'
+
+variables:
+  OX_COMPONENT: "core-ui"
+  ALLURE_PUBLISH_REPORT: "true"
+  REGISTRY: "registry.dev.oxui.de"
+  KUBE_INGRESS_BASE_DOMAIN: "dev.oxui.de"
+  E2E_TEST_METRICS_URL: http://e2e-test-metrics.e2e-test-metrics-main.svc.cluster.local
+  PROVISIONING_URL: https://appsuite-main.dev.oxui.de/
+
+audit npm modules:
+  extends: .audit npm modules
+  timeout: 5 minutes
+  tags:
+    - tiny-hetzner
+
+unit tests:
+  extends: .unit tests
+  timeout: 10 minutes
+  tags:
+    - build-hetzner
+
+eslint:
+  extends: .eslint
+  tags:
+    - build-hetzner
+  timeout: 10 minutes
+
+build image:
+  extends: .build image
+  tags:
+    - build-hetzner
+  before_script:
+    - sed -i 's/registry.gitlab.open-xchange.com/registry-cache.dev.oxui.de/g' $PROJECT_DIR/Dockerfile
+
+build e2e image:
+  extends: .build e2e image
+  tags:
+    - build-hetzner
+
+.customize-k8s:
+  script:
+    - kubectl label namespace $NAMESPACE istio-injection=enabled || true
+
+deploy preview chart:
+  extends: .auto-deploy-preview-chart
+  tags:
+    - tiny-hetzner
+  before_script:
+    - export STACK_CHART_VERSION_MAIN=$(curl --header PRIVATE-TOKEN:$STACK_API_ACCESS_TOKEN https://gitlab.open-xchange.com/api/v4/projects/1494/variables/STACK_CHART_VERSION_MAIN | jq -r .value)
+    - envsubst < .gitlab/preview/Chart_template.yaml > .gitlab/preview/Chart.yaml
+
+tear down preview:
+  extends: .auto-deploy-preview-chart-teardown
+  tags:
+    - tiny-hetzner
+  timeout: 5 minutes
+
+deploy preview against old MW:
+  interruptible: true
+  extends:
+    - .image-k8s
+    - .rules-build-image
+  stage: deploy
+  script:
+    - export STACK_CHART_VERSION_MAIN=$(curl --header PRIVATE-TOKEN:$STACK_API_ACCESS_TOKEN https://gitlab.open-xchange.com/api/v4/projects/1494/variables/STACK_CHART_VERSION_MAIN | jq -r .value)
+    - kubectl config get-contexts
+    - kubectl config use-context frontend/k8s-agent:cloud2-dev-cluster
+    - export NAMESPACE=core-ui-transition-main
+    - kubectl create namespace $NAMESPACE || true
+    - kubectl config set-context --current --namespace=$NAMESPACE
+    - envsubst < .gitlab/external_mw/values.yaml > values.yaml
+    - envsubst < .gitlab/external_mw/kubernetes-resources.yaml > kubernetes-resources.yaml
+    - !reference [.create-image-pull-secrets, script]
+    - kubectl apply -f kubernetes-resources.yaml
+    - !reference [.login-registry-ro, script]
+    - helm upgrade -i preview-app oci://registry.open-xchange.com/appsuite-core-internal/charts/appsuite --version $STACK_CHART_VERSION_MAIN -f values.yaml
+    - kubectl rollout restart deployment preview-app-core-ui
+    - kubectl rollout restart deployment preview-app-core-ui-middleware
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: on_success
+    - when: never
+  environment:
+    name: preview_old/7-10-6
+    url: https://appsuite-8.k3s.os2.oxui.de/appsuite/
+  retry: 2
+
+e2e codeceptjs preview:
+  image: registry-cache.dev.oxui.de/frontend/ui/e2e:$TAG_NAME
+  extends:
+    - .e2e-codeceptjs-preview
+  tags:
+    - e2e-hetzner
+  parallel: 75
+  timeout: 15 minutes
+  before_script:
+    - !reference [.e2e-codeceptjs-preview, before_script]
+    - export E2E_ADMIN_PW=$ADMIN_PW
+    - export LAUNCH_URL=https://$PREVIEW_APP_NAME.dev.oxui.de/
+
+e2e codeceptjs grep:
+  image: registry-cache.dev.oxui.de/frontend/ui/e2e:$CI_COMMIT_REF_SLUG
+  extends:
+    - .e2e-codeceptjs-grep
+  tags:
+    - e2e-hetzner
+  before_script:
+    - !reference [.e2e-codeceptjs-preview, before_script]
+    - export E2E_ADMIN_PW=$ADMIN_PW
+    - export LAUNCH_URL=https://$PREVIEW_APP_NAME.dev.oxui.de/
+
+transition deployment smoketests:
+  image: registry.gitlab.open-xchange.com/frontend/ui/e2e:latest
+  extends:
+    - .e2e-codeceptjs-preview
+  timeout: 20 minutes
+  before_script:
+    - mv /e2e/* /e2e/.env.defaults $CI_PROJECT_DIR
+    - mkdir -p ./output/
+    - unset SUITE_SERVICE_URL
+  script:
+  - yarn e2e-rerun @smoketest
+  variables:
+    LAUNCH_URL: https://appsuite-8.k3s.os2.oxui.de/appsuite/
+    PROVISIONING_URL: https://appsuite-8.k3s.os2.oxui.de/appsuite/
+    MX_DOMAIN: appsuite-develop.ui.cloud.oxoe.io
+    IMAP_SERVER: localhost
+    SMTP_SERVER: localhost
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: on_success
+    - when: never
+  retry: 2
+
+documents smoketests:
+  image: registry.gitlab.open-xchange.com/documents/office-web/e2e:latest
+  extends:
+    - .e2e-codeceptjs-preview
+  variables:
+    MX_DOMAIN: box.ox.io
+    FILESTORE_ID: 8
+    CUSTOMIZE_PLUGIN: './plugins/officeProvisioning/index.cjs'
+    LAUNCH_URL: https://$PREVIEW_APP_NAME.dev.oxui.de/
+    PROVISIONING_URL: https://appsuite-main.dev.oxui.de/
+    CHROME_ARGS: '--no-sandbox --kiosk-printing --disable-web-security --ignore-certificate-errors'
+  tags:
+    - e2e-hetzner
+  timeout: 15 minutes
+  before_script:
+    - !reference [.e2e-codeceptjs-preview, before_script]
+    - export E2E_ADMIN_PW=$ADMIN_PW
+    - export LAUNCH_URL=https://$PREVIEW_APP_NAME.dev.oxui.de/
+  script:
+    - yarn e2e-rerun @smoketest
+  parallel: 4
+
+build documentation:
+  image: registry.gitlab.open-xchange.com/engineering/documentation:latest
+  stage: build
+  script:
+    - VERSION=8
+    - if [ "$CI_COMMIT_REF_NAME" != "main" ]; then
+        VERSION=`grep '"version":' package.json | cut -d\" -f4 | cut -d- -f1`;
+      fi
+    - echo $VERSION
+    - export VERSION=$VERSION
+    - ln -s $CI_PROJECT_DIR/docs /documentation/jekyll/_ui
+    - cd /documentation
+    - bundle exec jekyll b --baseurl /$VERSION --config _config.yml
+    - cd $CI_PROJECT_DIR
+    - mkdir -p doku/$VERSION
+    - cp -r /documentation/dist/* doku/$VERSION
+  dependencies: []
+  tags:
+    - kubernetes
+  artifacts:
+    paths:
+      - doku/
+    expire_in: 2 hours
+  retry: 2
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^(main|stable-.*)$/'
+      changes:
+        - docs/**/*
+        - package.json
+      when: always
+
+deploy documentation:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - export VERSION=`ls doku --sort=time | cut -f1 | head -n1`
+    - echo $VERSION
+    - mkdir -p /var/www/documentation/$VERSION/ui
+    - rsync -aHAX --delete doku/$VERSION/ui/ /var/www/documentation/$VERSION/ui
+    - mkdir -p /var/www/documentation/$VERSION/assets /var/www/documentation/$VERSION/docs-general
+    - rsync -aHAX --delete doku/$VERSION/assets/ /var/www/documentation/$VERSION/assets
+    - rsync -aHAX --delete doku/$VERSION/docs-general/ /var/www/documentation/$VERSION/docs-general
+    - rsync -aHAX --delete doku/$VERSION/index.html /var/www/documentation/$VERSION/
+    - find /var/www/documentation.open-xchange.com -user gitlab-runner -exec chmod g+w '{}' \;
+    - find /var/www/documentation.open-xchange.com -user gitlab-runner -exec chgrp www-data '{}' \;
+  dependencies:
+    - build documentation
+  needs:
+    - build documentation
+  tags:
+    - shell
+    - documentation
+  allow_failure: true
+  retry: 2
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^(main|stable-.*)$/'
+      changes:
+        - docs/**/*
+        - package.json
+      when: on_success
+
+disable interruptible:
+  rules:
+    - if: '$DISABLE_INTERRUPTIBLE == "true"'
+      when: always

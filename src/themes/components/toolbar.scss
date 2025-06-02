@@ -1,0 +1,527 @@
+$btn-toolbar-box-shadow-size: 4px;
+
+.toolbar-button {
+  font-size: 22px;
+  line-height: 52px;
+  margin: 4px 0 8px 0;
+  display: block;
+
+  ul {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  & > a {
+    width: 50px;
+    text-align: center;
+    height: 52px;
+    display: inline-block;
+    outline: 0;
+
+    i {
+      color: var(--toolbar);
+
+      &.accent-color {
+        color: white;
+        background-color: var(--text-accent);
+        border: 2px solid var(--text-accent);
+        width: 29px;
+        border-radius: var(--default-radius);
+        padding-top: 2px;
+        display: inline-block;
+      }
+    }
+
+    &:hover {
+      text-decoration: none !important; // IE 10 needs important otherwise it will be ignored See: #27913
+      i {
+        color: var(--toolbar);
+        text-decoration: none;
+        &.accent-color {
+          background-color: var(--text-accent);
+          border-color: var(--text-accent);
+        }
+      }
+    }
+    // brackets needed or addition will not perform correctly. => Rule is ignored
+    @media (min-width: ($smartphone-breakpoint + 1)), (min-device-width: ($smartphone-breakpoint + 1)) {
+      &:focus {
+        color: var(--focus);
+        text-decoration: none;
+        background-color: var(--focus-500);
+        i {
+          color: var(--focus);
+          text-decoration: none;
+          &.accent-color {
+            background-color: var(--focus-500);
+            border-color: var(--focus-500);
+          }
+        }
+      }
+    }
+
+    &.disabled i {
+      color: var(--gray-10);
+      cursor: default;
+      &.accent-color {
+        background-color: white;
+        border-color:white;
+      }
+    }
+  }
+}
+
+/* must be .btn AND .btn-toolbar because unfortunately Bootstrap uses .btn-toolbar for toolbar containers */
+.btn.btn-toolbar {
+  border: 0;
+  margin-left: 0;
+  color: var(--toolbar);
+  background-color: transparent;
+  border-radius: var(--default-radius);
+  box-shadow: none;
+  transition: none;
+
+  &.bg-dark {
+    background-color: var(--background-5);
+  }
+
+  &:hover {
+    background-color: var(--shade-a5);
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    color: var(--focus);
+    // WORKAROUND: btn-toolbar used for pim attachment actions
+    > .text-gray { color: var(--focus) }
+    background-color: var(--focus-500);
+    box-shadow: 0 0 0 $btn-toolbar-box-shadow-size var(--btn-primary-outline);
+  }
+
+  &.disabled:focus-visible {
+    color: var(--text-gray);
+    background-color: var(--background-100);
+    box-shadow: none;
+  }
+}
+
+//
+// Classic and mobile toolbars
+//
+
+.mobile-navbar {
+  text-align: center;
+  font-size: 16px;
+
+  .navbar-action {
+    position: absolute;
+    top: 14px;
+    max-width: 24%;
+
+    @include ellipsis();
+
+    &.left {
+      left: 10px;
+      .fa-chevron-left {
+        text-align: left;
+        width: 15px;
+      }
+    }
+
+    a, a:hover {
+      color: var(--toolbar);
+      transition: opacity 180ms;
+      opacity: 1;
+      text-decoration: none;
+      .tapped & {
+        opacity: .5;
+      }
+    }
+
+    &.right {
+      .fa-chevron-right {
+        margin-left: 4px;
+      }
+      right: 15px;
+    }
+  }
+
+  .navbar-title {
+    @include ellipsis();
+    margin: 14px 24%;
+    font-weight: 500;
+  }
+}
+
+.mobile-toolbar {
+  position: fixed;
+  bottom: var(--offset-bottom);
+  background-color: var(--background);
+  height: $mobile-toolbar-height;
+  z-index: 10;
+  margin: 0;
+  border-top: 1px solid var(--background-300);
+  width: 100%;
+
+  .list-unstyled > li, .io-ox-action-link.mobile-toolbar-action {
+    display: inline-block;
+    font-size: 22px;
+    line-height: $mobile-toolbar-height;
+    width: 19.9%;
+    height: $mobile-toolbar-height;
+    text-align: center;
+    margin: 0;
+    vertical-align: middle;
+    &.text-button {
+      @include ellipsis();
+      font-size: 18px;
+    }
+  }
+
+  .inline-toolbar {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 48px;
+    > li {
+      width: 20%;
+      height: 100%;
+      margin: 0;
+
+      > a, button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        font-size: 16px;
+        &:focus:not(.disabled) {
+          background: transparent;
+          color: var(--toolbar);
+        }
+        &.disabled {
+          text-decoration: none;
+          &:focus {
+            background: transparent;
+          }
+        }
+      }
+    }
+    .dropdown { line-height: auto; }
+  }
+}
+
+.smartphone .classic-toolbar-visible .window-content, .abs.below-toolbar { top: $mobile-toolbar-height; }
+.classic-toolbar-visible .window-content, .abs.below-toolbar { top: 0; }
+.bottom-toolbar.bottom-toolbar-visible .window-content { bottom: $toolbar-height; }
+//.chromeless-window .window-body.mobile-toolbar-visible { bottom: $mobile-toolbar-height; }
+
+ul.classic-toolbar, .mobile-navbar {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  @include user-select(none);
+
+  & > li {
+
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    height: 100%;
+
+    & > a.upsell i.upsell-icon {
+      color: $upsell-icon-color;
+      margin-left: 4px;
+      font-size: 14px;
+    }
+
+    & > a, & > button {
+
+      height: 100%;
+      display: inline-block;
+      padding: 0 16px 0;
+      display: flex;
+      align-items: center;
+      border-radius: var(--default-radius);
+      white-space: nowrap;
+
+      text-decoration: none;
+      outline: 0;
+
+      i { text-decoration: none; }
+      /* adding .btn to win against other rules */
+      &:focus {
+        background-color: var(--grey-50);
+        text-decoration: none;
+      }
+      &:focus:focus-visible {
+        color: var(--focus);
+        background-color: var(--focus-500);
+      }
+      &.disabled {
+        color: var(--text-disabled);
+        cursor: not-allowed;
+      }
+      @media (max-width: 580px) {
+        // fix for phablets
+        padding: $toolbar-vertical-padding $default-padding - 2;
+      }
+    }
+    & > button {
+      font-size: 13px;
+      text-align:left;
+    }
+  }
+
+  & > li.pull-right {
+    margin-left: auto;
+    & > .dropdown-menu { right: 4px; }
+  }
+
+  .align-right > & {
+    display: flex;
+    /* "justify-content: flex-end" does not work as expected. Using margin-left */
+    li.align-left + li:not(.align-left) {
+      margin-left: auto;
+    }
+  }
+}
+
+.smartphone .mobile-navbar {
+  height: $mobile-toolbar-height;
+  display: block;
+  padding: 0;
+}
+
+ul.classic-toolbar {
+  // can be higher than outline (4px)
+  padding-left: 8px;
+}
+
+.classic-toolbar-container {
+  height: 40px;
+  position: relative;
+}
+
+/* introduce with 7.10.2 */
+.inline-toolbar {
+
+  padding: 0;
+  margin-top: 4px;
+  margin-bottom: 0;
+  margin-inline-start: -8px;
+  // min height to avoid flicker
+  min-height: 32px;
+  clear: both;
+  @include user-select(none);
+
+  & > li {
+    display: inline-block;
+    white-space: nowrap;
+    margin-inline-end: 8px;
+    list-style-type: none;
+    &:last-child {
+      margin-inline-end: 0;
+    }
+    > a, > button {
+      padding: 8px 8px;
+      // use flex or some buttons are rendered incorrectly (dropdowns with icon and caret are rendered on top of each other)
+      display: flex;
+      border-radius: var(--default-radius);
+      &:focus {
+        background-color: var(--grey-50);
+        text-decoration: none;
+        outline: 0;
+      }
+      &:focus:focus-visible {
+        color: var(--focus);
+        background-color: var(--focus-500);
+      }
+      &.upsell i.fa.fa-star {
+        margin-inline-start: 4px;
+        color: #ffc107;
+        font-size: 14px;
+      }
+    }
+    a.disabled {
+      color: var(--shade-a20);
+      cursor: not-allowed;
+    }
+  }
+
+  .fa-bars {
+    font-size: 14px;
+  }
+}
+
+.window-toolbar {
+
+  & > ul{ margin: 0; }
+
+  & > a {
+    color: var(--toolbar);
+    display: inline-block;
+    margin: 0 1em 0 0;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    outline: 0;
+  }
+
+  .dropdown-menu {
+    text-align: left;
+
+    a { margin-right: 0; }
+  }
+
+  .touch & a { outline: 0; }
+
+  .btn { font-size: 13px; }
+
+  .btn-group + .btn-group { margin-left: 15px; }
+
+  .btn-primary + .btn-primary { margin-left: 10px; }
+
+  a.btn-primary, a.btn-primary:hover {
+    color: white;
+    font-size: 13px;
+    line-height: 18px;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a.button:hover { text-decoration: underline; }
+}
+
+//
+// Generic toolbar
+//
+.generic-toolbar {
+
+  $height-default: $toolbar-height;
+  $height-small: 30px;
+
+  width: 100%;
+  height: $height-default;
+  padding: 0 8px;
+  margin: 0;
+  font-size: 14px;
+  line-height: $height-default - 0.0625;
+
+  &.top {
+    margin-bottom: 8px;
+  }
+
+  &.bottom {
+    display: flex;
+    justify-content: space-between;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .toolbar-item {
+    display: flex;
+    align-items: center;
+    color: #333;
+    line-height: $height-default - 0.0625;
+    padding: 0 $default-padding;
+    text-decoration: none;
+    .folder-up.fa-stack .fa-level-up {
+      -webkit-transform: scale(-1.2, 1) translate(4px, 0);
+      -ms-transform: scale(-1.2, 1) translate(4px, 0);
+      transform: scale(-1.2, 1) translate(4px, 0);
+    }
+  }
+
+  .btn.btn-toolbar svg {
+    width: 14px;
+    height: 14px;
+    &.bi-three-dots {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .io-ox-context-help {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: var(--text-gray);
+    width: 40px;
+  }
+
+  .btn.btn-toolbar {
+    width: 40px;
+  }
+
+  &.visual-focus .toolbar-item {
+    outline: 0;
+
+    &:hover {
+      color: #555;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    &:focus {
+      color: #fff;
+      background-color: var(--focus-500);
+    }
+  }
+
+  .toolbar-item.pull-right > .dropdown-menu { right: 4px; }
+
+  &.toolbar-small {
+    height: $height-small;
+    line-height: $height-small - 1;
+
+    .toolbar-item { line-height: $height-small - 1; }
+  }
+
+  .folder-info {
+    padding-left: 8px;
+    line-height: 1.2em;
+    // prevent cut of decenders on firefox/win10
+    .folder-count {
+      line-height: normal;
+    }
+  }
+
+  .folder-name {
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.25rem;
+  }
+}
+
+.secondary-toolbar {
+  font-size: 13px;
+  overflow: hidden;
+}
+
+// small screens (mobile)
+// note that we have to target max-width and max-device-width
+// to target all devices which don't support the max-device-width
+// property
+@media(max-width: $smartphone-breakpoint) and (orientation: portrait), (max-height: $smartphone-breakpoint) and (orientation: landscape) {
+
+  .toolbar-button { margin: 0; }
+
+  #multi-select-toolbar .select-counter {
+    margin-left: 15px;
+    font-weight: bold;
+    color: #aaa;
+  }
+}

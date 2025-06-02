@@ -1,0 +1,322 @@
+@import '@/themes/imports.scss';
+
+.mail-attachment-list {
+
+  &.empty { display: none; }
+
+  .header {
+    display: flex;
+    align-items: center;
+  }
+
+  .toggle-details {
+    color: var(--text);
+    display: inline-block;
+    padding-right: 4px;
+
+    > .summary {
+      margin:0 6px;
+    }
+
+    > .bi-paperclip {
+      color: var(--text);
+      position: relative;
+      top: 1px
+    }
+  }
+
+  .toggle-mode {
+    font-size: 16px;
+    margin-left: 16px;
+    padding: 2px 4px;
+    display: none;
+
+    > .bi-list-ul, .bi-grid-fill {
+      color: var(--text);
+      width: 16px;
+      position: relative;
+    }
+  }
+
+  &.open .toggle-mode { display: inline-block; }
+  &.show-preview .toggle-mode > .bi-grid-fill { display: none; }
+  &:not(.show-preview) .toggle-mode > .bi-list-ul { display: none; }
+
+  &.touch {
+    ul.attachment-list.preview {
+      margin: 0;
+      overflow-x: auto;
+      overflow-y: none;
+    }
+
+    .scroll-left, .scroll-right { display: none; }
+  }
+
+  //
+  // Container
+  //
+
+  .list-container, .preview-container {
+    position: relative;
+    display: none;
+  }
+
+  .list-container li.attachment button.dropdown-toggle{
+    padding:0
+  }
+  &.open .list-container { display: block; margin-top: 6px; margin-bottom: 6px; }
+  &.open.show-preview .list-container { display: none; }
+  &.open.show-preview .preview-container { display: block; }
+  &.open.show-preview ul.attachment-list li.attachment { display: inline-block; }
+  //
+  // Scroll controls
+  //
+
+  .scroll-left, .scroll-right {
+    position: absolute;
+    top: 10px;
+    width: calc(1.5rem - 1px);
+    height: 120px;
+    z-index: 2;
+    background-color: var(--btn-primary-background);
+    color: var(--btn-primary);
+    border: 0;
+
+    i.fa {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: white;
+    }
+
+    &[disabled] {
+      background-color: var(--background-5);
+      i.fa { color: #ccc; }
+    }
+  }
+  .scroll-left  { left:  0; }
+  .scroll-right { right: 0; }
+
+  //
+  // Attachment styling
+  //
+  ul.attachment-list {
+
+    padding: 0;
+    margin:  0;
+
+    li.attachment {
+      &:focus {
+        outline: 2px solid var(--accent);
+	      border-color: var(--accent)!important;
+      }
+
+      position: relative;
+      .dropdown {
+        display: flex;
+        button.dropdown-toggle{
+          // width: 100%;
+
+          .filename {
+            display: flex;
+            min-width: 0;
+            .base { @include ellipsis(); }
+            .extension { flex-shrink: 0; }
+          }
+        }
+      }
+    }
+
+    .progress-container {
+      z-index: 1;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
+
+      .progress {
+        background-color: #ff00004d;
+        height: 3px;
+        top: 0;
+        width: 0;
+      }
+    }
+  }
+
+  .remove-attachment{
+    @include flex-center();
+    height: 22px;
+    padding: 1px;
+    margin: auto;
+    margin-left: 6px;
+  }
+
+  &:not(.editable){
+    .remove-attachment{
+      display: none;
+    }
+
+    .remove { display: inline-block; }
+
+    .file { padding-right: 8px; }
+    span.filesize { padding-right: 8px; }
+
+    @media (max-width: $smartphone-breakpoint) {
+
+      span.filesize {
+        right: 32px;
+        padding-right: 0;
+      }
+
+    }
+
+  }
+
+  ul.attachment-list:not(.preview){
+    li{
+      .file{
+        position: relative;
+        width: 100%;
+      }
+      &:focus-visible{
+          outline-offset: 1px;
+          border-radius: var(--default-radius);
+      }
+      button.dropdown-toggle{
+        padding:0 4px;
+        border-radius: var(--default-radius);
+        &:focus-visible{
+          box-shadow: none;
+        }
+      }
+    }
+  }
+  ul.attachment-list.preview {
+    display:block;
+    // no clue but helps keeping proper scrollHeight
+    height: 140px;
+    // yep, 24 (.scroll-left and .scroll-right have 24 - 1)
+    margin: 0 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 10px 0;
+
+    li.attachment {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      padding: 0;
+      margin: 0 1px 0 0;
+      border:1px solid #ddd;
+      cursor: pointer;
+      background-color: #f5f5f5;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      // show top parts of text previews etc, to reduce blank preview images
+      &.no-image {
+        border:1px solid #ddd;
+        background-position: top;
+      }
+
+      &:focus-visible {
+        outline: 0;
+        &:after {
+          width: 100%;
+          height: 100%;
+          content: '';
+          outline: 3px solid var(--outline);
+          outline-offset: -2px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+        }
+      }
+
+      .file {
+        z-index:1;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 1.875rem;
+        border-radius: 0;
+        line-height: 20px;
+        padding: 0;
+        margin: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        @include ellipsis();
+
+        &.dropdown { padding: 0 }
+
+        button {
+          color: $white;
+          width: 120px;
+          margin-right: 0;
+          .filename {
+            display: flex;
+            min-width: 0;
+            .base { @include ellipsis(); }
+            .extension { flex-shrink: 0; }
+          }
+        }
+      }
+      .file { display: none; }
+      @media (pointer: coarse) {
+        .file { display: block; }
+      }
+
+      &:hover, &:focus{
+      .file { display: block; }
+      }
+
+      .fallback {
+        color: #616161;
+        background-color: #ddd;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 120px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .remove-attachment {
+        display: none;
+        position: absolute;
+        line-height: 1em;
+        cursor: pointer;
+        z-index:1;
+        bottom: 0;
+        height: 30px;
+        width: 2em;
+        right: 0;
+        top: auto;
+        svg{ color: #fff; }
+
+        &:hover{
+          outline: 1px solid var(--accent);
+          border-radius: 0;
+        }
+
+      }
+    }
+  }
+
+  &.editable ul.attachment-list.preview > li.attachment {
+    color: $white;
+    .file {
+      padding: 5px 7px;
+      padding-right: 30px;
+    }
+    .remove-attachment {display: block;}
+    &:hover .remove-attachment,&:focus .remove-attachment { @include flex-center(); }
+    @media (pointer: coarse) {
+      .remove-attachment { @include flex-center(); }
+    }
+  }
+
+  footer { display: flex; }
+}

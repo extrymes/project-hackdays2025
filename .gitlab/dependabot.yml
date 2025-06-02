@@ -1,0 +1,33 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    open-pull-requests-limit: 5
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "4-5"
+      timezone: "Europe/Berlin"
+    labels:
+      - "origin::dependency"
+    pull-request-branch-name:
+      separator: "/"
+    ignore:
+      # see OXUI-1024
+      - dependency-name: "socket.io-client"
+      # see OXUI-1025
+      - dependency-name: "tinymce"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typeahead.js"
+    auto-merge: true
+  - package-ecosystem: npm
+    open-pull-requests-limit: 5
+    directory: "/e2e"
+    schedule:
+      interval: "daily"
+      time: "4-5"
+      timezone: "Europe/Berlin"
+    labels:
+      - "origin::dependency"
+    pull-request-branch-name:
+      separator: "/"
+    auto-merge: true

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="./themes/default/print.css">
+    </head>
+    <body onload="setTimeout(function () { if ((window.opener || window.parent)[location.search.substr(1)]) window.print(); }, 500)">
+        <script type="text/template" class="mail">
+        <% _.each(data, function(element) { %>
+            <section class="item <%- meta.format %> <%- meta.fixedWidthFont %>">
+                <header>
+                    <strong class="date"><%= element.from %></strong>
+                    <span class="date pull-right"><%- element.date %></span>
+                    <div class="clear"></div>
+                    <h1><%- element.subject %></h1>
+                    <div class="to-and-cc">
+                        <% if (element.to !== '')  { %><label><%- i18n.to %></label> <%= element.to %>&nbsp;&nbsp;<% } %>
+                        <% if (element.cc !== '')  { %><label><%- i18n.copy %></label> <%= element.cc %>&nbsp;&nbsp;<% } %>
+                        <% if (element.bcc !== '') { %><label><%- i18n.blindcopy %></label> <%= element.bcc %><% } %>
+                    </div>
+                </header>
+                <pre class="content"><%= element.content %></pre>
+                <% if (element.attachments.length > 0) { %>
+                    <ul class="content">
+                        <% _.each(element.attachments, function(a) { %>
+                            <li><%- a.title + ( a.size ? ' (' + a.size + ')' : '' ) %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+            </section>
+        <% }); %>
+        </script>
+
+        <script type="text/template" class="phonelist">
+        <% if (filtered > 0) { %>
+            <div class="note"><%- i18n.filtered(filtered) %>. <i><%- i18n.notPrinted %>.</i></div>
+        <% } %>
+            <div class="phonelist">
+                <h1><%- i18n.phonelist %></h1>
+                <table border="0">
+                    <thead>
+                        <tr>
+                            <th><%- i18n.name %></th>
+                            <th><%- i18n.phone %></th>
+                            <th><%- i18n.cellphone %></th>
+                        </tr>
+                    </thead>
+                <% _.each(data, function(element) { %>
+                    <tbody class="no-break">
+                        <% if (length >= 30 && element.thumbIndex(element.original.last_name)) { %>
+                        <tr>
+                            <td colspan="3" class="thumb-index"><%- element.thumbIndex.get() %></td>
+                        </tr>
+                        <% } %>
+                        <tr>
+                            <td><b><%- element.name %></b><br><%- element.where %></td>
+                            <td><%- element.phone1 || '-' %><br><%- element.phone2 %></td>
+                            <td><%- element.cellphone1 || '-' %><br><%- element.cellphone2 %></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="spacer">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                <% }); %>
+                </table>
+            </div>
+        </script>
+
+        <script type="text/template" class="contacts">
+            <div class="phonelist">
+                <table border="0">
+                    <thead>
+                        <tr>
+                            <th><%- i18n.name %></th>
+                            <th><%- i18n.cellphone %></th>
+                            <th><%- i18n.phone %></th>
+                            <th><%- i18n.email %></th>
+                        </tr>
+                    </thead>
+                <% _.each(data, function(element) { %>
+                    <tbody class="no-break">
+                        <% if (length >= 30 && element.thumbIndex(element.original.last_name)) { %>
+                        <tr>
+                            <td colspan="4" class="thumb-index"><%- element.thumbIndex.get() %></td>
+                        </tr>
+                        <% } %>
+                        <tr>
+                            <td><b><%- element.name %></b><br><%- element.where %></td>
+                            <td><%- element.cellphone1 || '-' %><br><%- element.cellphone2 %></td>
+                            <td><%- element.phone1 || '-' %><br><%- element.phone2 %></td>
+                            <% if (element.isDistributionList === false) { %>
+                            <td><%- element.email1 %><% if (element.email2 !== '') { %><br><%- element.email2 %> <% } %><% if (element.email3 !== '') { %><br><%- element.email3 %> <% } %>
+                            <% } %>
+                            <% if (element.isDistributionList === true) { %>
+                            <td><%- element.distributionList %></td>
+                            <% } %>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="spacer">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                <% }); %>
+                </table>
+            </div>
+        </script>
+
+        <script type="text/template" class="contacts-details">
+            <div class="phonelist-details">
+                <% _.each(data, function(element, index) { %>
+                <div class="no-break">
+                    <div class="contact-head">
+                        <fieldset>
+                            <h1><%- element.name %></h1>
+                            <ul>
+                                <% if (element.original.position) { %><li><%- element.original.position %></li><% } %>
+                                <% if (element.original.department) { %><li><%- element.original.department %></li><% } %>
+                                <% if (element.original.company) { %><li><%- element.original.company %></li><% } %>
+                            </ul>
+                        </fieldset>
+                    </div>
+                    <div class="contact-details">
+                        <div>
+                            <% if (element.businessAddress) { %>
+                            <fieldset>
+                                <legend><%- i18n.businessAddress %></legend>
+                                <address><%- element.businessAddress %></address>
+                            </fieldset>
+                            <% } %>
+                            <% if (element.homeAddress) { %>
+                            <fieldset>
+                                <legend><%- i18n.homeAddress %></legend>
+                                <address><%- element.homeAddress %></address>
+                            </fieldset>
+                            <% } %>
+                            <% if (element.otherAddress) { %>
+                            <fieldset>
+                                <legend><%- i18n.otherAddress %></legend>
+                                <address><%- element.otherAddress %></address>
+                            </fieldset>
+                            <% } %>
+                        </div>
+                        <div>
+                            <% if (element.original.telephone_business1 || element.original.telephone_business2 || element.original.telephone_home1 || element.original.telephone_home2 || element.original.cellular_telephone1 || element.original.cellular_telephone2 || element.original.telephone_other) { %>
+                            <fieldset>
+                                <legend><%- i18n.phone %></legend>
+                                <table>
+                                    <% if (element.original.telephone_business1) { %>
+                                    <tr>
+                                        <td><%- i18n.business %></td>
+                                        <td><%- element.original.telephone_business1 %></td>
+                                    </tr>
+                                    <% } %>
+                                    <% if (element.original.telephone_business2) { %>
+                                    <tr>
+                                        <td><%- i18n.business %></td>
+                                        <td><%- element.original.telephone_business2 %></td>
+                                    </tr>
+                                    <% } %>
+                                    <% if (element.original.telephone_home1) { %>
+                                    <tr>
+                                        <td><%- i18n.home %></td>
+                                        <td><%- element.original.telephone_home1 %></td>
+                                    </tr>
+                                    <% } %>
+                                    <% if (element.original.telephone_home2) { %>
+                                    <tr>
+                                        <td><%- i18n.home %></td>
+                                        <td><%- element.original.telephone_home2 %></td>
+                                    </tr>
+                                    <% } %>
+                                    <% if (element.original.cellular_telephone1) { %>
+                                    <tr>
+                                        <td><%- i18n.cellphone %></td>
+                                        <td><%- element.original.cellular_telephone1 %></td>
+                                    </tr>
+                                    <% } %>
+                                    <% if (element.original.cellular_telephone2) { %>
+                                    <tr>
+                                        <td><%- i18n.cellphone %></td>
+                                        <td><%- element.original.cellular_telephone2 %></td>
+                                    </tr>
+                                    <% } %>
+                                    <% if (element.original.telephone_other) { %>
+                                    <tr>
+                                        <td><%- i18n.otherPhone %></td>
+                                        <td><%- element.original.telephone_other %></td>
+                                    </tr>
+                                    <% } %>
+                                </table>
+                            </fieldset>
+                            <% } %>
+                            <% if (element.original.email1 || element.original.email2 || element.original.email3) { %>
+                            <fieldset>
+                                <legend><%- i18n.email %></legend>
+                                <ul>
+                                    <% if (element.original.email1) { %><li><%- element.original.email1 %></li><% } %>
+                                    <% if (element.original.email2) { %><li><%- element.original.email2 %></li><% } %>
+                                    <% if (element.original.email3) { %><li><%- element.original.email3 %></li><% } %>
+                                </ul>
+                            </fieldset>
+                            <% } %>
+                            <% if (element.original.instant_messenger1 || element.original.instant_messenger2) { %>
+                            <fieldset>
+                                <legend><%- i18n.messenger %></legend>
+                                <ul>
+                                    <% if (element.original.instant_messenger1) { %><li><%- element.original.instant_messenger1 %></li><% } %>
+                                    <% if (element.original.instant_messenger2) { %><li><%- element.original.instant_messenger2 %></li><% } %>
+                                </ul>
+                            </fieldset>
+                            <% } %>
+                            <% if (element.birthday) { %>
+                            <fieldset>
+                                <legend><%- i18n.personalInformation %></legend>
+                                <table>
+                                    <% if (element.birthday) { %>
+                                    <tr>
+                                        <td><%- i18n.birthday %></td>
+                                        <td><%- element.birthday %></li></td>
+                                    </tr>
+                                    <% } %>
+                                </table>
+                            </fieldset>
+                            <% } %>
+                        </div>
+                    </div>
+                    <% if (index < data.length - 1) { %>
+                    <div class="spacer-bottom">&nbsp;</div>
+                    <% } %>
+                </div>
+                <% }); %>
+                </table>
+            </div>
+        </script>
+
+        <script type="text/template" class="appointment">
+        <% _.each(data, function(element) { %>
+            <section class="item">
+                <header>
+                    <span class="date pull-left"><%- element.date %></span>
+                    <span class="time pull-right"><%- element.time %></span>
+                    <div class="clear"></div>
+                    <h1><%- element.subject %></h1>
+                    <p class="location"><%- element.location %></p>
+                </header>
+                <% if (element.content !== '') { %><pre class="content"><%- element.content %></pre><% } %>
+                <p class="participants top-border">
+                <% if (element.hasAccepted) { %>
+                    <label><%- i18n.accepted %>:</label> <span class="accepted"><%= element.strings.accepted %></span>&nbsp;&nbsp;
+                <% } %>
+                <% if (element.hasTentative) { %>
+                    <label><%- i18n.tentative %>:</label> <span class="tentative"><%= element.strings.tentative %></span>&nbsp;&nbsp;
+                <% } %>
+                <% if (element.hasUnconfirmed) { %>
+                    <label><%- i18n.unconfirmed %>:</label> <span class="unconfirmed"><%= element.strings.unconfirmed %></span>&nbsp;&nbsp;
+                <% } %>
+                <% if (element.hasDeclined) { %>
+                    <label><%- i18n.declined %>:</label> <span class="declined"><%= element.strings.declined %></span>&nbsp;&nbsp;
+                <% } %>
+                <% if (element.hasResources) { %>
+                    <label><%- i18n.resources %>:</label> <span class="accepted"><%= element.strings.resources %></span>
+                <% } %>
+                </p>
+            </section>
+        <% }); %>
+        </script>
+
+        <script type="text/template" class="appointment-compact">
+        <% _.each(data, function(element) { %>
+            <section class="item-compact">
+                <span class="compact-subject"><%- element.subject %></span>
+                <span class="date"><%- element.date %></span>
+                <% if (element.location) { %>
+                    <span class="location"><label class="label-compact"><%- i18n.location %>:</label> <%- element.location %></span>
+                <% }%>
+
+                <% if (element.participants > 0) { %>
+                    <span class="participants"><label class="label-compact"><%- i18n.participants %>:</label> <%- element.participants %></span>
+                <% }%>
+            </section>
+        <% }); %>
+        </script>
+
+        <script type="text/template" class="recovery">
+        <% _.each(data, function(element) { %>
+            <section class="item-compact">
+                <h1><%- i18n.code %></h1>
+                <br>
+                <span class="recovery-code"><%- element.code %></span>
+            </section>
+        <% }); %>
+        </script>
+
+        <script type="text/template" class="calendar-month-view">
+            <h1 class="calendar-title"><%- meta.title %></h1>
+        <% _.each(data, function (month) { %>
+            <table class="month-view">
+                <thead>
+                    <tr>
+                    <% _.each(meta.labels, function (label) { %>
+                        <th><%- label %></th>
+                    <% }); %>
+                    <tr>
+                </thead>
+            <% _.each(month, function (week) { %>
+                <tr>
+                <% _.each(week.days, function (day) { %>
+                    <td class="<%- day.className || '' %>">
+                        <ul>
+                        <% _.each(day.events, function (event) { %>
+                            <li style="color: <%- event.color %>; background-color: <%- event.backgroundColor %>;">
+                            <% if (event.time) { %>
+                                <span class="time"><%- event.time %></span>
+                            <% } %>
+                                <span><%- event.title %></span>
+                            </li>
+                        <% }); %>
+                        </ul>
+                        <span class="date"><%- day.date %></span>
+                    </td>
+                <% }); %>
+                </tr>
+            <% }); %>
+            </table>
+        <% }); %>
+        </script>
+
+        <script type="text/template" class="calendar-week-view">
+            <h1 class="calendar-title"><%- meta.title %></h1>
+        <% data.forEach(function (week) { %>
+            <table class="week-view" <% if (meta.weekdays.length === 1) { %> style="width:50%; display:inline-table;" <% } %> >
+                <thead>
+                    <tr>
+                        <th class="label"></th>
+                    <% _.each(meta.weekdays, function (label) { %>
+                        <th><%- label %></th>
+                    <% }); %>
+                    <tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="allday-slot"></td>
+                    <% week.forEach(function (day) { %>
+                        <td class="allday-slot">
+                        <% (day.slots['allDay'] || []).forEach(function (event) { %>
+                            <div class="event"  style="color: <%- event.color %>; background-color: <%- event.backgroundColor %>;">
+                                <%- event.title %>
+                            </div>
+                        <% }) %>
+                        </td>
+                    <% }) %>
+                    <tr>
+                <% _.range(week[0].start, week[0].end).forEach(function (index) { %>
+                    <tr>
+                        <td class="label"><span><%- meta.timeLabels[index].label %></span></td>
+                    <% week.forEach(function (day) { %>
+                        <td class="slot">
+                            <div class="slot-border"></div>
+                        <% (day.slots[index] || []).forEach(function (event) { %>
+                            <div class="event absolute" style="top: <%- event.top %>px; height: <%- event.height %>px; left: <%- event.left %>%; width: <%- event.width %>%; color: <%- event.color %>; background-color: <%- event.backgroundColor %>;">
+                                <span class="time"><%- event.time %></span>
+                                <span><%- event.title %></span>
+                            </div>
+                        <% }) %>
+                        </td>
+                    <% }); %>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+            <% if(meta.weekdays.length === 1) { %>
+                <div class="week-view-event-list">
+                    <div class="event-list-header"><%- meta.eventListLabel %></div>
+                    <% _(week[0].list).each(function (event) { %>
+                            <div class="event">
+                                <div class="date"><%- event.date %></div>
+                                <div class="summary"><%- event.summary %></div>
+                                <% if (event.location) { %>
+                                    <div class="location"><%- event.location %></div>
+                                <% }%>
+                            </div>
+                        <% }); %>
+                </div>
+            <% } %>
+        <% }); %>
+        </script>
+
+        <script type="text/template" class="task">
+        <% _.each(data, function(element) { %>
+            <section class="item">
+                <header>
+                    <% if (element.start) { %><span class="date pull-left"><label><%- i18n.start %>:</label> <%- element.start %></span><% } %>
+                    <% if (element.due) { %><span class="time pull-right"><label><%- i18n.due %>:</label> <%- element.due %></span><% } %>
+                    <div class="clear"></div>
+                    <h1><%- element.subject %></h1>
+                    <p class="state"><%= element.state %></p>
+                    <% if (element.content !== '') { %><pre class="content"><%- element.content %></pre><% } %>
+                </header>
+                <div class="details">
+                    <% if (element.recurrence) { %><div class="recurrence"><label><%- i18n.recurrence %> </label><%- element.recurrence %></div><% } %>
+                    <% if (element.alarm) { %><div class="alarm-date"><label><%- i18n.alarm %>: </label><%- element.alarm %></div><% } %>
+                    <% if (element.priority) { %><div class="priority"><label><%- i18n.priority %>: </label><%- element.priority %></div><% } %>
+                    <% if (element.target_duration) { %><div class="target_duration"><label><%- i18n.target_duration %>: </label><%- element.target_duration %></div><% } %>
+                    <% if (element.actual_duration) { %><div class="actual_duration"><label><%- i18n.actual_duration %>: </label><%- element.actual_duration %></div><% } %>
+                    <% if (element.target_duration) { %><div class="target_costs"><label><%- i18n.target_costs %>: </label><%- element.target_costs %><% if (element.currency) { %><%- element.currency %><% } %></div><% } %>
+                    <% if (element.target_duration) { %><div class="actual_costs"><label><%- i18n.actual_costs %>: </label><%- element.actual_costs %><% if (element.currency) { %><%- element.currency %><% } %></div><% } %>
+                    <% if (element.trip_meter) { %><div class="trip_meter"><label><%- i18n.trip_meter %>: </label><%- element.trip_meter %></div><% } %>
+                    <% if (element.billing_information) { %><div class="billing_information"><label><%- i18n.billing_information %>: </label><%- element.billing_information %></div><% } %>
+                    <% if (element.companies) { %><div class="companies"><label><%- i18n.companies %>: </label><%- element.companies %></div><% } %>
+                    <% if (element.date_completed) { %><div class="date_completed"><label><%- i18n.date_completed %>: </label><%- element.date_completed %></div><% } %>
+                </div>
+                <% if (element.numParticipants > 0) { %>
+                <p class="participants top-border">
+                    <% if (element.hasAccepted) { %><label><%- i18n.accepted %>:</label> <span class="accepted"><%= element.strings.accepted %></span>&nbsp;&nbsp;<% } %>
+                    <% if (element.hasTentative) { %><label><%- i18n.tentative %>:</label> <span class="tentative"><%= element.strings.tentative %></span>&nbsp;&nbsp;<% } %>
+                    <% if (element.hasUnconfirmed) { %><label><%- i18n.unconfirmed %>:</label> <span class="unconfirmed"><%= element.strings.unconfirmed %></span>&nbsp;&nbsp;<% } %>
+                    <% if (element.hasDeclined) { %><label><%- i18n.declined %>:</label> <span class="declined"><%= element.strings.declined %></span><% } %>
+                </p>
+                <% } %>
+            </section>
+        <% }); %>
+        </script>
+        <!-- the only magic we need here; asks UI to use the upper template -->
+        <script>
+            (function () {
+                var name = location.search.substr(1), cb;
+                if (!name) return;
+                cb = (window.opener && window.opener[name]) ? window.opener[name] : null;
+
+                if (!cb) {
+                    cb = (window.parent && window.parent[name]) ? window.parent[name] : null;
+                }
+
+                if (cb) cb(document);
+            }());
+        </script>
+    </body>
+</html>

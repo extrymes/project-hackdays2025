@@ -1,0 +1,281 @@
+@import '@/themes/imports.scss';
+
+.io-ox-item-picker {
+  max-width: 100%;
+  white-space: nowrap;
+  text-align: left;
+  width: 360px;
+  margin-top: 5px;
+
+  label {
+    margin-right: 8px;
+    border-radius: 6px;
+  }
+
+  .item-picker-item-checked {
+    display: none;
+  }
+
+  input[type="radio"] {
+    position: absolute;
+    left: -999em;
+  }
+
+  input[type="radio"]:focus+label {
+    outline: 2px solid var(--focus-500);
+    text-decoration: underline;
+  }
+
+  input[type="radio"]:checked+label {
+    .item-picker-item {
+      text-decoration: underline;
+      background-color: var(--selected-background);
+      border: 1px solid var(--accent);
+    }
+
+    .item-picker-item-checked {
+      display: flex;
+    }
+
+    .item-picker-item-unchecked {
+      display: none;
+    }
+  }
+
+  input[type="radio"][value="transparent"]+label .item-picker-item {
+    border: 2px solid;
+  }
+
+  input[type="radio"][value="none"]+label {
+    .icon-outer {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      opacity: 1;
+    }
+
+    .icon-inner {
+      position: relative;
+      top: 13px;
+      left: -6px;
+      width: 40px;
+      transform: rotate(-45deg);
+      border: 1px solid var(--border);
+      opacity: 1;
+    }
+  }
+
+  .item-picker-item {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--default-radius);
+    font-size: 12px;
+
+    * {
+      font-weight: 700;
+    }
+
+    svg {
+      height: 23px;
+      width: 23px;
+      color: var(--text);
+    }
+  }
+}
+
+.category-modal {
+  .modal-content {
+    border-radius: calc(var(--default-radius) * 2);
+    .modal-body{
+      padding-top: 12px;
+    }
+  }
+
+  .alert {
+    margin-bottom: 0;
+  }
+}
+
+.category-dropdown-wrapper {
+  position: relative;
+  width: 50%;
+}
+
+.category-dropdown {
+  button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.categories-badges {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  gap: 5px;
+  max-width: 100%;
+  // width: 350px;
+  li{
+    max-width: 100%;
+  }
+}
+
+.contact-summary {
+  .categories-badges{
+    max-width: 320px;
+  }
+}
+
+dd.detail-value {
+  .categories-badges {
+    max-width: 320px;
+    margin-top: unset
+  }
+}
+
+div.detail-row-content {
+  .categories-badges {
+    margin-top: unset
+  }
+}
+
+.category-view {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 24px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-weight: 400;
+  text-transform: none;
+  padding-inline: 8px;
+  gap: 5px;
+  max-width: 100%;
+
+  &[data-removable] {
+    padding-right: 0;
+  }
+
+  span {
+    line-height: 1.3;
+  }
+
+  svg {
+    min-width: 14px;
+    min-height: 14px;
+    color: inherit;
+  }
+}
+
+.badge-remove-button {
+  padding: 0px;
+  border: 0;
+  color: unset;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  flex: none;
+  &:focus-visible{
+    outline: 0;
+    stroke-width: 2px;
+  }
+
+  svg{
+    margin: 0;
+  }
+}
+
+.category-list-view{
+  margin-bottom: 0;
+}
+.category-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+
+  &:first-child{
+    padding-top: 0;
+  }
+
+  &:last-child{
+    padding-bottom: 0;
+  }
+
+  .list-item-controls {
+    display: flex;
+    padding-right: 8px;
+
+    >button {
+      background: transparent;
+      border: 0;
+      margin-left: 12px;
+      color: var(--text);
+    }
+
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
+}
+
+.category-form-group {
+  text-align: left;
+  padding: 0;
+  padding-bottom: 16px;
+
+  &:last-child{
+    padding-bottom: 0;
+  }
+  .control-label {
+    padding-top: 0;
+    margin-bottom: 5px;
+  }
+
+  legend {
+    padding: 0;
+    border: none;
+    margin: 0;
+  }
+}
+
+.categoriesrow {
+  legend {
+    margin-bottom: 5px;
+  }
+
+  .category-dropdown-wrapper {
+    width: 100%;
+  }
+}
+
+.categoriesrow-calendar {
+  legend {
+    margin-bottom: 6px;
+  }
+}
+
+.category-dropdown>ul {
+  >li>a {
+    .checkmark {
+      min-width: 20px;
+      min-height: 20px;
+    }
+
+    >li {
+      display: flex;
+
+      span {
+        max-width: fit-content
+      }
+    }
+  }
+
+  >li:last-child>a {
+    padding-left: 20px;
+  }
+}

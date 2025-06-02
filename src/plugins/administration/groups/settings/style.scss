@@ -1,0 +1,94 @@
+@import '@/themes/imports.scss';
+
+.group-administration {
+
+  .classic-toolbar-container {
+    min-height: 40px;
+    width: 100%;
+  }
+
+  .classic-toolbar {
+    border: 0;
+    padding: 0;
+  }
+
+  .io-ox-settings-main.modal.flex .settings-detail-pane & h2 {
+    font-size: 18px;
+    font-family: $normal-font-family;
+    font-weight: bold;
+    line-height: 24px;
+    margin: 0 0 1em 0;
+  }
+
+  .below-toolbar {
+    top: calc(1.875rem + 84px);
+    .list-item { padding-left: 16px; }
+  }
+
+  .list-view {
+    background: var(--background-a30);
+    border: 1px solid var(--border-bright);
+    border-radius: 8px;
+    flex: 1 1 auto;
+    max-width: 380px;
+    .list-item {
+      border-bottom: none;
+      padding: 8px 16px;
+    }
+  }
+
+  .detail-pane {
+    padding: 8px 16px;
+    overflow-y: auto;
+  }
+}
+
+.administration-group-members {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  min-height: 100px;
+
+
+  li {
+    padding-bottom: 4px;
+  }
+  .first_name, .title { color: #777; }
+
+  .last_name { font-weight: bold; }
+
+  &.editable .group-member {
+    padding: 4px 0;
+    &:last-child { border-bottom: 0; }
+  }
+
+  .group-member {
+
+    .name {
+      vertical-align: middle;
+    }
+
+    .fa-user {
+      display: inline-block;
+      margin-right: 14px;
+    }
+  }
+}
+
+.administration-group-editor {
+  height: 350px;
+
+  input[name="display_name"] { font-weight: bold; }
+
+  label {
+    font-size: 13px;
+    color: #777;
+  }
+
+  .autocomplete-item {
+    padding: 7px 10px;
+    .last_name {
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,75 @@
+# Default values for core-ui.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+defaultRegistry: registry.open-xchange.com
+
+image:
+  repository: "core-ui"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  # We recommend to always specify resources after actually measuring the values under
+  # production-like circumstances.
+  limits:
+    cpu: 50m
+    memory: 96Mi
+  requests:
+    cpu: 5m
+    memory: 32Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+probe:
+  liveness:
+    enabled: false
+    periodSeconds: 10
+    failureThreshold: 15
+
+  readiness:
+    enabled: false
+    initialDelaySeconds: 30
+    periodSeconds: 5
+    failureThreshold: 2
+    timeoutSeconds: 5
+
+  startup:
+    enabled: false
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    failureThreshold: 30
+
+containerPort: 8080

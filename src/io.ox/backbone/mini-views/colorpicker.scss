@@ -1,0 +1,27 @@
+.colorpicker-container {
+    padding: 0px;
+    min-width: 152px;
+    ul {
+      padding: 0;
+    }
+
+    .colorpicker-item {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        float: left;
+        transition: transform .15s, box-shadow .15s;
+        &:focus,
+        &:hover {
+          box-shadow: 0 0 0 1px rgb(127 127 127 / 30%) inset;
+          transform: scale(.8);
+          outline: none;
+        }
+        &.no-color {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          svg path { stroke: #e74c3c; }
+        }
+    }
+}

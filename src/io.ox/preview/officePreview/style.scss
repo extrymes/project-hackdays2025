@@ -1,0 +1,34 @@
+.io-ox-office-preview-page-indicator {
+    position: absolute;
+    font-size: 30pt;
+    bottom: 26px;
+    right: 13px;
+    color: #aaa;
+    z-index: 1;
+}
+
+.io-ox-office-preview-controls {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.io-ox-office-preview-loading {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.io-ox-office-preview-page {
+    width: 21cm;
+    padding: 2cm;
+    margin: 1cm auto 1cm auto;
+}
+
+.io-ox-office-preview-presentation {
+    width: 720pt;
+    margin: 1cm auto 1cm auto;
+}
+
+.io-ox-office-preview-content {
+    box-shadow: 0 0 30px -5px #aaa;
+    background-color: white;
+}

@@ -1,0 +1,9 @@
+// blocklist
+body, .classic-toolbar, .list-view {
+  @include user-select(none);
+}
+
+// allowlist
+.window-body, .detail-view-header {
+  @include user-select(text);
+}

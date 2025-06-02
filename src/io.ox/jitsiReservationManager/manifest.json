@@ -1,0 +1,13 @@
+[
+  {
+    "namespace": "core",
+    "feature": "jitsi",
+    "delay": 0
+  },
+  {
+    "path": "io.ox/jitsiReservationManager/settings/pane",
+    "namespace": "io.ox/settings",
+    "feature": "jitsi",
+    "delay": 0
+  }
+]

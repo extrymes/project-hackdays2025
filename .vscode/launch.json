@@ -1,0 +1,69 @@
+/* This launch.json can be used to debug AppSuite via VS Code.
+ *
+ *  Open localhost:8337 in your browser and attach to it. Then you can set breakpoints in the code and step through it.
+ *  Chrome-based browser need to be opened with '--remote-debugging-port=9222'.
+ *  Firefox users need to download the 'Debugger for Firefox' extension and follow the steps to allow debugging. (https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
+ *
+ *  E2E tests also can be run via VS Code. You can set the variables to match your preferred running configuration.
+ *  When running this configuration, codecept will execute in the integrated VS Code terminal.
+ *
+ *  To prevent local changes from merging it is advised to add launch.json to the global gitignore (~/.gitignore_global).
+ */
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Debug With Chrome-based Browser",
+      "urlFilter": "localhost:8337",
+      "webRoot": "${workspaceFolder}/src",
+      "port": 9222,
+      "sourceMapPathOverrides": {
+        "localhost:8337/io.ox/*": "${workspaceFolder}/src/io.ox/*",
+        "localhost:8337/io.ox/*?t=": "${workspaceFolder}/src/io.ox/*"
+      },
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "enableContentValidation": false
+    },
+    {
+      "type": "firefox",
+      "request": "attach",
+      "name": "Debug With Firefox",
+      "url": "localhost:8337",
+      "webRoot": "${workspaceFolder}/src",
+      "pathMappings": [
+        {
+          "url": "https://localhost:8337/io.ox",
+          "path": "${workspaceFolder}/src/io.ox"
+        },
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Start E2E Tests",
+      "args": [
+        "run",
+        "--grep",
+        "${config:launch.variables.Title}",
+        "${config:launch.variables.Arguments}"
+      ],
+      "env": {
+        "HEADLESS": "${config:launch.variables.Headless}"
+      },
+      "program": "${workspaceFolder}/e2e/node_modules/.bin/codeceptjs",
+      "cwd": "${workspaceFolder}/e2e",
+      "console": "integratedTerminal"
+    }
+  ],
+  "variables": {
+    "Title": "C7728",
+    "Headless": "false",
+    "Arguments": "--steps"
+  },
+}
