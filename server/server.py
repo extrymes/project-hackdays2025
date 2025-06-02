@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 from parse_email import extract_email_data
-from analyze import analyze_email_with_llm
+from analyze import EmailSecurityAnalyzer
 from transform import transform_email
 
 app = FastAPI()
@@ -21,8 +21,8 @@ async def email_handler(raw_email: str = Body(..., media_type="text/plain")):
     if not email_data:
         raise Exception(status_code=400, detail="Failed to parse email content")
 
-    # Analyze with LLM
-    analysis = analyze_email_with_llm(email_data)
+    analyzer = EmailSecurityAnalyzer()
+    analysis =  analyzer.analyze_email(email_data)
 
     # Extract the requested information
     response = {
