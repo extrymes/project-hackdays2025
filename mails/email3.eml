@@ -1,0 +1,425 @@
+Received: from AS4P192MB1888.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:51f::11)
+ by PR3P192MB0699.EURP192.PROD.OUTLOOK.COM with HTTPS; Mon, 2 Jun 2025
+ 12:00:49 +0000
+Received: from CH2PR17CA0005.namprd17.prod.outlook.com (2603:10b6:610:53::15)
+ by AS4P192MB1888.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:51f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.37; Mon, 2 Jun
+ 2025 12:00:48 +0000
+Received: from CH1PEPF0000A345.namprd04.prod.outlook.com
+ (2603:10b6:610:53:cafe::ab) by CH2PR17CA0005.outlook.office365.com
+ (2603:10b6:610:53::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.31 via Frontend Transport; Mon,
+ 2 Jun 2025 12:00:47 +0000
+Authentication-Results: spf=pass (sender IP is 54.240.48.144)
+ smtp.mailfrom=emailing.codingame.com; dkim=pass (signature was verified)
+ header.d=codingame.com;dkim=pass (signature was verified)
+ header.d=amazonses.com;dmarc=pass action=none
+ header.from=codingame.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of emailing.codingame.com
+ designates 54.240.48.144 as permitted sender)
+ receiver=protection.outlook.com; client-ip=54.240.48.144;
+ helo=a48-144.smtp-out.amazonses.com; pr=C
+Received: from a48-144.smtp-out.amazonses.com (54.240.48.144) by
+ CH1PEPF0000A345.mail.protection.outlook.com (10.167.244.8) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.29
+ via Frontend Transport; Mon, 2 Jun 2025 12:00:47 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:2F5A2D94BB288652BF1CF2882AD11C18C950AEB7D996B4B259F3AA1AFFF42EF6;UpperCasedChecksum:AD7B8AF8291ABD8850CC57B0855442DA7438235AA3C77168615748C6B85F7175;SizeAsReceived:1615;Count:12
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=vvyipd3e25cam7dptlj6ozg25t7s54b2; d=codingame.com; t=1748865647;
+	h=Date:From:Reply-To:To:Message-ID:Subject:MIME-Version:Content-Type;
+	bh=vp/fRQE7GV8agaGQd948UAFgn5tyeTluGmblxKvErMs=;
+	b=W4ymowOTN6432Y3qe1MDu5HQJI1u/YFpBWmzcfwNgpdE+xmLEf/p7ERwMD02krUA
+	cxzoiF3qGtqoMk0gUkvJ9fFbq3eQj/a2SMeZ1Yc2Zl1n13LfNu/1MZ1sD5pHnF1aOFf
+	2EfXaoezYBK11q6XlVWHXy9g7GBjGwI6HmD3xcRLi+3GBUk/uOC/JLDQG3me6Jw5Shx
+	hoXTL1OHQCFk57JFNKSvx6G8KA2QyFI7hRubnwP0UBtmXPpyG+Opr7wC+e1Oi0LUVV+
+	jXjeMQbP3EFNP/GyivxxVVlnRvebJGzqd2OtvVTlvsrCM/1ZIBQadTCdKuHy8iExLCk
+	Bq6MhinAxw==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw; d=amazonses.com; t=1748865647;
+	h=Date:From:Reply-To:To:Message-ID:Subject:MIME-Version:Content-Type:Feedback-ID;
+	bh=vp/fRQE7GV8agaGQd948UAFgn5tyeTluGmblxKvErMs=;
+	b=T6Lfxq2nDV9l/oQ0IFgQNlDUajXR83GgQHaq0sURiNPkIOIlhUgVTa22Xr/H/oxt
+	TI6Ss0k5pbMUmWOAJr2RPkTBRNzMF30mMhmOh8f767NxF27XnSKSOVvmWmtg/62LoZa
+	T8qXG5E6igvtCTCWcyyg9MNOflUpOf4gFikgLAZQ=
+Date: Mon, 2 Jun 2025 12:00:47 +0000
+From: CodinGame <no-reply@codingame.com>
+Reply-To: no-reply@codingame.com
+To: jb.renier@outlook.com
+Message-ID: <01000197308402f5-b9a9dce8-769c-4ccf-8f70-dc041e6403b4-000000@email.amazonses.com>
+Subject: =?UTF-8?Q?=C3=89venement_Clash_of_Code_:_choisis_tes_sessions?=
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_130698_684782.1748865621971"
+Feedback-ID: ::1.us-east-1.p7wQsMMJKDUXwGnrHN7YOmvsdgoP3aDJajrvK4B5DHw=:AmazonSES
+X-SES-Outgoing: 2025.06.02-54.240.48.144
+X-IncomingHeaderCount: 12
+Return-Path: 01000197308402f5-b9a9dce8-769c-4ccf-8f70-dc041e6403b4-000000@emailing.codingame.com
+X-MS-Exchange-Organization-ExpirationStartTime: 02 Jun 2025 12:00:47.8419
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 7c093cab-1e83-4930-3afd-08dda1cd1cb4
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A345:EE_|AS4P192MB1888:EE_|PR3P192MB0699:EE_
+X-MS-Exchange-Organization-AuthSource: CH1PEPF0000A345.namprd04.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 6/2/2025 11:50:27 AM
+X-MS-Office365-Filtering-Correlation-Id: 7c093cab-1e83-4930-3afd-08dda1cd1cb4
+X-MS-Exchange-EOPDirect: true
+X-Sender-IP: 54.240.48.144
+X-SID-PRA: NO-REPLY@CODINGAME.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:4;ARA:1444111002|47200799021|58200799018|1680799057|461199028|9000799050|21080799006|9400799033|10300799035|1370799030|1360799030|1380799030|1602099012|1290799030|3412199025|4302099013|440099028|1122599019;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2025 12:00:47.7592
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c093cab-1e83-4930-3afd-08dda1cd1cb4
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A345.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4P192MB1888
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.1246641
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.8792.033
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;ex:0;auth:1;dest:I;ENG:(5062000308)(920221119095)(90000117)(920221120095)(90012020)(91020020)(91040095)(9050020)(9100341)(944500132)(2008001181)(4810010)(4910033)(9575002)(10195002)(9320005)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0z
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?YVpycGUxL1RmNklraExjamJuVUN1eldzKzRSaTRuTkRzZmt5RWUrTnp5MjQy?=
+ =?utf-8?B?NnFBL0kvZVR3UGtrRFVKQ1V6MFJOVGEvSW4rc21CZHE4TnI2TFliUmJBVnhH?=
+ =?utf-8?B?cms4TlZiaWlBS3BwUUFlOEZ1NGFqUE1QMDdJbTdKWklpSldPTks1Z1ZuTnpB?=
+ =?utf-8?B?RDBCS2luZzVOeWhiODd1MWt3Q3dlMjJYckpLaVFyNUNRSWs2bGhHUElITlhR?=
+ =?utf-8?B?ZG9kMndtRi83NzBHaldDZlF4a2gyWk93Y3llOXd0UGp3Tm81dkpYUXVFMnh6?=
+ =?utf-8?B?Skw4NzFWTklaK3R3bmxobVkrdTRYci9zUWU3ZXdOYlFTV1BXTXczMFdwTUQ1?=
+ =?utf-8?B?dEYvMkhaNGcvS1MwNEJjdnQ2Uno0b01WeGdGNHVpWjNVRWdwRmVSdmZxSTh2?=
+ =?utf-8?B?cWk1USttR3BIV0twUDFFdXBVa2JURmlMalVwcmd3RlFvTkREODFmSXYveHpK?=
+ =?utf-8?B?Y2lURFVEK1FZZDFqc3JzRDZpS3pSVVpCSC9Pa2FOVnFwNzJNTzVCeGVLTHB0?=
+ =?utf-8?B?RXNKZ01pN2JXbExBUXdtWTJmQkpzdEhSNHBVTnNPNGtrV01vRWl5M1dGRDl2?=
+ =?utf-8?B?Qjc5Z1RFdnFhWExTTXBHaDdLNGkzdFJBU21EU21jUVlsQlVWVVA5QkVZam94?=
+ =?utf-8?B?elBLbERzcU1sVElKVml2enZzcHRQdEEvQXRlKzJoSENld0tib0w0cnFkTkl1?=
+ =?utf-8?B?VFAxNzFLdkQwMm5NZTVGNFJHQkNDUHNFdGpHVGVhT2d2N05EajlPTVdSSk8v?=
+ =?utf-8?B?cHpUNHlxNmZ3ODhFT3c5aG9SSERRZnk3YWp5NnhNQVpMRnV2bzZkSkpZcGFr?=
+ =?utf-8?B?b1NEMlZkeVd6ejFES1lkSXlFRTNUZk9zdlpLaVNmelU4cDBPTDFkNkVnR0xF?=
+ =?utf-8?B?S3RsVHN6SitDM1NjZTdWYTMzMHZLWTNZYXZ4QlcvdzMvY2REaHZwZlp4T1JV?=
+ =?utf-8?B?ZXhxNDZwWG55TGRNSWVMTmtyZytkaEI0c2ZTdmFURWZqY3ptZ1R6WGpYbkll?=
+ =?utf-8?B?TlplRjBzbTZXVlk2Z1FjSzkzTGF0TGo2cEwxQXY0NXloOG5MVW4rWXFSb1Ey?=
+ =?utf-8?B?WGo0cDc1dnRpL2JnRFdaL3pENWxRUlJhL29FYmUzVzZ6Z3k5NlRQZjJCVnhY?=
+ =?utf-8?B?KzdIRm5UMmtNMlloODJPc3QyU2NXMjJyWllQaEpBRGd5NkEzaXJpN2l3ZVpu?=
+ =?utf-8?B?Q1pub0lMaU5oOHdESSt6MWNnZTh5S1crRkNPZHprdjRqeE5wSDF1MlIrd0xS?=
+ =?utf-8?B?alFZQmRlTmxoaS9pS3RiMVpFUmtjNit6WUd6bEt2TXpoZ2NhaFh3Nk1WdGpi?=
+ =?utf-8?B?SjFpc1dPYURHelZnSFFzUVNpQ2lTeXBCUG5HOUVVc2JvY1JPYVRrNmwrNVBO?=
+ =?utf-8?B?SFZQZHBJVGVKRjR5R2dJMW5lSjRmWnMweG9HMld0Z3FpaVNNNi9ra1pwWCt6?=
+ =?utf-8?B?c0xHUmxPNHRRMkJwMWlOakFCMERlVS8zZWZDaFdRYWI3ZzdoS3NnWUFmcTA5?=
+ =?utf-8?B?NjBBdlp1M1g4OGFaRThMdmRaTEl2WUhOYmgxUTFhbE9WQ3h1c2JIbE0reXZV?=
+ =?utf-8?B?dTdtblVDUGRRNkxVbllETUhHQTNpc2VmaFJBWWFXeWdyUlYzbFBiMVZCUjBz?=
+ =?utf-8?B?Wnp1UGYxQjZrUGovMGp1MlZNaW9leDlhbTd0aWxtRTc4eTFBT1Rua28rVTB3?=
+ =?utf-8?B?YUJzS2FNb1cxMkdiN1JocWltWmFGLzNONmMvbkd4N2NWd2hvN1RUM3hIc0Y3?=
+ =?utf-8?B?cUVFSk04T1pQNlFTWG8vdW5iWFNRYXJYdDRKTEJhNTNGVlNIb3hqajJiVUJU?=
+ =?utf-8?B?UXY0MUY2TDR2WGF5Q0FaZ2RHZS9qSUFXUnR4V0NiZ0xiRzBjNmNmUjFwTW0v?=
+ =?utf-8?B?VnpaWG4zZU9JOStDUWlNOUFnd0Y0WmlvMEx6ZkxVczRZY1pBVk5KaWFYZEJv?=
+ =?utf-8?B?dXhtMzdXcjA5SUl4M3BTcVBJanJ3TlVHTlNobGJXeGhMNUI5cXE1SmpDTkk1?=
+ =?utf-8?B?RVZBbVRZQmNSZHBuSzhVdWNtM0ljMEN2bFhsNWRpcGZJdGdBTlU3OG5MRkdu?=
+ =?utf-8?B?aGRmaEZoYnozMUdvSHVHZ3NRRGNkdVlpcDdLejB4Mjg1bnh5cHdXeUlocXRR?=
+ =?utf-8?B?REZnai9ZazlSZk5jTEI0enBiRTNoOXpLRm1XT3BsdjhKaitzU3ZRYWFyTkJo?=
+ =?utf-8?B?SHROZG1nVDVjUXB3VDU2K1hCb2hCY3YxeFVDY3U2dHBaM2NmTlB3aDVhekMw?=
+ =?utf-8?B?NkJVZ1VBZkg5eDErWXoyVzMxZGZsWGk0Q01sK0JLbjgwVUVienJrSU9oRjZP?=
+ =?utf-8?B?UzlZQ3lUMW4zZ1p6RDRCTTgyWnUrTmtpU1VaS1VKSDZDUExnTkEvWTY3MTRm?=
+ =?utf-8?B?N0VZSTN1QmhvSnluUzVPcVVSZE9XQnJPR0RYTlp6UHgxSUFLNS9ibDg4TnNU?=
+ =?utf-8?B?Q1hmaURhK2tJcVE2UnNQbWtFY2xaQ24rL1JKSXdvL2tKeG1SUTFVQ3hFK1NM?=
+ =?utf-8?B?VEVkTEFJM1VhU0UxNlVza0hUY21XMVh0bDArdHNjSUgyelNvZlBKLzd6ejVL?=
+ =?utf-8?B?Skxkb3c3V1hwUzU1YndNMmFSOFdGZjc5ZkZqSi8ram15UnR4dHJOSjVqNEhp?=
+ =?utf-8?B?QXpRYloyZ3lrN0NhTDJ1YWRmTXpLTWFQN1hBZk4vWFU5MkZoOFpWVkpIRFc4?=
+ =?utf-8?B?ZTdUZWZtMzlhYXNIcnEvSmtBRUN2SXdMNHc9PQ==?=
+MIME-Version: 1.0
+
+------=_Part_130698_684782.1748865621971
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_130699_413426578.1748865621971"
+
+------=_Part_130699_413426578.1748865621971
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<https://www.codingame.com/servlet/mlinkservlet?lmid=3D194607864Emz3rd&ltpl=
+=3D0&link=3Dhttps%3A%2F%2Fwww.codingame.com%3Futm_source%3Dcodingame%26amp%=
+3Butm_medium%3Demail%26amp%3Butm_content%3Dmystery-sponsor%26amp%3Butm_camp=
+aign%3Dlogo>
+ Bonjour,=20
+
+ Clash of Code  est l'=C3=A9venement du moment sur CodinGame et =C3=A7a vie=
+nt juste de=20
+d=C3=A9marrer.
+
+ Pourquoi participer ?=20
+ * Pour pratiquer et apprendre des astuces dans tes langages pr=C3=A9f=C3=
+=A9r=C3=A9s=20
+ * Pour faire une pause du travail, courte et fun=20
+ * Pour jouer avec les membres de la communaut=C3=A9 (streaming, chat)  Com=
+ment se=20
+d=C3=A9roule l'=C3=A9venement ?=20
+ * Plusieurs sessions clashs sont pr=C3=A9vues tout au long de l'=C3=A9vene=
+ment avec un=20
+mode et/ou un langage sp=C3=A9cifique(s).=20
+ * Choisis les sessions auxquelles tu souhaites participer et re=C3=A7ois u=
+n email=20
+de rappel=20
+ * Pendant chaque session, r=C3=A9sous le puzzle propos=C3=A9 en moins de 1=
+5 minutes=20
+ * Profite des solutions partag=C3=A9es par d'autres joueurs passionn=C3=A9=
+s  Bonne=20
+chance !
+
+ =C3=80 tr=C3=A8s bient=C3=B4t,=20
+ L'=C3=A9quipe CodinGame=20
+CHOISIS TES SESSIONS CLASH=20
+<https://www.codingame.com/servlet/mlinkservlet?lmid=3D194607864Emz3rd&ltpl=
+=3D2&link=3Dhttps%3A%2F%2Fwww.codingame.com%2Fevents%2F2976cb037abe7e15c904=
+9767884ffaf77447>
+
+=20
+<https://www.codingame.com/servlet/mlinkservlet?lmid=3D194607864Emz3rd&ltpl=
+=3D3&link=3Dhttps%3A%2F%2Ftwitter.com%2Fcodingame>
+=20
+<https://www.codingame.com/servlet/mlinkservlet?lmid=3D194607864Emz3rd&ltpl=
+=3D4&link=3Dhttps%3A%2F%2Fwww.instagram.com%2Fcodingame_official%2F>
+=20
+<https://www.codingame.com/servlet/mlinkservlet?lmid=3D194607864Emz3rd&ltpl=
+=3D5&link=3Dhttps%3A%2F%2Fgithub.com%2FCodinGame>
+=20
+<https://www.codingame.com/servlet/mlinkservlet?lmid=3D194607864Emz3rd&ltpl=
+=3D6&link=3Dhttps%3A%2F%2Fwww.twitch.tv%2Fcodingame>
+=C2=A9 CodinGame 2024=20
+Vous recevez cet email car vous =C3=AAtes inscrit(e) =C3=A0 un =C3=A9veneme=
+nt en cours sur=20
+CodinGame.
+------=_Part_130699_413426578.1748865621971
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html><html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
+ =20
+  <style type=3D"text/CSS">
+        body {
+			margin:0;
+			padding:0;
+			-webkit-text-size-adjust:100%;=20
+			-ms-text-size-adjust:100%;
+	=09
+            background-color: #efefef;=20
+            color: #ffffff;=20
+            font-family: Arial, Helvetica, sans-serif;=20
+            font-size: 12px;
+		}
+		.youtube {
+          color: #f9b700;
+        }
+   		.youtube a {
+          color: #f9b700;
+        }=20
+		table {
+			padding:0;
+			margin:0;
+		}
+
+		td {
+			padding:0;
+			margin:0;
+		}
+       =20
+		img {
+			margin: 0;
+			padding: 0;
+			/*display:block;*/
+			-ms-interpolation-mode: bicubic;
+			border:none;
+			outline:none;
+		}
+
+		a, a:link, a:visited {
+			text-decoration: none;
+			border-style:none;
+			border:0;
+			padding:0;
+			margin:0;
+			color: #f9b700;
+		}
+	=09
+        .ExternalClass {width: 100%;}
+        p {margin:0; padding:0; margin-bottom:0;}
+		a:link.linkfollow, a:visited.linkfollow {color: #f9b700;}
+		a:link.linkview, a:visited.linkview {color: #f9b700;}
+  </style>
+ </head>
+ <body bgcolor=3D"#efefef" style=3D"margin: 0;padding: 0;-webkit-text-size-=
+adjust: 100%;-ms-text-size-adjust: 100%;">
+  <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" bg=
+color=3D"#efefef" align=3D"center" style=3D"font-family: Arial, Helvetica, =
+sans-serif;color: #ffffff;">
+   <tbody>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    <tr align=3D"center">
+     <td align=3D"center">
+      <!-- Main table: fixed width of 600px; -->
+      <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"600"=
+ style=3D"text-align: center; margin: auto;font-size: 14px;color: #ffffff" =
+bgcolor=3D"#192126">
+       <!-- //////// Header -->
+       <tbody>
+        <tr>
+         <td>
+          <table style=3D"color: #ffffff" width=3D"600">
+           <tbody>
+            <tr align=3D"left">
+             <td style=3D"padding: 25px 40px; font-size: 25px;width: 220px"=
+ width=3D"220">
+              <a href=3D"https://www.codingame.com/servlet/mlinkservlet?lmi=
+d=3D194607864Emz3rd&amp;ltpl=3D0&amp;link=3Dhttps%3A%2F%2Fwww.codingame.com=
+%3Futm_source%3Dcodingame%26amp%3Butm_medium%3Demail%26amp%3Butm_content%3D=
+mystery-sponsor%26amp%3Butm_campaign%3Dlogo">
+               <img src=3D"https://www.codingame.com/servlet/mfileservlet?i=
+d=3D99104309654463&amp;lmid=3D194607864Emz3rd" width=3D"196" height=3D"56" =
+style=3D"margin: 0;padding: 0;display: block;-ms-interpolation-mode: bicubi=
+c;border: none;outline: none;">
+              </a>
+             </td>
+             <td style=3D"padding: 40px; padding-top: 40px;font-size:14px; =
+line-height: 17px;text-align: right;" align=3D"right">
+              <span style=3D"font-size: 14px;"> </span>
+             </td>
+            </tr>
+           </tbody>
+          </table>
+         </td>
+        </tr>
+        <!-- //////// Main article -->
+        <tr>
+         <td style=3D"text-align: justify; padding-left: 40px;padding-right=
+: 40px;padding-top: 30px;padding-bottom: 34px;font-size: 17px;line-height: =
+24px;">
+          Bonjour,
+          <br>
+          <br>
+           Clash of Code
+          <em>&nbsp;</em>
+          est l'=C3=A9venement du moment sur CodinGame et =C3=A7a vient jus=
+te de d=C3=A9marrer.
+          <br>
+          <br>
+           Pourquoi participer ?=20
+          <ul>
+           <li>Pour pratiquer et apprendre des astuces dans tes&nbsp;langag=
+es pr=C3=A9f=C3=A9r=C3=A9s</li>
+           <li>Pour faire une&nbsp;pause du travail, courte et fun</li>
+           <li>Pour jouer avec les membres de la communaut=C3=A9 (streaming=
+, chat)</li>
+          </ul>
+           Comment se d=C3=A9roule l'=C3=A9venement ?=20
+          <ol>
+           <li>Plusieurs sessions clashs sont pr=C3=A9vues tout au long de =
+l'=C3=A9venement avec un mode et/ou un langage sp=C3=A9cifique(s).</li>
+           <li>Choisis les sessions auxquelles tu souhaites participer et r=
+e=C3=A7ois un email de rappel</li>
+           <li>Pendant chaque session, r=C3=A9sous le puzzle propos=C3=A9 e=
+n moins de 15 minutes</li>
+           <li>Profite des solutions partag=C3=A9es par d'autres joueurs pa=
+ssionn=C3=A9s</li>
+          </ol>
+           Bonne chance !=20
+          <br>
+          <br>
+           =C3=80 tr=C3=A8s bient=C3=B4t,
+          <br>
+           L'=C3=A9quipe CodinGame
+         </td>
+        </tr>
+        <tr>
+         <td style=3D"background-color: #192126; text-align: center;">
+          <div style=3D"display: inline-block;">
+           <!--[if mso]>
+  <v:rect xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:w=3D"urn:schemas-=
+microsoft-com:office:word" href=3D"https://www.codingame.com/servlet/mlinks=
+ervlet?lmid=3D194607864Emz3rd&amp;ltpl=3D1&amp;link=3Dhttps%3A%2F%2Fwww.cod=
+ingame.com%2F" style=3D"height:50px;v-text-anchor:middle;width:520px;" stro=
+ke=3D"f" fillcolor=3D"#f9b700">
+    <w:anchorlock/>
+    <center>
+  <![endif]-->
+           <a href=3D"https://www.codingame.com/servlet/mlinkservlet?lmid=
+=3D194607864Emz3rd&amp;ltpl=3D2&amp;link=3Dhttps%3A%2F%2Fwww.codingame.com%=
+2Fevents%2F2976cb037abe7e15c9049767884ffaf77447" style=3D"background-color:=
+#f9b700;color:#20252a;display:inline-block;font-family:Arial, Helvetica, sa=
+ns-serif;font-size:15px;font-weight:bold;line-height:50px;text-align:center=
+;text-decoration:none;width:520px;-webkit-text-size-adjust:none;">CHOISIS T=
+ES SESSIONS CLASH</a>
+           <!--[if mso]>
+    </center>
+  </v:rect>
+<![endif]-->
+          </div>
+         </td>
+        </tr>
+        <tr>
+         <td colspan=3D"2" height=3D"41" style=3D"height:41px;border-bottom=
+: 1px dashed black">&nbsp;</td>
+        </tr>
+        <tr>
+         <td style=3D"padding:40px; padding-bottom: 37px; border-top: 1px s=
+olid black; text-align: center;font-size:19px" align=3D"center">
+          <a href=3D"https://www.codingame.com/servlet/mlinkservlet?lmid=3D=
+194607864Emz3rd&amp;ltpl=3D3&amp;link=3Dhttps%3A%2F%2Ftwitter.com%2Fcodinga=
+me">
+           <img src=3D"https://files.codingame.com/codingame/mail/twitter_n=
+ew.png" style=3D"border: 0;" width=3D"40" height=3D"40">
+          </a>
+          &nbsp;=20
+          <a href=3D"https://www.codingame.com/servlet/mlinkservlet?lmid=3D=
+194607864Emz3rd&amp;ltpl=3D4&amp;link=3Dhttps%3A%2F%2Fwww.instagram.com%2Fc=
+odingame_official%2F">
+           <img src=3D"https://files.codingame.com/codingame/mail/instagram=
+_new.png" style=3D"border: 0;" width=3D"40" height=3D"40">
+          </a>
+          &nbsp;=20
+          <a href=3D"https://www.codingame.com/servlet/mlinkservlet?lmid=3D=
+194607864Emz3rd&amp;ltpl=3D5&amp;link=3Dhttps%3A%2F%2Fgithub.com%2FCodinGam=
+e">
+           <img src=3D"https://www.codingame.com/servlet/mfileservlet?id=3D=
+25895742527347" style=3D"border: 0;" width=3D"40" height=3D"40">
+          </a>
+          &nbsp;=20
+          <a href=3D"https://www.codingame.com/servlet/mlinkservlet?lmid=3D=
+194607864Emz3rd&amp;ltpl=3D6&amp;link=3Dhttps%3A%2F%2Fwww.twitch.tv%2Fcodin=
+game">
+           <img src=3D"https://www.codingame.com/servlet/mfileservlet?id=3D=
+25895737535035" style=3D"border: 0;" width=3D"40" height=3D"40">
+          </a>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td style=3D"color: black; text-align: center; padding-top: 23px;font-=
+size: 15px;font-weight: 300">=C2=A9 CodinGame 2024</td>
+    </tr>
+    <tr>
+     <td style=3D"color: black; text-align: center; padding: 10px;padding-b=
+ottom: 35px;font-size: 12px;">Vous recevez cet email car vous =C3=AAtes ins=
+crit(e) =C3=A0 un =C3=A9venement en cours sur CodinGame.</td>
+    </tr>
+   </tbody>
+  </table>
+ </body>
+</html>=
+
+------=_Part_130699_413426578.1748865621971--
+
+------=_Part_130698_684782.1748865621971--

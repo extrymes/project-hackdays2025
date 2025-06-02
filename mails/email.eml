@@ -1,0 +1,208 @@
+Received: from PAXP192MB1487.EURP192.PROD.OUTLOOK.COM (::1) by
+ PR3P192MB0699.EURP192.PROD.OUTLOOK.COM with HTTPS; Wed, 28 May 2025 22:01:20
+ +0000
+Received: from PA7P264CA0117.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:34c::20)
+ by PAXP192MB1487.EURP192.PROD.OUTLOOK.COM (2603:10a6:102:288::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.25; Wed, 28 May
+ 2025 22:01:19 +0000
+Received: from AMS0EPF00000199.eurprd05.prod.outlook.com
+ (2603:10a6:102:34c:cafe::b1) by PA7P264CA0117.outlook.office365.com
+ (2603:10a6:102:34c::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.29 via Frontend Transport; Wed,
+ 28 May 2025 22:01:19 +0000
+Authentication-Results: spf=softfail (sender IP is 129.211.215.69)
+ smtp.helo=mktomail.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ mktomail.com discourages use of 129.211.215.69 as permitted sender)
+Received: from mktomail.com (129.211.215.69) by
+ AMS0EPF00000199.mail.protection.outlook.com (10.167.16.245) with Microsoft
+ SMTP Server id 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025
+ 22:01:18 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:9CCAD92A05D0219F31E0D250CB2D924899F0B480052C15268396B40DD6237F3B;UpperCasedChecksum:28961C12BD8CB7FD43A23169E039C68068016F9721FEFBD9F704275577297FC5;SizeAsReceived:397;Count:9
+Date: Wed, 28 May 2025 20:34:36 +0000
+To: <jb.renier@outlook.com>
+From: LeroyMerlin Exclusivites.  <jb.renier>noreply-zuov.lvpmtbs.djroutlook.office365.com>
+Sender: <jb.renier@outlook.com>
+Subject: Offre Limitee: Cadeau Gratuit pour nos Clients Fideles!
+Content-Disposition: inline
+Content-Type: text/html; charset="utf-8"
+Return-Path: <>
+X-IncomingHeaderCount: 9
+Message-ID: <e759b6bc-a065-466b-b9a4-ae53940bcf2f@AMS0EPF00000199.eurprd05.prod.outlook.com>
+X-MS-Exchange-Organization-ExpirationStartTime: 28 May 2025 22:01:19.5719
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: aa01fa31-755a-477f-2860-08dd9e332d39
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF00000199:EE_|PAXP192MB1487:EE_|PR3P192MB0699:EE_
+X-MS-Exchange-Organization-AuthSource: AMS0EPF00000199.eurprd05.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 5/28/2025 8:34:21 PM
+X-MS-Office365-Filtering-Correlation-Id: aa01fa31-755a-477f-2860-08dd9e332d39
+X-MS-Exchange-EOPDirect: true
+X-Sender-IP: 129.211.215.69
+X-SID-Result: NONE
+X-MS-Exchange-Organization-SCL: 9
+X-Microsoft-Antispam: BCL:0;ARA:1444111002|51300799021|9800799015|9400799033|45200799018|10300799035|3600799018|3025599003|29080799003|87000799018|22300799015|25000799016|1680799057|27400799015|26400799015|69000799018|9000799050|461199028|70000799015|10060799003|13020799006|6010799018|26120799003;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 22:01:18.5219
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa01fa31-755a-477f-2860-08dd9e332d39
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF00000199.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP192MB1487
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.7776822
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.8769.014
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;ex:0;auth:0;dest:J;OFR:SpamFilterAuthJ;ENG:(5062000308)(920221119095)(90000117)(920221120095)(90002001)(91000020)(91036095)(91040095)(9050020)(9055020)(9100341)(1016006)(944500132)(2008001181)(2008121020)(4810010)(4910033)(10010005)(10005027)(9620004)(9525003)(10103005)(9320005)(9215007)(120001);RF:JunkEmail;
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MjtHRD0xO1NDTD02
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VkcyYkI0VG13SVdSMXhpSDFVLy9NWVhyWWgwb3JzSWxWemxibjB3dGJ3d3k0?=
+ =?utf-8?B?ckpyQTRGb2RIQ2FpaE42bXNuM1pDZHZLeldzM0xFZzVMajVyTGwrNzFWbEd4?=
+ =?utf-8?B?b0RvR1A1dlRVSzdSclQ1eUNBeXZ2cHFKMTBXQUs3dUVTR1hycE93MTFkZVhq?=
+ =?utf-8?B?cDRUMDJ5c04yRGN5ZmFqMkx0K0xGSEdreXBLWWQxNVoxZ0Rrdjl6UTFtYWhq?=
+ =?utf-8?B?OHlQMkFrK0IxOTFMVjF3TUJsTkxyZkJ4bjdYaEVlTkU2ZEtSeERQS0g4Z0ZG?=
+ =?utf-8?B?elZ1R3NWTzlTRkFtYUI1MkRSZ3hkSkV1eU1IYVZpTHNJY3VMaXgyaWhiNFc5?=
+ =?utf-8?B?ZVdHcUlraVorV3U5aEp1L2cwbGJWTm0zSkVaVXQ2QTlnUWgvajZwRUxpK1JC?=
+ =?utf-8?B?UGUza1VqWHlHOXp1amdBSzBKQ29sY2p4cm54Y1VocDIvODNZZlpPUUdwNGhK?=
+ =?utf-8?B?WllzK1dUaldFaExLbXozSkk3WGNORTVtaG0zV2xzWFFBcFRTMGJUQk9ob1Fr?=
+ =?utf-8?B?MUVzanZtdmFhUVpzb2hIYzZaY1ovbFZBN1BzOVo0VHV2RHFtTVhKWTQwMVAr?=
+ =?utf-8?B?Rk1JaWNIbmowK2plTmM1SzhlR0JYRnpnbFVXRWdQTlNQNmtCMUVFRXIydVNU?=
+ =?utf-8?B?WHZ4SWpFdGozQTUyTmlXR2FtRkhwU3BYeWd4dU1WZm9ZUEhZZm5xSjZIRXcz?=
+ =?utf-8?B?bi9IbUxjMEhkSDg2cU83bGsrMlZCeWIyNnVjeURpcVNNdmtoTmh5ZEFHTmdS?=
+ =?utf-8?B?UTNWQXYzNmswb1RDVGc3RDZ5Nm4rNXVaVllZc0M3dTU0OHVjbUhjc29OZmVG?=
+ =?utf-8?B?QUhWU2JYVHFLeDcwaFFuSmwvV0JGb1BKZVhWOU9zYkNvQ0RnS1EvWmlhdGNH?=
+ =?utf-8?B?czZ4emc1QmlOaGJQakg5eCtBaFEzNU4wdG1tYkp5N1ZZS29mZGRPNHJCankz?=
+ =?utf-8?B?VnJnTjJBSWlCUFFseEpTaFVSTDRiYnlZNFRFU0lnRlhaRkRjRTh3bngyQWJO?=
+ =?utf-8?B?VWlhWjJtWXA2aTROREhxbDVqN2JaWmxGWk9EWDhNWjJsOFZnT0dlZ0w0Y0V3?=
+ =?utf-8?B?eEMraXVqOGZzVmU4ZFdzcksySWR1RVF4MVJBeGJ0RFFDdEhvN3FBZ2ExN3Fh?=
+ =?utf-8?B?YzhJYU9HWFFKT1RwTlFkbnhvSFFvdzlUT2x6cTF4VTE0NTBWYkNySWtqZTN4?=
+ =?utf-8?B?T0NrOVdzV0ZzeGgyNkd1R09kcVhnc2lZeFJLQUpEanlTZVp6b1RNTkVBN09S?=
+ =?utf-8?B?L3VuaFlwWktjSnBTYmZhSXQrdE1nRXFSVnBOK0I2RXpaa2R2MEJNbjlWbzVC?=
+ =?utf-8?B?VDlWQkNzRHQxRGNZWlo4cU5rZU5teUlDYTFEaEhyaDBHZXljOExDNjJvVktW?=
+ =?utf-8?B?Mm5PWVY5S0thNHZGd2dLM2lGSHdvUno4azVndkVRcWxQcGgwMzVZS09wazVZ?=
+ =?utf-8?B?clhJOVlZMGlhVm04Sm5ibEh0N3o2TytQcmdOR1RaYmw0dTBabXhsRmhQZ0Ur?=
+ =?utf-8?B?Z2JtMFJodWxoNnYwVHZEekRXRXl1dkNFbUkxaHI0YktxOG1GQ1JVUWpWWTZV?=
+ =?utf-8?B?eTROaTg0R1VKNEdaTG9jZ28zeTY5VVlvR2JKbnFtVTJaSGlQM2R2NlJpWXVG?=
+ =?utf-8?B?TDhSZUdNYXl3emNOT3hOa3ROVGFoMDhRK09vQ2FyTEhwVHpYNk1HakJZd2Nj?=
+ =?utf-8?B?UnNUangzNE8zU1RTMjFzV1hTOFJXeERoR0pwY254N25tWVVDY09zVDcrTHhk?=
+ =?utf-8?B?KzhvOXA1MTFZcmJvQjBkd3JVM0tid25EUXIxaXk1V0JGL0JCMVpZNVh2N0lt?=
+ =?utf-8?B?TWlxMmJKRmN2OGV5RWVJTUY5UkFJMmF2VlRVQXhZc2tyanJCaFBZdWtKQzNU?=
+ =?utf-8?B?amVzZEJyRGM3STBvLzdrbVhzc3BMNFYrUkhzaDlkS0NsTGtkS1AyQXY0Q2Fa?=
+ =?utf-8?B?UHM2bkY3UXQxclNxWDVyRkd3SmhGNWVoSk02YWNNalh3ZWRoWmJLbkdLYk80?=
+ =?utf-8?B?M053amtWVy9yV2ZFWEJYcm8zL1NEcTNlNklnZmRxOWx2OEtiSzZMMjA5eEM1?=
+ =?utf-8?B?S0JSS2dlRCtrd2Q1SWlOYmdXTGRXQjF3dnhWdGZQN2NGTmY0UmIyVExLZy9T?=
+ =?utf-8?B?Y3o2bjJ3MG9lR25wc1JBaVp1MWoyWVNqUXZkNHJ6Z0FleUh6b2JuNy9zdldV?=
+ =?utf-8?B?Zm5RbVdra0xtT1Qvd3RBZXhna0lnQ0xha0IrQjdwTk5IL3BleEc0N1JST0hw?=
+ =?utf-8?B?M3dPVmgyUEpPWUNQd0Z5ZDM3RXZtcmpmeXlNY2MwMndCdUJ0bTNFTXBFZWph?=
+ =?utf-8?B?RFV4UHVWdHc4RTY1c1gyd3hGK0lDeXdhdGNrZVZNN1ZTSzNHZjN3SjR1MURq?=
+ =?utf-8?B?S1ZkR21nWFdFdHB1M2VOSkNacld4T1JncFlRVVZhbG1GVUlkWC93UTNPSnNO?=
+ =?utf-8?B?ZmpWZFhKYzdaWnY4ZzMybDRqek1CbUlMRmdoTEZZMFdjSldXVHMvcUFOYmtV?=
+ =?utf-8?B?ck10eHNXS1F1MnkxMUVsZXI3ZUZZa2Q2UjdCdnVMcHF4djhDbHd1U0NGbjY5?=
+ =?utf-8?B?V1VvNEZiWGYwQzJQUGNzUk8veUx1VFYxL3MyUTRvZXJwUVVFNkh2SEJNbXY1?=
+ =?utf-8?B?SmI2ZnBZTnJmcURXcmtEamp3RFRuVXh5TjFqOFNjbWdmbDZ6OHgwR0pjOWZm?=
+ =?utf-8?B?bmF6a0dQSC9FektmZVJxUnZVRmNEWGJVRVZFVC90d3Q5MjA1eEhlQkFIYUhy?=
+ =?utf-8?B?VlUwU2VMTFNpN29oVWlxSzBicXNvMjVHazk4aDM5K2tSdFo2TUlqeEJlR3Bn?=
+ =?utf-8?B?RmczbXYwWU1iMEVOOVpMU3lDc0FnWlRKZUZGdmEvckNGUTQ1a0l5RHdkcjYz?=
+ =?utf-8?B?YlR1Ulh5NmsvQ3RJWEttMGQxVlRxazloZTRPcStHMzBGemRuSW1zOFZJOWJz?=
+ =?utf-8?B?VkJRVTcrdDJHWDIvUHBjZXRLN1lqbEZZbnpPa2NtZUV3WFJyMXZmQlQ2czl1?=
+ =?utf-8?B?MWw4QzlPYlpjVzFTN1o0eHlOSW8rVnBud1U5c0dVaExZS253UktmbXhIK205?=
+ =?utf-8?B?MVZybjZhdDRKNEtBekpMbGhzYUJnTkNHRVlvSVJVRi9SMTNiR01QcWRFUWM3?=
+ =?utf-8?B?c1RLYTlURVduUVNUUGZaV0wzRzhkMWc4Y1JNU1dYdEdzR1IzeVAxNFdCZGVT?=
+ =?utf-8?B?STVFZkVYOERCakFvcXV2bWh0Z3NSbWtZWmthbG9RT28wR1VxTVc3d0ZCMTRT?=
+ =?utf-8?B?OFJubm9Oa2VFUHd0NWdhb0NiZDlQT3VQMTRqdzZhaENMalhFUlovdFB3aDhH?=
+ =?utf-8?B?WklRMFE1d3o1ZUU5S2xkamVUZnNSRThSSmZ2MjZZaFBtektJeUw2bnRPR2NE?=
+ =?utf-8?B?WURnSWhUbmc5bzNtYlVLUnVJM2NVdkkreWxVR1IyVWgzWnNxQzg5YlVnRkRQ?=
+ =?utf-8?B?OG5DekEvQnN0aC93R3RyZS94cXROOHg2dVV1L0IvZkIzeGUxeGZsSWJ4MFdL?=
+ =?utf-8?B?UEZ2cTU3VUErTncyVDVycnNweVJHcExhejNwdDA1cWNhSUh3NFArTFVMZllI?=
+ =?utf-8?B?Tm5HZVErK2tJVko1cjNLajJpeU4zVHVwVmkvMWZwTTBJY3VOdlV6cEpPVkM3?=
+ =?utf-8?B?ei9zK2ZYeTlzcVRySVl2MFhSWVJULzY0S1UvTUtIb0NCNExyeXBjR2dBdExC?=
+ =?utf-8?B?YmxzNHZ2cnZSVmxCVlViNktpWFozYmxwNWhCbnQrdzJob0xhc2VWSUFmZVF5?=
+ =?utf-8?B?ZGV5eVFwYy9YS0JJQUZDaTgrVHh1RU5URnJFN3I4Y28wSCs5ak84c0I5SUVw?=
+ =?utf-8?B?dzIxeVlTZVFNaThDVzFGeThnV3JkdHRaTnRnVWp5MGxIdERMQjlaRUhzNGxX?=
+ =?utf-8?B?Vm03Rnl3VlFOeUk5L3ZVcWQ1SzRBeG5tdDNuem1XY21PNS83TXZZUkxpMUlo?=
+ =?utf-8?B?MnRRMDJsMHcvTEtYeEMvN3NES0JHZXVrOUZVRGVsYlFzUGQ3WGJOcVRudm9T?=
+ =?utf-8?B?enQ4REliNmQ3OVlHbVFmeXdPbUdCaXdLOVhHSlJYZlZ1aTZKS0c2SXdHZkFT?=
+ =?utf-8?B?YjdMNi9kMmtMYXRRM0JRZ2tyL2lXR2M1M2crdCtqT2kzZE04Q0duZWl4OXZl?=
+ =?utf-8?B?c281eXhGWmVYS0YzYjh1bmlpMWNaYW9ZWTRCMmJQQ044RG0yazZWRnJDZlVs?=
+ =?utf-8?B?M2lLeGJubjUyVmFNMnNKUVJub0JLQjEyTDFsSUxwTytqV2J4UXYyZVRJU2o0?=
+ =?utf-8?B?TVBKZS9jSHlWZWEvMVZHUWpEVnQ4WmdOWURTS0JRdnY2TXVtT3MrWFRjQzlV?=
+ =?utf-8?B?dmM1ZE1ISHRTZ2hvVzMrQW9WV1ZNdkd6anlrdFdGbXQrVEcwU09UZldZVDE1?=
+ =?utf-8?B?cjk4ckdnajBCem1RYVB4YjhxWWU0eXAyMUczSWFueTNFOEpZd0xjQk12NEtz?=
+ =?utf-8?B?Ymt3cjc1UmRKV014ekExMllRQXN1RDZsYnBrdXZ1ZmcxRW9sTTQ5bmVuR3Fv?=
+ =?utf-8?B?RmsyMkFyMXFHRU9lNS9JeFc0ZmJrSk9kbzdxMkpYdEhSMzdERWlTZkljU1pr?=
+ =?utf-8?B?WkVqVGVPODhyZWg3aUZHMytJSHpsWm9nT3grbWlJeCthQTIzQkZpOS9NME9n?=
+ =?utf-8?B?RDZnc2gyQTRGeXY5dDhlMXREUlIzWVRPa2NLWlVxdEg0T2ZuVHpoRVEzOG1h?=
+ =?utf-8?B?aXF3RVJtSU9sbWZxR2lrMnQrRkh5eUV5MGlEaHRqK0lIYVhTK3lvOHNLenZ6?=
+ =?utf-8?B?b0FaUjZlT1ZGMkNzaGxta29wUTJHMDBRK0pOZzA1RzdFd2VGaHIzZGhoMXNB?=
+ =?utf-8?B?VC80L3F4VVFoRThsTk5nTURMVzd6OTNlQjdLUnZtNHJtZ3l1L1dkckNIQ1o1?=
+ =?utf-8?Q?yzMcXkik=3D?=
+MIME-Version: 1.0
+
+<!DOCTYPE html><html lang="fr"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programme de Fidélité John Lewis</title>
+</head>
+<body style="margin:0; padding:0; font-family:Arial, sans-serif; background-color:#eceff1; color:#333;">
+  <table align="center" style="width:580px; background-color:#ffffff; border-radius:15px; overflow:hidden; box-shadow:0 5px 20px rgba(0,0,0,0.15); border-spacing:0; border-collapse:collapse;">
+    <tr>
+      <td align="center" style="padding:5px; background-color:#ffffff;">
+        
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding:15px; background-color:#ff6f00; color:white;">
+        <h1 style="margin:0; font-size:28px; text-transform:uppercase; letter-spacing:3px;">Félicitations&nbsp;!</h1>
+        <p style="font-size:16px; margin-top:5px;">Vous avez été sélectionné(e) pour notre programme de fidélité exclusif.</p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding:10px 40px;">
+        <h2 style="font-size:22px; color:#ff6f00; margin-bottom:10px;">Réclamez votre récompense&nbsp;!</h2>
+        <a href="http://phenics.theworkpc.com/4kWUtE7655ZYaj202uqiktysljx2USWBELYGTJDMJXW9373615BQBM4314C13">
+          <img src="https://media.leroymerlin.co.za/media/698826/format/jpg/resize/566x566" alt="Set d'Outils Dexter" width="400" height="auto" style="display:block; margin:0 auto; border:0;">
+        </a>
+        <p style="font-size:14px; margin-bottom:20px; color:#555;">Nous apprécions votre avis. Répondez à une courte enquête et recevez une <strong>récompense incroyable</strong> en guise de remerciement.</p>
+        <a href="http://phenics.theworkpc.com/4NDakb7655Oktw202loaktyfgfe2XWGYUSUUGLJZIZN9373615YBER4314H13" style="display:inline-block; padding:15px 40px; background-color:#ff6f00; color:#fff; text-transform:uppercase; text-decoration:none; border-radius:50px; font-size:16px; box-shadow:0 4px 12px rgba(255,111,0,0.4);">Répondre à l'enquête</a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:10px; background-color:#f1f8e9; border-top:2px solid #ff6f00; border-bottom:2px solid #ff6f00;">
+        <table style="width:100%; border-spacing:0; border-collapse:collapse;">
+          <tr>
+            <td style="padding-right:10px; vertical-align:top;">
+              <h3 style="font-size:18px; margin-bottom:10px; color:#ff6f00;">Gagnez un Set d'Outils Dexter</h3>
+              <p style="font-size:13px; color:#333;">Le dernier modèle avec des fonctionnalités premium, réservé spécialement pour vous&nbsp;!</p>
+            </td>
+            <td style="text-align:right;">
+              <a href="http://phenics.theworkpc.com/4boTee7655zfSA202bfjqpsezql2YJSHHTBDIVDHMQM9373615MGKT4314r13">
+                <img src="https://imgur.com/F0ksolY.png" alt="Set d'Outils Dexter" width="220" height="auto" style="border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); display:block;">
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding:10px; font-size:12px; background-color:#ff6f00; color:white; border-top:3px solid #f57c00;">
+        <p style="margin:0;">Si vous ne souhaitez plus recevoir ces e-mails, vous pouvez <a href="http://phenics.theworkpc.com/6hvFoV7655EHXu202ogzfbalayu2BPOMPCEZEXZOGVK9373615PXZY4314E13" style="color:#fff; text-decoration:underline;">vous désinscrire ici</a>.</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+
+
+
+
+<img src="http://phenics.theworkpc.com/track/3hNZUE7655PqoQ202hhnbsazhdm2BKVJJMAXPRQGOQP9373615YZWC4314A13" width="1" height="1">

@@ -22,15 +22,15 @@ def extract_email_content(raw_email):
         }
         
         # Extract body content - simplified from analyze.py
+        print (msg.is_multipart())
         if msg.is_multipart():
             for part in msg.iter_parts():
                 content_type = part.get_content_type()
                 if content_type == "text/plain":
                     email_data["body"] += part.get_content()
         else:
-            if msg.get_content_type() == "text/plain":
+            if msg.get_content_type() in ("text/plain" ,"text/html"):
                 email_data["body"] = msg.get_content()
-        
         return email_data
     
     except Exception as e:
