@@ -10,7 +10,7 @@ import concurrent.futures
 import threading
 import socket
 import dns.resolver
-from prompts import links_check_prompt
+from analyze_tools.prompts import links_check_prompt
 
 load_dotenv()
 
@@ -294,7 +294,7 @@ class LinkSecurityAnalyzer:
         warnings = []
         suspicious_links = [link['url'] for link in checked_links if link.get('is_safe') is False]
         if suspicious_links:
-            warnings.append("Suspicious links detected")
+            warnings.append("Lien(s) suspicieux détecté(s)")
         
         return {
             "links_found": len(checked_links),

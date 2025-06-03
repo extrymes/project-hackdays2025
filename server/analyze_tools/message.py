@@ -1,6 +1,6 @@
 import os
 from fastapi import HTTPException
-from prompts import language_grammar_prompt, ton_manipulation_prompt, sensitive_info_request_prompt
+from analyze_tools.prompts import language_grammar_prompt, ton_manipulation_prompt, sensitive_info_request_prompt
 from model import call_model
 
 class MessageAnalyzer:

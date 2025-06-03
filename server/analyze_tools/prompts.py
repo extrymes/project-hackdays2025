@@ -119,7 +119,7 @@ def sensitive_info_request_prompt(message: str) -> str:
     {message}
     """
 
-def links_check_prompt(link: Dict[Any]):
+def links_check_prompt(link: Dict[any, Any]):
     return f"""
             SECURITY TASK: Analyze this URL for security risks. Return ONLY a risk score.
             
