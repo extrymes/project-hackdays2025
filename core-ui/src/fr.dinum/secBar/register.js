@@ -45,8 +45,6 @@ ext.point("io.ox/mail/detail/body").extend({
     const pool = api.pool.get("detail");
     const model = pool.get(cid);
 
-    // Set data-cid attribute on security bar container
-    securityBar.setAttribute("data-cid", cid);
     let data = null;
 
     try {
