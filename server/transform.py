@@ -13,7 +13,7 @@ from analyze import EmailSecurityAnalyzer
 MAILS_DIR = Path("./mails")
 MAILS_DIR.mkdir(parents=True, exist_ok=True)
 
-async def email_handler(raw_email: str = Body(..., media_type="text/plain")):
+async def analyze_email(raw_email: str = Body(..., media_type="text/plain")):
     # Parse the raw email
     email_data = extract_email_data(raw_email)
 
@@ -52,7 +52,7 @@ def format_address_list(address_list):
     return ", ".join(formatted)
 
 
-async def transform_email(payload: dict = Body(...)):
+async def handle_email(payload: dict = Body(...)):
     """
     Transforme le JSON reçu en un fichier .eml complet, avec en-têtes originaux,
     date basée sur sent_date (millisecondes), parties text et HTML, et sauvegarde
@@ -140,7 +140,7 @@ async def transform_email(payload: dict = Body(...)):
         raw_email = f.read()
     
     # Call the handler
-    analysis = await email_handler(raw_email)
+    analysis = await analyze_email(raw_email)
 	# Delete the file after processing
     #filepath.unlink()
     print ("Analysis : ",analysis)

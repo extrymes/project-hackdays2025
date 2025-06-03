@@ -22,39 +22,41 @@
 
 import $ from "$/jquery";
 import ext from "$/io.ox/core/extensions";
-import api from '@/io.ox/mail/api'
+import api from "@/io.ox/mail/api";
 
 // Register the extension point for mail detail body
 ext.point("io.ox/mail/detail/body").extend({
-    id: "secBar",
-    index: 50,
-    async draw() {
-        // def cid
-        const cid = $('.list-item.mail-item.mail-detail.f6-target.focusable.expanded').data('cid');
-        console.log('secBar draw', cid);
-        const pool = api.pool.get('detail');
-        const model = pool.get(cid);
+  id: "secBar",
+  index: 50,
+  async draw() {
+    // def cid
+    const cid = $(
+      ".list-item.mail-item.mail-detail.f6-target.focusable.expanded"
+    ).data("cid");
+    console.log("secBar draw", cid);
+    const pool = api.pool.get("detail");
+    const model = pool.get(cid);
 
-        try {
-            const response = await fetch('http://localhost:8000/transform_email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(model.attributes)
-            });
-            const data = await response.json();
-            console.log('POST response:', data);
-        } catch (error) {
-            console.error('POST error:', error);
-            this.append(errorDiv);
-        }
+    try {
+      const response = await fetch("http://localhost:8000/receive_email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(model.attributes),
+      });
+      const data = await response.json();
+      console.log("POST response:", data);
+    } catch (error) {
+      console.error("POST error:", error);
+      this.append(errorDiv);
+    }
 
-        const button = createButton("ciao", () => {
-            console.log("Button clicked");
-        });
-        this.append(button);
-    },
+    const button = createButton("ciao", () => {
+      console.log("Button clicked");
+    });
+    this.append(button);
+  },
 });
 
 /**
