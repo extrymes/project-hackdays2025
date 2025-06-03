@@ -221,7 +221,7 @@ class EmailSecurityAnalyzer:
             warnings.extend(result.get("warnings", []))
             
             # Add recommendations based on suspicion thresholds
-            if score > analyzer_config["threshold_severe"]:
+            if score < analyzer_config["threshold_severe"]:
                 recommendations.append("Do not click on links in this email. They appear to be suspicious.")
             elif score > analyzer_config["threshold_moderate"]:
                 recommendations.append("Exercise caution when clicking links in this email.")
