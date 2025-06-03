@@ -169,12 +169,19 @@ function createDropdown(triggerText, items, itemClass, securityLevel) {
   const content = document.createElement("div");
   content.classList.add("dropdown-content");
 
+  // Create unordered list for proper list structure
+  const list = document.createElement("ul");
+  list.classList.add("dropdown-list");
+
   items.forEach((item) => {
-    const itemElement = document.createElement("div");
+    const itemElement = document.createElement("li");
     itemElement.classList.add("dropdown-item", itemClass);
     itemElement.textContent = item;
-    content.appendChild(itemElement);
+    list.appendChild(itemElement);
   });
+
+  // Append the list to the content container
+  content.appendChild(list);
 
   // Toggle dropdown on trigger click - handles dropdown interaction
   trigger.addEventListener("click", function (e) {
