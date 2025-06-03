@@ -39,15 +39,14 @@ ext.point("io.ox/mail/detail/body").extend({
     this.append(securityBar);
     extendSelectText();
 
-    // def cid
-    const mailItem = document.querySelector(
-      ".list-item.mail-item.mail-detail.f6-target.focusable.expanded"
-    );
-    const cid = mailItem ? mailItem.dataset.cid : null;
+    const cid = getCid();
+
     console.log("secBar draw", cid);
     const pool = api.pool.get("detail");
     const model = pool.get(cid);
 
+    // Set data-cid attribute on security bar container
+    securityBar.setAttribute("data-cid", cid);
     let data = null;
 
     try {
@@ -68,9 +67,24 @@ ext.point("io.ox/mail/detail/body").extend({
       this.append(errorDiv);
     }
 
-    buildSecBar(data);
+    const checkCid = getCid();
+    if (checkCid === cid) {
+      buildSecBar(data);
+    }
   },
 });
+
+/**
+ * Gets the content ID (cid) from the currently selected mail item
+ * @returns {string|null} The content ID of the selected mail item, or null if none selected
+ */
+
+function getCid() {
+  const mailItem = document.querySelector(
+    ".list-item.mail-item.mail-detail.f6-target.focusable.expanded"
+  );
+  return mailItem ? mailItem.dataset.cid : null;
+}
 
 /**
  * Creates a loading spinner element
