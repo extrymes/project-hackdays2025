@@ -8,7 +8,7 @@ from typing import Dict, List, Any, Optional, Tuple, Callable
 from analyze_tools.links import LinkSecurityAnalyzer
 from analyze_tools.sender import SenderTrustAnalyzer
 from analyze_tools.message import MessageAnalyzer
-
+from analyze_tools.recommendation import generate_recommendations
 # Load environment variables
 load_dotenv()
 
@@ -224,8 +224,7 @@ class EmailSecurityAnalyzer:
             is_critical = score <= 20  # Critical if very suspicious
 
             # Add warnings with type prefix if not from known analyzers
-            prefix = "Content warning: " if analyzer_name in ["language", "tone", "sensitive_info"] else f"{analyzer_name.capitalize()} warning: "
-            warnings.extend([f"{prefix}{warning}" for warning in result.get("warnings", [])])
+            warnings.extend([f"{warning}" for warning in result.get("warnings", [])])
 
             # Add recommendations based on trust score thresholds
             if score <= 30:  # High suspicion
@@ -335,6 +334,7 @@ class EmailSecurityAnalyzer:
         }
 
         # Add critical concerns if any
+        analysis_result["recommendations"] = generate_recommendations(analysis_result["warnings"])
         if critical_concerns:
             analysis_result["critical_concerns"] = critical_concerns
 
