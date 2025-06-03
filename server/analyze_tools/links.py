@@ -151,7 +151,7 @@ class LinkSecurityAnalyzer:
             Respond with ONLY a valid JSON object:
             {{"risk_score": <integer between 0-100, 0 is most dangerous, 100 is completely safe>}}
             
-            Higher risk score = more dangerous. Be strict with scoring.
+            Lower risk score = more dangerous. Be strict with scoring.
             """
 
             response = self.llm_client.chat.completions.create(
@@ -266,20 +266,21 @@ class LinkSecurityAnalyzer:
             
         return results
 
-    def calculate_email_suspicion_score(self, links):
+    def calculate_email_score(self, links):
         """Calculate overall email suspicion score based on links"""
         if not links:
-            return 0
+            return 100  # No links = completely safe
             
-        # Use the maximum risk score of any link as the overall score
-        max_risk = max((link.get('risk_score', 0) for link in links), default=0)
-        return max_risk
+        # Use the minimum risk score of any link as the overall score
+        # Since 0 = most dangerous, we want the lowest value
+        min_risk = min((link.get('risk_score', 100) for link in links), default=100)
+        return min_risk
 
     def analyze(self, html_content):
         """Main analysis method"""
         links = self.extract_links(html_content)
         checked_links = self.check_links_safety(links)
-        suspicion_score = self.calculate_email_suspicion_score(checked_links)
+        score = self.calculate_email_score(checked_links)
         
         # Generate warnings for suspicious links
         warnings = []
@@ -290,7 +291,7 @@ class LinkSecurityAnalyzer:
         
         return {
             "links_found": len(checked_links),
-            "suspicion_score": suspicion_score,
+            "score": score,  # Lower score = more dangerous
             "links": checked_links,
             "warnings": warnings
         }
@@ -308,7 +309,7 @@ if __name__ == "__main__":
     print("\nAnalyzing...")
     result = analyzer.analyze(html_input)
 
-    print(f"\n📊 Email Suspicion Score: {result['suspicion_score']} / 100")
+    print(f"\n📊 Email Suspicion Score: {result['score']} / 100")
     print(f"🔗 Total Links Found: {result['links_found']}")
 
     print("\n📋 Link Details:")

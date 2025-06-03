@@ -1,6 +1,6 @@
 from fastapi import HTTPException
-from server.analyze.prompts import language_grammar_prompt, ton_manipulation_prompt, sensitive_info_request_prompt
-from model import call_model
+from analyze_tools.prompts import language_grammar_prompt, ton_manipulation_prompt, sensitive_info_request_prompt
+from analyze_tools.model import call_model
 
 def analyze_language_grammar(message: str) -> dict[str, int | list[str]] | None:
     """
