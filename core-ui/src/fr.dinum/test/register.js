@@ -29,6 +29,11 @@ ext.point("io.ox/mail/detail/body").extend({
   id: "secBar",
   index: 1,
   async draw() {
+    // Clear SecBar if found
+    const secBar = document.getElementById("secBar");
+    if (secBar) {
+      secBar.remove();
+    }
     // Create the container for the security bar
     const securityBar = createSecBarContainer();
     this.append(securityBar);
@@ -67,11 +72,36 @@ ext.point("io.ox/mail/detail/body").extend({
   },
 });
 
+/**
+ * Creates a loading spinner element
+ * @returns {HTMLElement} Loading spinner element
+ */
+function createLoadingSpinner() {
+  const spinnerContainer = document.createElement("div");
+  spinnerContainer.classList.add("spinner-container");
+
+  const spinner = document.createElement("div");
+  spinner.classList.add("loading-spinner");
+
+  spinnerContainer.appendChild(spinner);
+  return spinnerContainer;
+}
+
 function createSecBarContainer() {
   const container = document.createElement("div");
   container.classList.add("security-bar");
   container.id = "secBar";
-  container.textContent = "SECURITY ANALYSIS: LOADING...";
+
+  // Add loading spinner
+  const spinner = createLoadingSpinner();
+  container.appendChild(spinner);
+
+  // Add loading text
+  const loadingText = document.createElement("span");
+  loadingText.textContent = "SECURITY ANALYSIS: LOADING...";
+  loadingText.classList.add("loading-text");
+  container.appendChild(loadingText);
+
   return container;
 }
 
