@@ -224,8 +224,7 @@ class EmailSecurityAnalyzer:
             is_critical = score <= 20  # Critical if very suspicious
 
             # Add warnings with type prefix if not from known analyzers
-            prefix = "Content warning: " if analyzer_name in ["language", "tone", "sensitive_info"] else f"{analyzer_name.capitalize()} warning: "
-            warnings.extend([f"{prefix}{warning}" for warning in result.get("warnings", [])])
+            warnings.extend([f"{warning}" for warning in result.get("warnings", [])])
 
             # Add recommendations based on trust score thresholds
             if score <= 30:  # High suspicion
