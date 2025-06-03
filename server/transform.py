@@ -86,10 +86,12 @@ async def transform_email(payload: dict = Body(...)):
     sent_ms = payload.get("sent_date")
     if sent_ms:
         # Conversion en secondes, puis explicitement en UTC puis en fuseau local
+        
         dt = datetime.fromtimestamp(sent_ms / 1000.0, tz=timezone.utc).astimezone()
         msg["Date"] = format_datetime(dt)
     else:
         # À défaut, date courante locale
+        print ("now")
         now = datetime.now(timezone.utc).astimezone()
         msg["Date"] = format_datetime(now)
 

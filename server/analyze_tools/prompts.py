@@ -22,14 +22,14 @@ def language_grammar_prompt(message: str) -> str:
     ## Expected response
 
     - Score: integer between 0-100, where 0 is most dangerous and 100 is completely safe.
-    - Warnings: array of any suspicious elements or concerns found (one sentence each), or empty if none are found.
+    - Warnings: Any suspicious element or concern found (one sentence), or empty if none are found.
 
-    **Include at most the 2 most important warnings!**
+    **Include only the most important warning!**
 
     **Your response MUST be valid JSON with EXACTLY this structure:**
     {{
         "score": <integer between 0-100>,
-        "warnings": ["warning1", "warning2", ...],
+        "warnings": ["warning1"],
     }}
 
     **DO NOT include any explanations outside the JSON structure.**
@@ -62,14 +62,14 @@ def ton_manipulation_prompt(message: str) -> str:
     ## Expected response
 
     - Score: integer between 0-100, where 0 is most dangerous and 100 is completely safe.
-    - Warnings: array of any suspicious elements or concerns found (one sentence each), or empty if none are found.
+    - Warnings: Any suspicious element or concern found (one sentence), or empty if none are found.
 
-    **Include at most the 2 most important warnings!**
+    **Include only the most important warning!**
 
     **Your response MUST be valid JSON with EXACTLY this structure:**
     {{
         "score": <integer between 0-100>,
-        "warnings": ["warning1", "warning2", ...],
+        "warnings": ["warning1"],
     }}
 
     **DO NOT include any explanations outside the JSON structure.**
@@ -101,14 +101,14 @@ def sensitive_info_request_prompt(message: str) -> str:
     ## Expected response
 
     - Score: integer between 0-100, where 0 is most dangerous and 100 is completely safe.
-    - Warnings: array of any suspicious elements or concerns found (one sentence each), or empty if none are found.
+    - Warnings: Any suspicious element or concern found (one sentence), or empty if none are found.
 
-    **Include at most the 2 most important warnings!**
+    **Include only the most important warning!**
 
     **Your response MUST be valid JSON with EXACTLY this structure:**
     {{
         "score": <integer between 0-100>,
-        "warnings": ["warning1", "warning2", ...],
+        "warnings": ["warning1"],
     }}
 
     **DO NOT include any explanations outside the JSON structure.**
