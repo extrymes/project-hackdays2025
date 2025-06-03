@@ -46,7 +46,7 @@ ext.point("io.ox/mail/detail/body").extend({
     let data = null;
 
     try {
-      const response = await fetch("http://localhost:8000/transform_email", {
+      const response = await fetch("http://localhost:8000/receive_email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

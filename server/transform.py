@@ -6,12 +6,31 @@ from fastapi import Body
 from email.message import EmailMessage
 from email.utils import format_datetime, formataddr
 from datetime import datetime, timezone
-from analyze import email_handler
+from parse_email import extract_email_data
+from analyze import EmailSecurityAnalyzer
 
 # Répertoire où seront stockés les .eml
 MAILS_DIR = Path("./mails")
 MAILS_DIR.mkdir(parents=True, exist_ok=True)
 
+async def analyze_email(raw_email: str = Body(..., media_type="text/plain")):
+    # Parse the raw email
+    email_data = extract_email_data(raw_email)
+
+    if not email_data:
+        raise Exception(status_code=400, detail="Failed to parse email content")
+
+    analyzer = EmailSecurityAnalyzer()
+    analysis =  analyzer.analyze_email(email_data)
+
+    # Extract the requested information
+    response = {
+        "score": analysis["score"],
+        "warnings": analysis["warnings"],
+        "recommendations": analysis["recommendations"]
+    }
+
+    return response
 
 def format_address_list(address_list):
     """
@@ -33,7 +52,7 @@ def format_address_list(address_list):
     return ", ".join(formatted)
 
 
-async def transform_email(payload: dict = Body(...)):
+async def handle_email(payload: dict = Body(...)):
     """
     Transforme le JSON reçu en un fichier .eml complet, avec en-têtes originaux,
     date basée sur sent_date (millisecondes), parties text et HTML, et sauvegarde
@@ -121,7 +140,7 @@ async def transform_email(payload: dict = Body(...)):
         raw_email = f.read()
     
     # Call the handler
-    analysis = await email_handler(raw_email)
+    analysis = await analyze_email(raw_email)
 	# Delete the file after processing
     #filepath.unlink()
     print ("Analysis : ",analysis)
