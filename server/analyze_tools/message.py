@@ -14,7 +14,6 @@ class MessageAnalyzer:
         """
 
         response = call_model(self.model, language_grammar_prompt(message))
-        print("Response:", response)
         if response:
             return response
         return None
