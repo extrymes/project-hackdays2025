@@ -10,6 +10,7 @@ tldextract = "*"
 dnspython = "*"
 openai = "*"
 bs4 = "*"
+dotenv = "*"
 
 [dev-packages]
 
