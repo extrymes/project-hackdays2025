@@ -29,6 +29,7 @@ def generate_recommendations(warnings):
     4. Focus on urgent user actions only
     5. Keep it as simple as possible
     6. Do NOT take grammar or spelling error into account nor mixed languages
+    7. Do NOT give similar adivce more than once
 
     Format EXACTLY like this for each warning:
     [French recommendation without numbering ]
