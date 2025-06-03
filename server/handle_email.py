@@ -52,7 +52,7 @@ def format_address_list(address_list):
     return ", ".join(formatted)
 
 
-async def handle_email(payload: dict = Body(...)):
+async def email_handler(payload: dict = Body(...)):
     """
     Transforms the received JSON into a complete .eml file, including original headers,
     date based on sent_date (in milliseconds), text and HTML parts, and saves it to
