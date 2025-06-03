@@ -1,15 +1,19 @@
 /* core-ui/src/fr.dinum/test/security-bar.css */
 
 .security-bar {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 15px;
   padding: 12px 20px;
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 4px;
+  border-bottom: 1px solid #d4d3d2;
+  border-radius: 0 0 4px 4px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
+}
+
+.security-bar.critique {
+  background-color: #ef4444;
 }
 
 .security-level {
@@ -26,7 +30,11 @@
 }
 
 .security-level.critique {
-  color: #ef4444;
+  color: white;
+}
+
+.index-container.critique {
+  color: white;
 }
 
 .progress-container {
@@ -35,6 +43,10 @@
   height: 20px;
   display: flex;
   align-items: center;
+}
+
+.progress-container.critique {
+  display: none;
 }
 
 .progress-container::before {
@@ -66,7 +78,6 @@
 }
 
 .dropdown-container {
-  position: relative;
   display: inline-block;
 }
 
@@ -92,10 +103,10 @@
 
 .dropdown-content {
   position: absolute;
-  top: 100%;
+  top: 90%;
   left: 0;
   right: 0;
-  background: white;
+  background: #f4f7fb;
   border: 1px solid #d1d5db;
   border-radius: 4px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -103,6 +114,8 @@
   display: none;
   margin-top: 4px;
   min-width: 300px;
+  width: max-content;
+  max-width: 100vw;
 }
 
 .dropdown-content.show {
@@ -142,6 +155,13 @@
   font-weight: bold;
 }
 
+.dropdown-trigger.critique {
+  border: 1px solid white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: white;
+}
+
 .warning-count {
   display: inline-flex;
   align-items: center;
@@ -154,4 +174,13 @@
   font-size: 12px;
   font-weight: 600;
   margin-left: 6px;
+}
+
+.warning-count.critique {
+  background-color: #ef4444;
+  color: white;
+}
+
+.select-text {
+  min-height: fit-content;
 }

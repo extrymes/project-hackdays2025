@@ -20,7 +20,6 @@
  *
  */
 
-import $ from "$/jquery";
 import ext from "$/io.ox/core/extensions";
 import "./security-bar.css";
 
@@ -68,15 +67,18 @@ function getSecurityLevel(score) {
 /**
  * Creates the gradient progress bar with positioned dot
  * @param {number} score - Security score (0-100)
- * @returns {jQuery} Progress bar element
+ * @returns {HTMLElement} Progress bar element
  */
-function createProgressBar(score) {
-  const progressContainer = $("<div>").addClass("progress-container");
-  const progressDot = $("<div>")
-    .addClass("progress-dot")
-    .css("left", `${Math.max(0, Math.min(100, score))}%`);
+function createProgressBar(score, securityLevel) {
+  const progressContainer = document.createElement("div");
+  progressContainer.classList.add("progress-container", securityLevel);
 
-  return progressContainer.append(progressDot);
+  const progressDot = document.createElement("div");
+  progressDot.classList.add("progress-dot");
+  progressDot.style.left = `${Math.max(0, Math.min(100, score))}%`;
+
+  progressContainer.appendChild(progressDot);
+  return progressContainer;
 }
 
 /**
@@ -84,131 +86,173 @@ function createProgressBar(score) {
  * @param {string} triggerText - Text for the dropdown trigger
  * @param {Array} items - Array of items to display in dropdown
  * @param {string} itemClass - CSS class for dropdown items
- * @returns {jQuery} Dropdown container element
+ * @returns {HTMLElement} Dropdown container element
  */
-function createDropdown(triggerText, items, itemClass) {
-  const container = $("<div>").addClass("dropdown-container");
-  const trigger = $("<button>")
-    .addClass("dropdown-trigger")
-    .html(`${triggerText} <span class="arrow">▼</span>`);
+function createDropdown(triggerText, items, itemClass, securityLevel) {
+  const container = document.createElement("div");
+  container.classList.add("dropdown-container");
 
-  const content = $("<div>").addClass("dropdown-content");
+  const trigger = document.createElement("button");
+  trigger.classList.add("dropdown-trigger", securityLevel);
+  trigger.innerHTML = `${triggerText} <span class="arrow">▼</span>`;
+
+  const content = document.createElement("div");
+  content.classList.add("dropdown-content");
 
   items.forEach((item) => {
-    const itemElement = $("<div>")
-      .addClass(`dropdown-item ${itemClass}`)
-      .text(item);
-    content.append(itemElement);
+    const itemElement = document.createElement("div");
+    itemElement.classList.add("dropdown-item", itemClass);
+    itemElement.textContent = item;
+    content.appendChild(itemElement);
   });
 
-  // Toggle dropdown on trigger click
-  trigger.on("click", function (e) {
+  // Toggle dropdown on trigger click - handles dropdown interaction
+  trigger.addEventListener("click", function (e) {
     e.stopPropagation();
-    const isActive = trigger.hasClass("active");
+    const isActive = trigger.classList.contains("active");
 
     // Close all other dropdowns
-    $(".dropdown-trigger").removeClass("active");
-    $(".dropdown-content").removeClass("show");
+    document.querySelectorAll(".dropdown-trigger").forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    document.querySelectorAll(".dropdown-content").forEach((dropdown) => {
+      dropdown.classList.remove("show");
+    });
 
     if (!isActive) {
-      trigger.addClass("active");
-      content.addClass("show");
+      trigger.classList.add("active");
+      content.classList.add("show");
     }
   });
 
-  return container.append(trigger, content);
+  container.appendChild(trigger);
+  container.appendChild(content);
+  return container;
 }
 
 /**
  * Creates the warnings dropdown if warnings exist
  * @param {Array} warnings - Array of warning messages
- * @returns {jQuery|null} Warnings dropdown element or null if no warnings
+ * @returns {HTMLElement|null} Warnings dropdown element or null if no warnings
  */
-function createWarningsDropdown(warnings) {
+function createWarningsDropdown(warnings, securityLevel) {
   if (!warnings || warnings.length === 0) {
     return null;
   }
 
-  const warningText = $("<span>")
-    .addClass("dropdown-text")
-    .text(`Warning${warnings.length > 1 ? "s" : ""}`);
-  const warningCounter = $("<span>")
-    .addClass("warning-count")
-    .text(warnings.length);
-  const warningTrigger = $("<span>")
-    .addClass("warning-dropdown-text")
-    .append(warningCounter)
-    .append(warningText);
+  const warningText = document.createElement("span");
+  warningText.classList.add("dropdown-text");
+  warningText.textContent = `Warning${warnings.length > 1 ? "s" : ""}`;
 
-  return createDropdown(warningTrigger.prop("outerHTML"), warnings, "warning");
+  const warningCounter = document.createElement("span");
+  warningCounter.classList.add("warning-count", securityLevel);
+  warningCounter.textContent = warnings.length;
+
+  const warningTrigger = document.createElement("span");
+  warningTrigger.classList.add("warning-dropdown-text", securityLevel);
+  warningTrigger.appendChild(warningCounter);
+  warningTrigger.appendChild(warningText);
+
+  return createDropdown(
+    warningTrigger.outerHTML,
+    warnings,
+    "warning",
+    securityLevel
+  );
 }
 
 /**
  * Creates the recommendations dropdown
  * @param {Array} recommendations - Array of recommendation messages
- * @returns {jQuery} Recommendations dropdown element
+ * @returns {HTMLElement} Recommendations dropdown element
  */
-function createRecommendationsDropdown(recommendations) {
-  const recText = $("<span>")
-    .addClass("dropdown-text")
-    .text("Quoi faire?")
-    .prop("outerHTML");
+function createRecommendationsDropdown(recommendations, securityLevel) {
+  const recText = document.createElement("span");
+  recText.classList.add("dropdown-text");
+  recText.textContent = "Quoi faire?";
+
   const items =
     recommendations && recommendations.length > 0
       ? recommendations
       : ["Aucune recommandation disponible"];
 
-  return createDropdown(recText, items, "recommendation");
+  return createDropdown(
+    recText.outerHTML,
+    items,
+    "recommendation",
+    securityLevel
+  );
+}
+
+function extendSelectText() {
+  const selectText = document.querySelector(".user-select-text");
+  selectText.classList.add("select-text");
 }
 
 /**
  * Builds the complete security bar component
  * @param {object} resp - Response object containing score, warnings, and recommendations
- * @returns {jQuery} Complete security bar element
+ * @returns {HTMLElement} Complete security bar element
  */
 function buildSecBar(resp) {
   const { score, warnings, recommendations } = resp;
   const securityLevel = getSecurityLevel(score);
 
   // Create main container
-  const secBar = $("<div>").addClass("security-bar");
+  const secBar = document.createElement("div");
+  secBar.classList.add("security-bar", securityLevel.class);
 
   // Create index container
-  const indexContainer = $("<div>").addClass("index-container");
+  const indexContainer = document.createElement("div");
+  indexContainer.classList.add("index-container", securityLevel.class);
 
   // Security level text
-  const levelText = $("<span>")
-    .addClass(`security-level ${securityLevel.class}`)
-    .text(`${securityLevel.text}`);
+  const levelText = document.createElement("span");
+  levelText.classList.add("security-level", securityLevel.class);
+  levelText.textContent = securityLevel.text;
 
   // Security level element
-  const levelElement = $("<span>").text("Indice de sécurité: ").add(levelText);
+  const levelElement = document.createElement("span");
+  levelElement.textContent = "Indice de sécurité: ";
+  levelElement.appendChild(levelText);
 
-  indexContainer.append(levelElement);
+  indexContainer.appendChild(levelElement);
 
   // Progress bar
-  const progressBar = createProgressBar(score);
+  const progressBar = createProgressBar(score, securityLevel.class);
 
   // Warnings dropdown (only if warnings exist)
-  const warningsDropdown = createWarningsDropdown(warnings);
+  const warningsDropdown = createWarningsDropdown(
+    warnings,
+    securityLevel.class
+  );
 
   // Recommendations dropdown
-  const recommendationsDropdown =
-    createRecommendationsDropdown(recommendations);
+  const recommendationsDropdown = createRecommendationsDropdown(
+    recommendations,
+    securityLevel.class
+  );
 
   // Append all elements
-  secBar.append(indexContainer, progressBar);
+  secBar.appendChild(indexContainer);
+  secBar.appendChild(progressBar);
 
   if (warningsDropdown) {
-    secBar.append(warningsDropdown);
+    secBar.appendChild(warningsDropdown);
   }
 
-  secBar.append(recommendationsDropdown);
+  secBar.appendChild(recommendationsDropdown);
 
-  // Close dropdowns when clicking outside
-  $(document).on("click", function () {
-    $(".dropdown-trigger").removeClass("active");
-    $(".dropdown-content").removeClass("show");
+  extendSelectText();
+
+  // Close dropdowns when clicking outside - handles global click event for dropdown management
+  document.addEventListener("click", function () {
+    document.querySelectorAll(".dropdown-trigger").forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    document.querySelectorAll(".dropdown-content").forEach((dropdown) => {
+      dropdown.classList.remove("show");
+    });
   });
 
   return secBar;
