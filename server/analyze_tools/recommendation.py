@@ -25,7 +25,7 @@ def generate_recommendations(warnings):
 
     1. Generate immediate action item in French
     2. Use imperative tense (e.g., "Ne cliquez pas...")
-    3. Keep it concise (< 10 words)
+    3. Keep it concise 
     4. Focus on urgent user actions only
     5. Keep it as simple as possible
     6. Do NOT take grammar or spelling error into account nor mixed languages
