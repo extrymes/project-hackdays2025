@@ -168,7 +168,7 @@ class LinkSecurityAnalyzer:
             Tolerate:
             - Secure URLs (https://)
             - Legitimate domains (e.g., google.com, paypal.com, etc.)
-            - Social media links (e.g., x.com, linkedin.com, etc.)
+            - Social media links (e.g., x.com/user, linkedin.com/user, etc.)
             - Personal domains (e.g., johnsmith.com, janedoe.org, etc.)
 
             Be vigilant for:
@@ -183,6 +183,10 @@ class LinkSecurityAnalyzer:
             {{"risk_score": <integer between 0-100, 0 is most dangerous, 100 is completely safe>}}
             
             Lower risk score = more dangerous.
+
+            Example :
+            https://x.com/Alex should return a high risk score, while
+            http://freegiftxxx.com should return a low risk score.
             """
 
             response = self.llm_client.chat.completions.create(
