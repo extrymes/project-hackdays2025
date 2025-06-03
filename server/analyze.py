@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from typing import Dict, List, Any, Optional, Tuple, Callable
 from analyze_tools.links import LinkSecurityAnalyzer
 from analyze_tools.sender import SenderTrustAnalyzer
-from message_analyzer import analyze_language_grammar, analyze_ton_manipulation, analyze_sensitive_info_request
+from analyze_tools.message import MessageAnalyzer
 
 # Load environment variables
 load_dotenv()
@@ -61,9 +61,12 @@ class EmailSecurityAnalyzer:
     
     def _add_message_analyzers(self):
         """Add message content analyzers if the modules are available"""
+        # Create an instance of MessageAnalyzer
+        message_analyzer = MessageAnalyzer()
+        
         message_analyzers = {
             "language": {
-                "analyze_func": analyze_language_grammar,
+                "analyze_func": message_analyzer.analyze_language_grammar,
                 "weight": 0.1,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                   email_data.get("body", {}).get("html", ""),
@@ -73,7 +76,7 @@ class EmailSecurityAnalyzer:
                 "critical_threshold": 80
             },
             "tone": {
-                "analyze_func": analyze_ton_manipulation,
+                "analyze_func": message_analyzer.analyze_ton_manipulation,
                 "weight": 0.1,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                  email_data.get("body", {}).get("html", ""),
@@ -83,8 +86,8 @@ class EmailSecurityAnalyzer:
                 "critical_threshold": 80
             },
             "sensitive_info": {
-                "analyze_func": analyze_sensitive_info_request,
-                "weight": 0.1,
+                "analyze_func": message_analyzer.analyze_sensitive_info_request,
+                "weight": 0.4,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                  email_data.get("body", {}).get("html", ""),
                 "process_result": lambda result, warnings, recommendations: self._process_result("sensitive_info", result, warnings, recommendations),
@@ -209,9 +212,9 @@ class EmailSecurityAnalyzer:
                         warnings.append(warning)
                 
                 if score < analyzer_config["threshold_severe"]:
-                    recommendations.append("Exercise caution with this sender. Verify their identity through other channels.")
+                    recommendations.append("Faites très attention à l'expéditeur de cet email. Il peut s'agir d'une tentative de phishing.")
                 else:
-                    recommendations.append("Be aware this email is from a potentially less trusted source.")
+                    recommendations.append("L'expéditeur de cet email semble suspect. Vérifiez l'authenticité avant de répondre.")
         
         elif analyzer_name == "links":
             # Handle links analyzer
@@ -221,10 +224,10 @@ class EmailSecurityAnalyzer:
             warnings.extend(result.get("warnings", []))
             
             # Add recommendations based on suspicion thresholds
-            if score > analyzer_config["threshold_severe"]:
-                recommendations.append("Do not click on links in this email. They appear to be suspicious.")
-            elif score > analyzer_config["threshold_moderate"]:
-                recommendations.append("Exercise caution when clicking links in this email.")
+            if score < analyzer_config["threshold_severe"]:
+                recommendations.append("Ne cliquez pas sur les liens de cet email. Ils peuvent être dangereux.")
+            elif score < analyzer_config["threshold_moderate"]:
+                recommendations.append("Faites attention aux liens dans cet email. Ils peuvent être suspects.")
         
         else:
             # Handle message content analyzers and any other analyzers
@@ -236,9 +239,9 @@ class EmailSecurityAnalyzer:
             
             # Add recommendations based on trust score thresholds
             if score <= 30:  # High suspicion
-                recommendations.append("This message contains highly suspicious content. Verify any requests through official channels.")
+                recommendations.append("Ce message semble très suspect. Ne répondez pas et signalez-le comme phishing.")
             elif score <= 60:  # Moderate suspicion
-                recommendations.append("Exercise caution with the content of this message.")
+                recommendations.append("Faites attention à ce message. Il peut contenir des tentatives de manipulation ou de phishing.")
         
         return {
             "score": score,
@@ -331,7 +334,7 @@ class EmailSecurityAnalyzer:
         
         # Generate overall recommendations
         if weighted_score < 50:
-            recommendations.append("This email shows significant security concerns. Consider reporting it as suspicious.")
+            recommendations.append("Cet email semble très suspect. Ne répondez pas et signalez-le comme phishing.")
         
         # Prepare result
         analysis_result = {

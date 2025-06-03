@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 from parse_email import extract_email_data
-from transform import handle_email
+from handle_email import email_handler
 
 app = FastAPI()
 
@@ -13,4 +13,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.post("/receive_email")(handle_email)
+app.post("/receive_email")(email_handler)

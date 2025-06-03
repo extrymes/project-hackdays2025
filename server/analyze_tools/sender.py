@@ -193,7 +193,7 @@ class SenderTrustAnalyzer:
         
         score = max(0, 100 - risk)
 
-        return {
+        result = {
             "email": email,
             "domain": domain,
             "ip": ip,
@@ -201,6 +201,12 @@ class SenderTrustAnalyzer:
             "flags": flags,
             "score": score
         }
+        
+        # Add warning in French if the email is suspicious (score below 60)
+        if score < 60:
+            result["warnings"] = ["Cet email semble suspect. Veuillez vérifier attentivement avant d'interagir avec l'expéditeur."]
+            
+        return result
     
 if __name__ == "__main__":
     print("\nSender Trust Analyzer")
