@@ -3,7 +3,6 @@
 ## 📚 Table of Contents
 
 - [Overview](#-overview)
-- [Features](#-features)
 - [Prerequisites](#-prerequisites)
 - [Quick Start](#-quick-start)
 - [Development Setup](#-development-setup)
@@ -12,6 +11,7 @@
 - [Deployment](#-deployment)
 - [Configuration](#-configuration)
 - [Troubleshooting](#-troubleshooting)
+- [Showcases](#-showcases)
 - [Contributing](#-contributing)
 
 ## 🎯 Overview
@@ -39,14 +39,18 @@ Clear, contextual warnings and actionable tips help users make smarter decisions
 
 ## 🚀 Quick Start
 
-### 1. Clone the Repository
+### 1. Demo Account
+
+Go to https://www.ohlala-croissant.fr/ to create your demo account.
+
+### 2. Clone the Repository
 
 ```bash
 git clone https://github.com/extrymes/project-hackdays2025
 cd project-hackdays2025
 ```
 
-### 2. Environment Setup
+### 3. Environment Setup
 
 #### In `root/` directory
 
@@ -74,7 +78,7 @@ Update this value:
 SERVER=https://webmail.ohlala-croissant.fr/appsuite/
 ```
 
-### 3. Backend Server Setup
+### 4. Backend Server Setup
 
 ```bash
 # Activate virtual environment
@@ -88,7 +92,7 @@ cd server
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### 4. Frontend Development Server
+### 5. Frontend Development Server
 
 ```bash
 # Navigate to core-ui directory
@@ -326,6 +330,10 @@ Once running, access the application at:
 | `pipenv shell`              | Activate virtual environment |
 | `uvicorn main:app --reload` | Start development server     |
 | `python -m pytest`          | Run Python tests             |
+
+## 📸 Showcases
+![example1](https://i.imgur.com/nvlvk2G.png)
+![example2](https://i.imgur.com/E3gt5cy.png)
 
 ## 🤝 Contributing
 
