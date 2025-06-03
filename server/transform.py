@@ -6,12 +6,31 @@ from fastapi import Body
 from email.message import EmailMessage
 from email.utils import format_datetime, formataddr
 from datetime import datetime, timezone
-from llm_analyze import email_handler
+from parse_email import extract_email_data
+from analyze import EmailSecurityAnalyzer
 
 # Répertoire où seront stockés les .eml
 MAILS_DIR = Path("./mails")
 MAILS_DIR.mkdir(parents=True, exist_ok=True)
 
+async def email_handler(raw_email: str = Body(..., media_type="text/plain")):
+    # Parse the raw email
+    email_data = extract_email_data(raw_email)
+
+    if not email_data:
+        raise Exception(status_code=400, detail="Failed to parse email content")
+
+    analyzer = EmailSecurityAnalyzer()
+    analysis =  analyzer.analyze_email(email_data)
+
+    # Extract the requested information
+    response = {
+        "score": analysis["score"],
+        "warnings": analysis["warnings"],
+        "recommendations": analysis["recommendations"]
+    }
+
+    return response
 
 def format_address_list(address_list):
     """
