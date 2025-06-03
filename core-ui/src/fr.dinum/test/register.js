@@ -21,33 +21,59 @@
  */
 
 import ext from "$/io.ox/core/extensions";
+import api from "@/io.ox/mail/api";
 import "./security-bar.css";
 
 // Register the extension point for mail detail body
 ext.point("io.ox/mail/detail/body").extend({
   id: "secBar",
   index: 1,
-  draw() {
-    const securityBar = buildSecBar(resp);
+  async draw() {
+    // Create the container for the security bar
+    const securityBar = createSecBarContainer();
     this.append(securityBar);
+    extendSelectText();
+
+    // def cid
+    const mailItem = document.querySelector(
+      ".list-item.mail-item.mail-detail.f6-target.focusable.expanded"
+    );
+    const cid = mailItem ? mailItem.dataset.cid : null;
+    console.log("secBar draw", cid);
+    const pool = api.pool.get("detail");
+    const model = pool.get(cid);
+
+    let data = null;
+
+    try {
+      const response = await fetch("http://localhost:8000/transform_email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(model.attributes),
+      });
+      data = await response.json();
+      console.log("POST response:", data);
+    } catch (error) {
+      console.error("POST error:", error);
+      const errorDiv = document.createElement("div");
+      errorDiv.textContent = "An error occurred";
+      errorDiv.classList.add("error-message");
+      this.append(errorDiv);
+    }
+
+    buildSecBar(data);
   },
 });
 
-const resp = {
-  score: 10,
-  warnings: [
-    "Suspicious sender address (am4zon-verify.com instead of amazon.com)",
-    "Urgency and threatening language ('URGENT', 'temporarily suspended', 'permanently deactivated')",
-    "Request for sensitive information (full name, credit card information, billing address, date of birth)",
-    "Suspicious link (am4zon-verify.com instead of amazon.com)",
-    "Impersonation attempt of Amazon",
-    "Lookalike domain in logo image URL (https://am4zon-verify.com/logo.png)",
-  ],
-  recommendations: [
-    "Do not click any links or provide any information.",
-    "Delete the email and report it as phishing to your email provider.",
-  ],
-};
+function createSecBarContainer() {
+  const container = document.createElement("div");
+  container.classList.add("security-bar");
+  container.id = "secBar";
+  container.textContent = "SECURITY ANALYSIS: LOADING...";
+  return container;
+}
 
 /**
  * Determines the security level text based on score
@@ -163,7 +189,7 @@ function createWarningsDropdown(warnings, securityLevel) {
 
 /**
  * Creates the recommendations dropdown
- * @param {Array} recommendations - Array of recommendation messages
+ * @param {string|Array} recommendations - Recommendation message(s)
  * @returns {HTMLElement} Recommendations dropdown element
  */
 function createRecommendationsDropdown(recommendations, securityLevel) {
@@ -171,10 +197,18 @@ function createRecommendationsDropdown(recommendations, securityLevel) {
   recText.classList.add("dropdown-text");
   recText.textContent = "Quoi faire?";
 
-  const items =
-    recommendations && recommendations.length > 0
-      ? recommendations
+  // Handle both string and array recommendations
+  let items;
+  if (typeof recommendations === "string") {
+    items = recommendations
+      ? [recommendations]
       : ["Aucune recommandation disponible"];
+  } else {
+    items =
+      recommendations && recommendations.length > 0
+        ? recommendations
+        : ["Aucune recommandation disponible"];
+  }
 
   return createDropdown(
     recText.outerHTML,
@@ -191,16 +225,18 @@ function extendSelectText() {
 
 /**
  * Builds the complete security bar component
- * @param {object} resp - Response object containing score, warnings, and recommendations
+ * @param {object} resp - Response object containing message with score, warnings, and recommendations
  * @returns {HTMLElement} Complete security bar element
  */
 function buildSecBar(resp) {
-  const { score, warnings, recommendations } = resp;
+  // Access data from resp.message instead of directly from resp
+  const { score, warnings, recommendations } = resp.message || {};
   const securityLevel = getSecurityLevel(score);
 
   // Create main container
-  const secBar = document.createElement("div");
-  secBar.classList.add("security-bar", securityLevel.class);
+  const secBar = document.getElementById("secBar");
+  secBar.textContent = "";
+  secBar.classList.add(securityLevel.class);
 
   // Create index container
   const indexContainer = document.createElement("div");
@@ -242,8 +278,6 @@ function buildSecBar(resp) {
   }
 
   secBar.appendChild(recommendationsDropdown);
-
-  extendSelectText();
 
   // Close dropdowns when clicking outside - handles global click event for dropdown management
   document.addEventListener("click", function () {
