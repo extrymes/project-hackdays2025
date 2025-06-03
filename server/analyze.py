@@ -8,7 +8,7 @@ from typing import Dict, List, Any, Optional, Tuple, Callable
 from analyze_tools.links import LinkSecurityAnalyzer
 from analyze_tools.sender import SenderTrustAnalyzer
 from message_analyzer import analyze_language_grammar, analyze_ton_manipulation, analyze_sensitive_info_request
-
+from analyze_tools.recommendation import generate_recommendations
 # Load environment variables
 load_dotenv()
 
@@ -342,6 +342,7 @@ class EmailSecurityAnalyzer:
         }
         
         # Add critical concerns if any
+        analysis_result["recommendations"] = generate_recommendations(analysis_result["warnings"])
         if critical_concerns:
             analysis_result["critical_concerns"] = critical_concerns
         
