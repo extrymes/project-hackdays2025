@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from typing import Dict, List, Any, Optional, Tuple, Callable
 from analyze_tools.links import LinkSecurityAnalyzer
 from analyze_tools.sender import SenderTrustAnalyzer
-from message_analyzer import analyze_language_grammar, analyze_ton_manipulation, analyze_sensitive_info_request
+from analyze_tools.message import MessageAnalyzer
 
 # Load environment variables
 load_dotenv()
@@ -63,7 +63,7 @@ class EmailSecurityAnalyzer:
         """Add message content analyzers if the modules are available"""
         message_analyzers = {
             "language": {
-                "analyze_func": analyze_language_grammar,
+                "analyze_func": MessageAnalyzer.analyze_language_grammar,
                 "weight": 0.1,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                   email_data.get("body", {}).get("html", ""),
@@ -73,7 +73,7 @@ class EmailSecurityAnalyzer:
                 "critical_threshold": 80
             },
             "tone": {
-                "analyze_func": analyze_ton_manipulation,
+                "analyze_func": MessageAnalyzer.analyze_ton_manipulation,
                 "weight": 0.1,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                  email_data.get("body", {}).get("html", ""),
@@ -83,7 +83,7 @@ class EmailSecurityAnalyzer:
                 "critical_threshold": 80
             },
             "sensitive_info": {
-                "analyze_func": analyze_sensitive_info_request,
+                "analyze_func": MessageAnalyzer.analyze_sensitive_info_request,
                 "weight": 0.4,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                  email_data.get("body", {}).get("html", ""),
