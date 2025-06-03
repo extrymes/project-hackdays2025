@@ -61,9 +61,12 @@ class EmailSecurityAnalyzer:
     
     def _add_message_analyzers(self):
         """Add message content analyzers if the modules are available"""
+        # Create an instance of MessageAnalyzer
+        message_analyzer = MessageAnalyzer()
+        
         message_analyzers = {
             "language": {
-                "analyze_func": MessageAnalyzer.analyze_language_grammar,
+                "analyze_func": message_analyzer.analyze_language_grammar,
                 "weight": 0.1,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                   email_data.get("body", {}).get("html", ""),
@@ -73,7 +76,7 @@ class EmailSecurityAnalyzer:
                 "critical_threshold": 80
             },
             "tone": {
-                "analyze_func": MessageAnalyzer.analyze_ton_manipulation,
+                "analyze_func": message_analyzer.analyze_ton_manipulation,
                 "weight": 0.1,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                  email_data.get("body", {}).get("html", ""),
@@ -83,7 +86,7 @@ class EmailSecurityAnalyzer:
                 "critical_threshold": 80
             },
             "sensitive_info": {
-                "analyze_func": MessageAnalyzer.analyze_sensitive_info_request,
+                "analyze_func": message_analyzer.analyze_sensitive_info_request,
                 "weight": 0.4,
                 "extract_data": lambda email_data: email_data.get("body", {}).get("text", "") or 
                                                  email_data.get("body", {}).get("html", ""),
@@ -331,7 +334,7 @@ class EmailSecurityAnalyzer:
         
         # Generate overall recommendations
         if weighted_score < 50:
-            recommendations.append("This email shows significant security concerns. Consider reporting it as suspicious.")
+            recommendations.append("Cet email semble très suspect. Ne répondez pas et signalez-le comme phishing.")
         
         # Prepare result
         analysis_result = {
