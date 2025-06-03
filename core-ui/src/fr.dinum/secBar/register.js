@@ -259,6 +259,12 @@ function createRecommendationsDropdown(recommendations, securityLevel) {
         : ["Aucune recommandation disponible"];
   }
 
+  if (
+    !recommendations ||
+    (typeof recommendations !== "string" && recommendations.length === 0)
+  )
+    return;
+
   return createDropdown(
     recText.outerHTML,
     items,
