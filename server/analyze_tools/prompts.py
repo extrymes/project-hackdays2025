@@ -21,17 +21,25 @@ def ton_manipulation_prompt(message: str) -> str:
 
     **If other signs of fraud are found, ignore them.**
 
+    ## Scoring guide
+    
+    - 0-20: Extremely manipulative, multiple severe red flags
+    - 21-40: Highly manipulative, clear red flags
+    - 41-60: Moderately manipulative
+    - 61-80: Slightly suspicious tone
+    - 81-100: Normal, professional tone without manipulation
+
     ## Expected response
 
-    - Score: integer between 0-100, where 0 is most dangerous and 100 is completely safe.
-    - Warnings: Any suspicious element or concern found (one sentence), or empty if none are found.
+    **IMPORTANT: Your response MUST be in FRENCH and formatted as valid JSON.**
 
-    **Include only the most important warning and only if it is serious, or empty if none are found.!**
+    - Score: integer between 0-100, where 0 is most dangerous and 100 is completely safe.
+    - Warnings: Array with only the most serious warning found, or empty array if none found.
 
     **Your response MUST be valid JSON in FRENCH with EXACTLY this structure:**
     {{
         "score": <integer between 0-100>,
-        "warnings": ["warning1"],
+        "warnings": ["warning in French"] or []
     }}
 
     **DO NOT include any explanations outside the JSON structure.**
@@ -60,17 +68,25 @@ def sensitive_info_request_prompt(message: str) -> str:
 
     **If other signs of fraud are found, ignore them.**
 
+    ## Scoring guide
+    
+    - 0-20: Explicitly requests highly sensitive information (passwords, financial details)
+    - 21-40: Indirectly solicits sensitive information
+    - 41-60: Requests information that could be sensitive in context
+    - 61-80: Asks for information but not particularly sensitive
+    - 81-100: No requests for any personal information
+
     ## Expected response
 
-    - Score: integer between 0-100, where 0 is most dangerous and 100 is completely safe.
-    - Warnings: Any suspicious element or concern found (one sentence), or empty if none are found.
+    **IMPORTANT: Your response MUST be in FRENCH and formatted as valid JSON.**
 
-    **Include only the most important warning and only if it is serious, or empty if none are found.!**
+    - Score: integer between 0-100, where 0 is most dangerous and 100 is completely safe.
+    - Warnings: Array with only the most serious warning found, or empty array if none found.
 
     **Your response MUST be valid JSON in FRENCH with EXACTLY this structure:**
     {{
         "score": <integer between 0-100>,
-        "warnings": ["warning1"],
+        "warnings": ["warning in French"] or []
     }}
 
     **DO NOT include any explanations outside the JSON structure.**
@@ -79,35 +95,46 @@ def sensitive_info_request_prompt(message: str) -> str:
     {message}
     """
 
-def links_check_prompt(link: Dict[any, Any]):
+def links_check_prompt(link: Dict[str, Any]) -> str:
     return f"""
-            SECURITY TASK: Analyze this URL for safety. Return ONLY a safety score.
+    ## Context
 
-            URL: {link['url']}
-            Domain: {link.get('domain', 'N/A')}
-            Display Text: {link.get('text', 'N/A')}
+    SECURITY TASK: Analyze this URL for safety.
 
-            Tolerate (high safety score):
-            - Secure URLs (https://)
-            - Legitimate domains (e.g., google.com, paypal.com, etc.)
-            - Social media links (e.g., x.com/user, linkedin.com/user, etc.)
-            - Personal domains (e.g., johnsmith.com, janedoe.org, etc.)
+    URL: {link['url']}
+    Domain: {link.get('domain', 'N/A')}
+    Display Text: {link.get('text', 'N/A')}
 
-            Flag as dangerous (low safety score):
-            - URL shorteners (bit.ly, tinyurl, etc)
-            - IP addresses in URLs
-            - Typosquatting domains (e.g., am4zon.com, twiitter.com, g00gle.com)
-            - Link text not matching URL destination
-            - Suspicious TLDs
-            - Deceptive paths
-            - Misspelled domains mimicking legitimate sites
+    ## Scoring guide
+    
+    - 0-20: Highly dangerous (typosquatting, URL shorteners, IP addresses in URLs)
+    - 21-40: Suspicious (misleading text vs actual URL, unusual TLDs)
+    - 41-60: Uncertain safety (unfamiliar but not obviously malicious)
+    - 61-80: Mostly safe (legitimate but not major domains)
+    - 81-100: Completely safe (major trusted domains, proper HTTPS)
 
-            Respond with ONLY a valid JSON object:
-            {{"safety_score": <integer between 0-100, 0 is most dangerous, 100 is completely safe>}}
+    ## Safety criteria
 
-            Lower safety score = more dangerous. Any suspicious link should have a score below 30.
+    Safe URLs (higher scores):
+    - Secure URLs (https://)
+    - Legitimate domains (e.g., google.com, paypal.com, etc.)
+    - Social media links (e.g., x.com/user, linkedin.com/user, etc.)
+    - Personal domains with proper structure
 
-            Example:
-            https://x.com/Alex should return a high safety score (>80), while
-            http://am4zon-secure.com should return a very low safety score (<20).
-            """
+    Dangerous URLs (lower scores):
+    - URL shorteners (bit.ly, tinyurl, etc)
+    - IP addresses in URLs
+    - Typosquatting domains (e.g., am4zon.com, twiitter.com, g00gle.com)
+    - Link text not matching URL destination
+    - Suspicious TLDs
+    - Deceptive paths
+    - Misspelled domains mimicking legitimate sites
+
+    **IMPORTANT: Your response MUST be in FRENCH and formatted as valid JSON.**
+
+    **Respond with ONLY a valid JSON object:**
+    {{
+        "safety_score": <integer between 0-100>,
+        "warnings": ["warning in French"] or []
+    }}
+    """

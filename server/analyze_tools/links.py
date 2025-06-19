@@ -5,12 +5,12 @@ from urllib.parse import urlparse
 import os
 from dotenv import load_dotenv
 import json
-from model import LLMClient
+from analyze_tools.model import LLMClient
 import concurrent.futures
 import threading
 import socket
 import dns.resolver
-from prompts import links_check_prompt
+from analyze_tools.prompts import links_check_prompt
 
 load_dotenv()
 
