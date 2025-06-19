@@ -5,12 +5,12 @@ from urllib.parse import urlparse
 import os
 from dotenv import load_dotenv
 import json
-from openai import OpenAI
+from model import LLMClient
 import concurrent.futures
 import threading
 import socket
 import dns.resolver
-from analyze_tools.prompts import links_check_prompt
+from prompts import links_check_prompt
 
 load_dotenv()
 
@@ -26,13 +26,7 @@ class LinkSecurityAnalyzer:
         self.thread_local = threading.local()
         
         # Initialize LLM client
-        self.llm_api_key = os.getenv("API_KEY")
-        if not self.llm_api_key:
-            print("⚠️ Warning: LLM API key not found. LLM-based analysis will be skipped.")
-        self.llm_client = OpenAI(
-            base_url='https://albert.api.etalab.gouv.fr/v1',
-            api_key=self.llm_api_key
-        ) if self.llm_api_key else None
+        self.llm_client = LLMClient()
         
         # Initialize DNS resolver
         self.resolver = dns.resolver.Resolver()
@@ -153,45 +147,28 @@ class LinkSecurityAnalyzer:
         return results
 
     def _analyze_with_llm(self, link):
-        """Analyze a link using LLM to detect security risks - simplified version"""
-        if not self.llm_client:
-            return None
-            
+        """Analyze a link using LLM to detect security risks"""
         try:
-            # Create a simplified prompt focused on just getting a risk score
+            # Create prompt focused on getting a risk score
             prompt = links_check_prompt(link)
 
-            response = self.llm_client.chat.completions.create(
-                model="albert-small",
-                response_format={"type": "json_object"},
-                messages=[
-                    {"role": "system", "content": "You are a cybersecurity URL analyzer. Respond ONLY with a risk score JSON."},
-                    {"role": "user", "content": prompt}
-                ],
+            result = self.llm_client.call_json(
+                prompt=prompt,
+                system_prompt="You are a cybersecurity URL analyzer. Respond ONLY with a risk score JSON.",
                 temperature=0.1,
-                max_tokens=200  # Reduced token count for faster response
+                max_tokens=200
             )
-
-            # Process the response
-            content = response.choices[0].message.content.strip()
             
-            # Clean up any markdown formatting
-            if content.startswith("```json"):
-                content = content[7:]
-            if content.endswith("```"):
-                content = content[:-3]
-            content = content.strip()
-
-            # Parse the JSON response
-            result = json.loads(content)
-            
+            if not result:
+                return None
+                
             # Simplified result - note that 0 is highest risk, 100 is safest
             risk_score = result.get('risk_score', 50)  # Default to medium risk if not found
             
             return {
                 'risk_score': risk_score,
-                'is_safe': risk_score >= 50,  # Safe if score is 50 or above
-                'threats': ["Suspicious link"] if risk_score < 50 else []
+                'is_safe': risk_score > 50,  # Safe only if score is above 50
+                'threats': ["Suspicious link"] if risk_score <= 50 else []
             }
             
         except Exception as e:
@@ -266,8 +243,8 @@ class LinkSecurityAnalyzer:
                     # Add a failed result
                     results.append({
                         **link, 
-                        'is_safe': None, 
-                        'risk_score': 100, 
+                        'is_safe': None,
+                        'risk_score': 100,
                         'threats': [],
                         'error': str(exc)
                     })

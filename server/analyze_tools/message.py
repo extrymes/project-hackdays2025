@@ -1,33 +1,34 @@
 import os
 from fastapi import HTTPException
 from analyze_tools.prompts import ton_manipulation_prompt, sensitive_info_request_prompt
-from analyze_tools.model import call_model
+from analyze_tools.model import LLMClient
 
 class MessageAnalyzer:
     def __init__(self):
-        self.model = "albert-small"
+        self.model = "llama3-8b-8192"  # Update to a Groq model
+        self.llm_client = LLMClient()
 
     def analyze_ton_manipulation(self, message: str) -> dict[str, int | list[str]] | None:
         """
         Function to analyze message and detect potential phishing or fraud indicators.
         Point to check: Tone / Manipulation
         """
-
-        response = call_model(self.model, ton_manipulation_prompt(message))
-        if response:
-            return response
-        return None
+        response = self.llm_client.call_json(
+            prompt=ton_manipulation_prompt(message),
+            model=self.model
+        )
+        return response
 
     def analyze_sensitive_info_request(self, message: str) -> dict[str, int | list[str]] | None:
         """
         Function to analyze message and detect potential phishing or fraud indicators.
         Point to check: Sensitive information request
         """
-
-        response = call_model(self.model, sensitive_info_request_prompt(message))
-        if response:
-            return response
-        return None
+        response = self.llm_client.call_json(
+            prompt=sensitive_info_request_prompt(message),
+            model=self.model
+        )
+        return response
 
 if __name__ == "__main__":
     print("\n🔍 Message Security Analyzer")

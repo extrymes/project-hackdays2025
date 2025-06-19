@@ -81,32 +81,33 @@ def sensitive_info_request_prompt(message: str) -> str:
 
 def links_check_prompt(link: Dict[any, Any]):
     return f"""
-            SECURITY TASK: Analyze this URL for security risks. Return ONLY a risk score.
+            SECURITY TASK: Analyze this URL for safety. Return ONLY a safety score.
 
             URL: {link['url']}
             Domain: {link.get('domain', 'N/A')}
             Display Text: {link.get('text', 'N/A')}
 
-            Tolerate:
+            Tolerate (high safety score):
             - Secure URLs (https://)
             - Legitimate domains (e.g., google.com, paypal.com, etc.)
             - Social media links (e.g., x.com/user, linkedin.com/user, etc.)
             - Personal domains (e.g., johnsmith.com, janedoe.org, etc.)
 
-            Be vigilant for:
+            Flag as dangerous (low safety score):
             - URL shorteners (bit.ly, tinyurl, etc)
             - IP addresses in URLs
-            - Typosquatting domains
+            - Typosquatting domains (e.g., am4zon.com, twiitter.com, g00gle.com)
             - Link text not matching URL destination
             - Suspicious TLDs
             - Deceptive paths
+            - Misspelled domains mimicking legitimate sites
 
             Respond with ONLY a valid JSON object:
-            {{"risk_score": <integer between 0-100, 0 is most dangerous, 100 is completely safe>}}
+            {{"safety_score": <integer between 0-100, 0 is most dangerous, 100 is completely safe>}}
 
-            Lower risk score = more dangerous.
+            Lower safety score = more dangerous. Any suspicious link should have a score below 30.
 
-            Example :
-            https://x.com/Alex should return a high risk score, while
-            http://freegiftxxx.com should return a low risk score.
+            Example:
+            https://x.com/Alex should return a high safety score (>80), while
+            http://am4zon-secure.com should return a very low safety score (<20).
             """
