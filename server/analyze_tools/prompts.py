@@ -138,3 +138,36 @@ def links_check_prompt(link: Dict[str, Any]) -> str:
         "warnings": ["warning in French"] or []
     }}
     """
+
+def recommendations_prompt(warnings, email_content: str, email_sender: str, score: int) -> str:
+    return f"""
+    ## Context
+
+    You are an email security advisor. Generate an array of concise recommendations in French.
+
+    **Important guidelines:**
+    1. Use imperative tense (e.g., "Ne cliquez pas...")
+    2. Keep it concise and actionable
+    3. Focus on urgent user actions only
+    4. Avoid grammar or spelling errors
+    5. Do NOT repeat similar advice multiple times
+    6. Make sure to take the safety score into consideration.
+    7. Don't advice to delete an email that has a safety score above 50.
+    8. Advice to delete an email that has a really low score
+
+    **Warnings received:**
+    {warnings}
+
+    **Safety score:** {score} (0 is most dangerous, 100 is completely safe)
+
+    **Email content for context:**
+    {email_content}
+    **Email sender:** {email_sender}
+
+    **Format EXACTLY like this for each warning:**
+    [French recommendation without numbering]
+
+    ## Examples:
+    Appelez votre patron pour confirmer la demande de virement avant d'agir.
+    Ne cliquez pas sur le lien, connectez vous directement sur la plateforme amazon depuis https://amazon.fr pour vérifier l'état de votre compte.
+    """

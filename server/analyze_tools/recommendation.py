@@ -1,8 +1,9 @@
 from fastapi import Body, HTTPException
 import os
 from analyze_tools.model import LLMClient
+from analyze_tools.prompts import recommendations_prompt
 
-def generate_recommendations(warnings):
+def generate_recommendations(warnings, email_content: str, email_sender: str, score: int):
     """
     Generates recommendations based on the provided warnings.
     """
@@ -13,24 +14,7 @@ def generate_recommendations(warnings):
     try:
         llm_client = LLMClient()
         
-        prompt = f"""
-        Act as an email security advisor. For each warning below:
-
-        1. Generate immediate action item in French
-        2. Use imperative tense (e.g., "Ne cliquez pas...")
-        3. Keep it concise 
-        4. Focus on urgent user actions only
-        5. Keep it as simple as possible
-        6. Do NOT take grammar or spelling error into account nor mixed languages
-        7. Do NOT give similar adivce more than once
-
-        Format EXACTLY like this for each warning:
-        [French recommendation without numbering ]
-
-        The warnings generated are from the content of the email, some warnings don't necessitate advising
-        Warnings received:
-        {warnings}
-        """
+        prompt = recommendations_prompt(warnings, email_content, email_sender, score)
 
         recommendations_text = llm_client.call_text(
             prompt=prompt,
