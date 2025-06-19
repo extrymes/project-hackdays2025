@@ -34,7 +34,7 @@ def generate_recommendations(warnings):
 
         recommendations_text = llm_client.call_text(
             prompt=prompt,
-            model="llama3-8b-8192",  # Update to a Groq model
+            model=os.environ.get('LLM_MODEL'),  # Update to a Groq model
             temperature=0.7,
             max_tokens=150
         )

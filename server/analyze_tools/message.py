@@ -5,7 +5,7 @@ from analyze_tools.model import LLMClient
 
 class MessageAnalyzer:
     def __init__(self):
-        self.model = "llama3-8b-8192"  # Update to a Groq model
+        self.model = os.environ.get('MODEL')
         self.llm_client = LLMClient()
 
     def analyze_ton_manipulation(self, message: str) -> dict[str, int | list[str]] | None:

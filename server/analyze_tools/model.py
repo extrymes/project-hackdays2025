@@ -2,25 +2,35 @@ import os
 import json
 from typing import Dict, List, Union, Optional, Any
 from fastapi import HTTPException
-from groq import Groq  # You'll need to install the groq package
 
 class LLMClient:
     """
-    Centralized client for LLM interactions using Groq API.
+    Centralized client for LLM interactions supporting multiple providers.
     """
-    def __init__(self, default_model: str = "llama3-8b-8192"):
+    def __init__(self):
         """
-        Initialize the LLM client with Groq API.
+        Initialize the LLM client based on the configured provider.
+        """
+        # Get provider configuration
+        self.provider = os.environ.get('LLM_PROVIDER', 'groq').lower()
+        self.api_key = os.environ.get('LLM_API_KEY')
+        self.default_model = os.environ.get('LLM_MODEL')
         
-        Args:
-            default_model: Default model to use if not specified in the call
-        """
-        self.api_key = os.environ.get('GROQ_API_KEY')
         if not self.api_key:
-            raise ValueError("GROQ_API_KEY not found in environment variables")
+            raise ValueError("LLM_API_KEY not found in environment variables")
         
-        self.client = Groq(api_key=self.api_key)
-        self.default_model = default_model
+        if not self.default_model:
+            raise ValueError("LLM_MODEL not found in environment variables")
+        
+        # Initialize the appropriate client
+        if self.provider == 'groq':
+            from groq import Groq
+            self.client = Groq(api_key=self.api_key)
+        elif self.provider == 'openai':
+            from openai import OpenAI
+            self.client = OpenAI(api_key=self.api_key)
+        else:
+            raise ValueError(f"Unsupported LLM_PROVIDER: {self.provider}. Use 'groq' or 'openai'")
     
     def call_json(self, 
                  prompt: str, 
