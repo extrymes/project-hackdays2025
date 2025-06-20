@@ -334,7 +334,8 @@ class EmailSecurityAnalyzer:
         }
 
         # Add critical concerns if any
-        analysis_result["recommendations"] = generate_recommendations(analysis_result["warnings"])
+        analysis_result["recommendations"] = generate_recommendations(analysis_result["warnings"], email_data.get("body", {}).get("text", "")
+                                                                      or email_data.get("body", {}).get("html", ""), email_data.get("headers", {}).get("from", ""), weighted_score)
         if critical_concerns:
             analysis_result["critical_concerns"] = critical_concerns
 
